@@ -1,0 +1,103 @@
+
+.Sidebar {
+  padding-left: 13.793103%;
+}
+
+.Sidehead {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 80px;
+  margin-left: 5px;
+}
+
+.Reward {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2B3674;
+}
+
+.points {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2B3674;
+  font-style: italic;
+}
+
+.line {
+  position: absolute;
+  left: 14.95%;
+  width: 3px;
+  height: 25px; 
+  background-color: #4318FF; 
+  transition: top 0.3s ease-in-out;
+}
+
+
+.Home {
+  font-size: 16px;
+  color: #A3AED0;
+  margin-bottom: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 10px;
+  transition: color 0.3s;
+}
+
+.Home .icon {
+  color: #A3AED0;
+  transition: color 0.3s;
+}
+
+.Home.active {
+  color: #2B3674; 
+}
+
+.Home.active .icon {
+  color: #4318FF; 
+}
+
+.Dropdown {
+  position: fixed;
+  padding-left: 20px;
+}
+
+.DropdownItem {
+  font-size: 14px;
+  color: #A3AED0;
+  margin-bottom: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: color 0.3s;
+  /* width: 180px; */
+}
+
+.DropdownItem.active {
+  color: #2B3674; 
+}
+
+.photo1 {
+  margin-top: 65% ;
+  margin-bottom: 80% ;
+}
+
+.Signout{
+  font-size: 16px;
+  color: #A3AED0;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 10px;
+  transition: color 0.3s;
+}
+
+.Signout.active {
+  color: #2B3674; 
+}
