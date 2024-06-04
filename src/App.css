@@ -1,3 +1,8 @@
+*
+{
+  color: #2B3674;
+}
+
 .leftside{
     height: 100vh;
     width: 15.104167%; /* 290px/1920 */
@@ -198,17 +203,18 @@
   
   .detailedpointbox
   {
-    background-color: #FDFDFD;
-    height: 952px;
-    width: 578px;
+    background-color: #ff0000;
+    height: 88.148148%; /* 952px/1080 */
+    width: 30.104167%; /* 578px/1920 */
     border-radius: 20px;
   }
   
   .detailedpointtitle
   {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
-  
+    
+    
   }
   
   .pointdetbutton
@@ -220,10 +226,11 @@
   }
   .detailedpointhead
   {
+    padding: 20px 0px;
     display: flex;
     gap: 3px; 
     font-size: 20px;
-    padding: 27px  126px 21px 126px;
+   justify-content: center;
   }
   
   .pointdetbutton
@@ -239,3 +246,222 @@
     border-radius: 0px 10px 10px 0px;
   
   }
+
+
+  /* login */
+ /* Common styles */
+.imageandform {
+  display: flex;
+  background-color: #F4F7FE;
+}
+
+.loginform {
+  width: 50%;
+  display: block;
+ padding-left: 6.875%; 
+  padding-top: 3.703704%; 
+}
+
+.background {
+  background-image: url('./assets/loginback.png');
+  min-height: 100vh;
+  border-radius: 0px 0px 0px 150px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+}
+.bg
+{
+  min-width: 50%;
+  background-color:#F4F7FE ;
+}
+.signin {
+  font-weight: 700;
+  font-size: 35px;
+  padding-bottom: 8px;
+}
+
+.loginfield {
+  color: #4318FF;
+  margin-top: 30px;
+  font-weight: 500;
+}
+
+.createaccountlog
+{
+  font-weight: 700;
+  color: #4318FF;
+  font-size: 15px;
+}
+
+.notregisteredyeat
+{
+  font-size: 15px;
+  color: #4318FF;
+  font-weight: 400;
+}
+
+.logininput {
+  border: 2px solid #A3AED0;
+  margin-top: 0px;
+  font-size: 15px;
+  background-color: #F4F7FE;
+  padding: 20px 280px 20px 30px;
+  border-radius: 15px;
+}
+
+::placeholder {
+  color: #A3AED0;
+}
+
+.loginfield {
+  margin-bottom: 8px;
+}
+
+.password-container {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 190px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.keeploggedin {
+  display: flex;
+  margin-top: 20px;
+}
+
+.checkbox { 
+  height: 15px;
+  margin-right: 10px;
+  width: 15px;
+}
+.keepmelogged
+{
+  font-size: 13px;
+  font-weight: 400;
+  margin-right: 230px;
+}
+
+.forgot
+{
+  font-size: 13px;
+  color:#4318FF;
+  font-weight: 500;
+  
+}
+.signinbutton {
+  background-color: #4318FF;
+  color: #FDFDFD;
+  margin-top: 30px;
+  padding: 15px 220px;
+  border: none;
+  border-radius: 10px;
+  font-weight:700;
+  font-size: 17px;
+}
+
+.logo {
+  margin-top: 20%;
+}
+
+.learnmorelogin {
+  border: 2px solid #928eff;
+  width: 27%;
+  margin-top: 3%;
+  color: #FFFFFF;
+  padding: 12px 17px;
+  border-radius: 26px;
+}
+
+a {
+  color: #FFFFFF;
+  font-size: 23px;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.loginmode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  border: none;
+  background-image: linear-gradient(to right, #868CFF, #4318FF);
+  border-radius: 50%;
+  color: #FDFDFD;
+  font-size: 25px;
+  margin-bottom: 2%;
+}
+
+.loginmodecontainer {
+  display: flex;
+  margin-right: 10%;
+  justify-content: end;
+  align-items: end;
+  height: 200px;
+}
+
+
+.googlebutton {
+  background-color: #FDFDFD !important;
+  padding: 5px 145px !important;
+  margin-top: 15px;
+  border: 2px solid #A3AED0 !important;
+  color: #2B3674 !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  font-size: 17px !important;
+  cursor: pointer  !important;
+  box-shadow: none !important;   
+}
+
+/* Dark mode styles */
+/* .dark-mode .googlebutton {
+  background-color: #2B3674 !important;
+  padding: 5px 145px !important;
+  margin-top: 15px;
+  border: 2px solid #A3AED0 !important;
+
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  font-size: 17px !important;
+  cursor: pointer !important;
+  box-shadow: none !important;   
+} */
+
+.dark-mode .imageandform {
+  background-color: #0B1437;
+}
+
+.dark-mode .loginform {
+  background-color: #0B1437;
+}
+.dark-mode .bg
+{
+  background-color: #0B1437;
+}
+
+.dark-mode .loginfield,.dark-mode.signin, 
+.dark-mode .keepmelogged,.dark-mode .forgot,
+.dark-mode .signin , .dark-mode .createaccountlog{
+  color: #FDFDFD;
+}
+
+.dark-mode .notregisteredyeat
+{
+  color: #A3AED0 ;
+}
+
+.dark-mode .logininput {
+  background-color: #0B1437;
+  color: #FDFDFD;
+  border: 2px solid #FDFDFD;
+}
+
