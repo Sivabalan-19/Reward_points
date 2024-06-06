@@ -5,7 +5,7 @@ import { IoMdHome } from "react-icons/io";
 import { MdOutlineBarChart } from "react-icons/md";
 import { MdOutlineEditCalendar } from "react-icons/md";
 import { TbLogin2 } from "react-icons/tb";
-import photo from './photo1.png'
+import photo from '../assets/photo1.png'
 
 const Sidebar = (props) => {
   const [activeItem, setActiveItem] = useState('Dashboard');
@@ -47,7 +47,7 @@ const Sidebar = (props) => {
       <div className={`Sidebar ${darkMode ? 'dark-mode' : ''}`}>
       <div className="Sidehead">
         <div className="Reward">REWARD&nbsp;</div>
-        <div className="points">POINTS {value}</div>
+        <div className="points">POINTS </div>
       </div>
       <div className="line" style={{ top: linePosition }}></div>
       <div

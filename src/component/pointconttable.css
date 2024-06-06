@@ -1,0 +1,21 @@
+.inputwithsearch
+{
+    padding: 5px 10px;
+
+}
+.input-container {
+    position: relative;
+  }
+  
+  .input-with-search {
+    padding-right: 30px; /* Adjust as needed */
+  }
+  
+  .search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-500%);
+    color: #d10000; /* Adjust icon color */
+    pointer-events: none; /* To prevent click on the icon */
+  }

@@ -61,8 +61,22 @@ var con = mysql.createConnection(
     app.get("/pointtable", function(req, res) {
       var detai=[]
         con.query("select * from pointcontainer", function(err,result) {
-          console.log(result)     
-           res.send({message: detai});
+       
+          result.forEach((r)=>{
+          
+            detai.push({
+              "id":r.sno,
+              "Date":r.D_ate,
+              "Activity_code":r.Activity_code,
+              "Activity_name":r.Activity_name,
+              "Tpye":r.T_pye,
+              "Activity_type":r.Activity_type,
+              "points":r.points,
+              "Organier":r.Organier
+            })
+          });  
+          console.log(detai) 
+          res.send({message: detai}); 
       })
       })
     app.get("/rewarddistributed",function(req,res){
@@ -98,7 +112,7 @@ var con = mysql.createConnection(
           "ip2":ip2_t,
           "total":overall_t
         })
-        console.log(d)
+        
         res.send({message:d})
       })
     })
@@ -135,7 +149,7 @@ var con = mysql.createConnection(
           "ip2":ip2_total,
           "total":overall_total
         })
-        console.log(d)
+
         res.send({message:d})
       })
     })

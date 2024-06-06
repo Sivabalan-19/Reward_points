@@ -3,7 +3,8 @@ import Dashboard from "./component/Dashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./component/Login";
 import './component/Dashboard.css'
-
+import PointContainer from "./component/pointtable";
+import PointContainer2 from "./component/tablewithbutton";
 
 function App() {
 
@@ -29,8 +30,10 @@ function App() {
    </div>}>
       </Route>
       
-      <Route path="/" element={<Login />} />
+      {/* <Route path="/" element={<Login />} /> */}
+      <Route path="/" element={<PointContainer2 />} />
     </Routes>
+
   </BrowserRouter>
 
   );

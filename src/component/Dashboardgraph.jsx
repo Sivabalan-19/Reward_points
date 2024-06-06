@@ -11,7 +11,7 @@
 // // <div className='graph2icon'>
 // //   <MdBarChart/>
 // // </div>
-// //        <div className='dashboardgraph1'>
+// //        <di.v className='dashboardgraph1'>
          
 // //          <div className='graph1details' >
 // //               <div className='barchartborder'>

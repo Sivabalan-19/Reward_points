@@ -4,7 +4,7 @@ import { IoMdHome } from "react-icons/io";
 import { MdOutlineBarChart } from "react-icons/md";
 import { MdOutlineEditCalendar } from "react-icons/md";
 import { TbLogin2 } from "react-icons/tb";
-import photo from './assets/photo1.jpg'
+import photo from './assets/photo1.png'
 
 const Sidebar = (props) => {
   const [activeItem, setActiveItem] = useState('Dashboard');

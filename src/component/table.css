@@ -1,7 +1,6 @@
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-   
     border-left: 1px solid #dddddd;
     border-right: 1px solid #dddddd;
 }
@@ -9,8 +8,7 @@ td,
 th {
     border-bottom: 1px solid #dddddd;
     text-align: left;
-    padding: 8px;
-  
+    padding: 10px;  
 }
 th{
     background-color: #dddddd;

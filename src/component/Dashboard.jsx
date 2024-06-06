@@ -7,7 +7,6 @@ import { MdLightMode, MdOutlineAccountTree } from "react-icons/md";
 import { useMemo, useEffect } from "react";
 import {store, useGlobalState} from 'state-pool';
 import Table from "./table";
-import Theme from "./Theme";
 import {
   BarChart,
   Bar,
@@ -164,6 +163,7 @@ function Dashboard() {
   const [data1, setData] = useState([]);
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
+ 
   // Using useEffect to call the API once mounted and set the data
   useEffect(() => {
     (async () => {
@@ -196,7 +196,7 @@ function Dashboard() {
   return (
     <div className={`con ${darkMode ? 'dark-mode' : ''}`}>
         <div className="header1">
-          <div className="Dash"> DASHBOARD {localStorage.getItem("theme")}</div>
+          <div className="Dash"> DASHBOARD</div>
           <div className="theme">
             <div
               className="noti"
@@ -205,15 +205,13 @@ function Dashboard() {
               <MdNotificationsNone />
             </div>
             <div className="light" onClick={toggleDarkMode}>
-           
              {isDarkMode ? <IoMoon/> : <MdLightMode/>}
-
             </div>
           </div>
         </div>
-      <div className="allbody">
-      <div style={{display:'flex', gap:'2%',height:'95%'}}>
-        <div style={{width:'58%'}}>
+      <div className="allbody" style={{ display:'flex',flexDirection:'column',gap:'2%'}}>
+      <div style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
+        <div style={{width:'60%' , display:'flex',flexDirection:'column',justifyContent:'space-between',height:'690px'}}>
         <div className="dashboardgra">
           <div className="dashboardgraph1">
             <div className="graph1details">
@@ -282,6 +280,7 @@ function Dashboard() {
         </div>
 
         <div className="rpcardcontainer">
+        <div style={{width:'100%'}}>
           <div className="pointsum">
             <div
               style={{ fontSize: "20px", color: "#4318FF", marginTop: "3px" }}
@@ -345,8 +344,10 @@ function Dashboard() {
           </div>
         </div>
         </div>
+
+        </div>
       
-      <div className='detailedpointbox'>
+      <div className='detailedpointbox' >
         <div className='detailedpointhead'>
           <div style={{ fontSize: '25px' }}>
             <RiAccountCircleLine className='detaileailedpointicon' />
@@ -383,15 +384,19 @@ function Dashboard() {
       </div> */}
 
 
-      <div className="rpdistributiontablecontainer">
-        <div className="table1" style={{ justifyContent:'center', width:'47%'}}>
+      
+        <div className="rpdistributiontablecontainer">
+        <div className="table1" style={{ justifyContent:'center', width:'50%'}}>
           <span><i class="fa-solid fa-bars" style={{color:'blue'}}/>  </span><span className="rpinternaldistributon">Reward Points Distribution</span>
           <Table className='table1backend' columns={columns2} data={data2} />
         </div>
-        <div className="table2" style={{ justifyContent:'center', width:'47%'}}> 
+        <div className="table2" style={{ justifyContent:'center', width:'50%'}}> 
         <span><i class="fa-solid fa-book" style={{color:'blue'}}/> </span><span className="rpinternaldistributon">Internal Mark Distribution</span>
           <Table columns={columns2} data={data3} />
-        </div></div>
+        </div>
+        </div>
+        <div style={{height:'20px'}}>
+        </div>
       </div>
 
       {showNotifications && (
