@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import '../App.css';
+import '../../App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Divider } from 'antd';
-import loginback from '../assets/loginback.png';
+import loginback from '../../assets/loginback.png';
 import { FiSun, FiMoon } from "react-icons/fi"; // Import FiMoon icon for dark mode
-import logo from '../assets/logo.png';
+import logo from '../../assets/logo.png';
 // import { GoogleLogin } from 'react-google-login';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';

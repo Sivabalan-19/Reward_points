@@ -1,7 +1,7 @@
 .leftside{
     /* height: 100%; */
     width: 15%;
-    background-color: #FDFDfd;
+    background-color: #FDFDfd;  
     /* background-color: aqua; */
   }
 
@@ -46,11 +46,12 @@
 
 .Sidebar {
     padding-left: 12%;
+    padding-top: 18%;
+    height: 100%;
   }
   
   .Sidehead {
     display: flex;
-    margin-top: 12%;
     margin-bottom: 40%;
     margin-left: 2%;
   }
@@ -126,7 +127,7 @@
   
   .photo1 {
     margin-top: 65% ;
-    margin-bottom: 75% ;
+    margin-bottom: 85% ;
   }
   
   .Signout{
@@ -202,6 +203,22 @@
     display: flex;
     align-items: center;
   }
+  /* add the following styles to your existing styles */
+
+.dark-mode {
+  background-color: #1A1D26;
+  color: #FEFCF8;
+}
+
+.dark-mode .Sidebar {
+  background-color: #1A1D26;
+}
+
+.dark-mode .con {
+  background-color: #1A1D26;
+}
+
+.dark-mode .header1
   
   
   .graph2icon
@@ -392,7 +409,7 @@
     border: none;
   }
 
-  input:focus {
+  .bar:focus {
     border: none;
     outline: none;
   }
@@ -587,18 +604,18 @@
   }
 
   .dark-mode .dashboardgra, .dark-mode .rpcardcontainer, .dark-mode .table1,
-  .dark-mode .table2, .dark-mode .head
+  .dark-mode .table2, .dark-mode .head, .dark-mode .logs-popup
   {
     background-color: #1A1D26;
     color: #FEFCF8;
   }
-.dark-mode .theme , .dark-mode .con {
+.dark-mode .theme , .dark-mode .con, .dark-mode .search-bar,.dark-mode .bar, .dark-mode .notiitems {
   background-color: #0B1437;
 }
   .dark-mode .secondyearcolor, .dark-mode .pointdetailcolor, .dark-mode .pointdetail,
   .dark-mode .pointdetailicon, .dark-mode .rpcardcontainerpointtit,
   .dark-mode .elegiblecarryrptext, .dark-mode .elegiblecarryrppoint ,
-  .dark-mode .rpinternaldistributon, .dark-mode .Reward, .dark-mode .noti
+  .dark-mode .rpinternaldistributon, .dark-mode .Reward, .dark-mode .noti, .dark-mode .points
   {
     color: #FEFCF8;
   }
@@ -612,12 +629,4 @@
     background-color: #d8d8d8
   }
 
-  .dark-mode .Reward
-  {
-    background-color: red;
-  }
-  
-  .dark-mode .points
-  {
-    background-color: red;
-  }
+ 
