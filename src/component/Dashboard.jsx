@@ -1,51 +1,63 @@
-import '../App.css';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, LabelList, Legend, Cell } from 'recharts';
-import { MdOutlineAddAlert, MdBarChart } from "react-icons/md";
-import { Divider } from '@mui/material';
-import { MdSummarize } from 'react-icons/md';
-import { MdNotificationsNone } from "react-icons/md";
-import { MdOutlineLightMode } from "react-icons/md";
-
+import React, { useState,setState } from "react";
+import "./Dashboard.css";
+import Sidebar from "./Aside";
+import axios from "axios";
+import { RiAccountCircleLine } from "react-icons/ri";
+import { MdLightMode, MdOutlineAccountTree } from "react-icons/md";
+import { useMemo, useEffect } from "react";
+import {store, useGlobalState} from 'state-pool';
+import Table from "./table";
+import Theme from "./Theme";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  LabelList,
+  Cell,
+} from "recharts";
+import { IoMoon } from "react-icons/io5";
+import {
+  MdOutlineAddAlert,
+  MdBarChart,
+  MdSummarize,
+  MdNotificationsNone,
+  MdOutlineLightMode,
+  MdDarkMode,
+} from "react-icons/md";
+import { Divider } from "@mui/material";
+import { FaRegBell , FaSearch } from "react-icons/fa";
 
 function Dashboard() {
-    
-    
-const data = [
-    {
-      name: 'Average Points',
-      value: 245.12,
-      fill: '#FF975C', // Orange color
-    },
-    {
-      name: 'Overall Points',
-      value: 435.34,
-      fill: '#4318FF', // Blue color
-    },
-  ];
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   
+  const data = [
+    { name: "Average Points", value: 245.12, fill: "#FF975C" },
+    { name: "Overall Points", value: 435.34, fill: "#4318FF" },
+  ];
+
   const CustomLabel = ({ x, y, width, value }) => (
-    <text 
-      x={x + width / 2} 
-      y={y + 35}  
-      fill="white" 
-      textAnchor="middle" 
+    <text
+      x={x + width / 2}
+      y={y + 35}
+      fill="white"
+      textAnchor="middle"
       dominantBaseline="middle"
       fontSize={25}
-      fontWeight="bold" 
+      fontWeight="bold"
     >
       {value}
     </text>
   );
-  
+
   const CustomBarChart = () => (
-    <BarChart
-      width={300} 
-      height={250} 
-      data={data}
-    >
+    <BarChart width={360} height={300} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
-      {/* <YAxis /> */}
+      <YAxis />
       <Bar dataKey="value">
         <LabelList dataKey="value" content={<CustomLabel />} />
         {data.map((entry, index) => (
@@ -55,118 +67,363 @@ const data = [
     </BarChart>
   );
 
-
-  const PenaltyCard = ({ bgColor, points }) => {
+  const PenaltyCard = ({ bgColor, points, name }) => {
     const cardStyle = {
-      width: '205px',
-      height: '134px',
+      width: "22%",
+      padding: "20px 5px",
       backgroundColor: bgColor,
-      borderRadius: '6.38px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      color: 'white',
-      fontFamily: 'Arial, sans-serif',
-      fontWeight: 'bold',
-      overflow:'hidden',
-      position: 'relative'
+      borderRadius: "7px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      color: "white",
+      fontFamily: "Arial, sans-serif",
+      fontWeight: "bold",
+      overflow: "hidden",
+      position: "relative",
     };
-  
+    
     const circleStyle = {
-      position: 'absolute',
-      top: '-40px',
-      left: '-40px',
-      width: '80px',
-      height: '80px',
-      borderRadius: '50%',
-      border: '16px solid rgba(139, 0, 0, 0.2)',
-      boxSizing: 'border-box'
+      position: "absolute",
+      top: "-40px",
+      left: "-40px",
+      width: "80px",
+      height: "80px",
+      borderRadius: "50%",
+      border: "16px solid rgba(139, 0, 0, 0.2)",
+      boxSizing: "border-box",
     };
-  
     return (
       <div style={cardStyle}>
         <div style={circleStyle}></div>
-        <div style={{ fontSize: '22px', fontWeight:'lighter' }}>Penalties Points</div>
-        <div style={{ fontSize: '35px', fontWeight:'bold', paddingTop:'6px' }}>{points}</div>
+        <div style={{ fontSize: "20px", fontWeight: "lighter" }}>{name}</div>
+        <div style={{ fontSize: "30px", fontWeight: "500", paddingTop: "6px" }}>
+          {points}
+        </div>
       </div>
     );
   };
-  return (
-   <div className='con'>
-    <header>
-      <div className='header1'>
-          <div className='Dash'>Dashboard</div>
-          <div className='theme'>
-              <div className='noti'><MdNotificationsNone /></div>
-              <div className='light'><MdOutlineLightMode /></div>
-          </div>
-          </div>
-    </header>
+  const columns = useMemo(
+    () => [
+      {
+        // first group - TV Show
+        Header: "Category",
+        accessor: "category",
      
-    <div flex>
-         <div>
-         <div className='dashboardgra'>
-       <div className='graph2icon'>
-         <MdBarChart />
-       </div>
-       <div className='dashboardgraph1'>
-         <div className='graph1details'>
-           <div className='barchartborder'>
-             <CustomBarChart />
-           </div>
-           <h5>Second Year Reward Points Graph</h5>
-         </div>
-         <div className='dashboardpointdet'>
-           <div style={{ display: 'flex', gap: '8px', justifyContent: 'start', marginLeft: '94px', marginTop: '23px' }}>
-             <div><p><MdOutlineAddAlert /></p></div>
-             <div className='pointdetail'>Point Details</div>
-           </div>
-           <Divider style={{ width: '167px', marginLeft: '75px' }} />
-           <div className='averagerewardpoints'>
-             <div>Average Reward</div>
-             <div>:</div>
-             <div>256</div>
-           </div>
-           <div className='totalrewardpoint'>
-             <div>Total Rewards Earned</div>
-             <div>:</div>
-             <div>1500</div>
-           </div>
-           <p></p>
-           <button className='position'>Position#145/240</button>
-         </div>
-       </div>
-     </div>
-     <div className='rpcardcontainer'>
-     <div className='pointsum'>
-       <div style={{fontSize:'29px',color:'#4318FF'}}><MdSummarize/></div>
-       <div style={{fontSize:'24px', fontWeight:'bold'}}>Points Summary</div>
-     </div>
-      <div className='rpline'>
-        <PenaltyCard bgColor="#4318FF" points="RP 2238" />
-        <PenaltyCard bgColor="#01B574" points="RP 1274" />
-        <PenaltyCard bgColor="#FF975C" points="RP 1903" />
-        <PenaltyCard bgColor="#F65656" points="RP 0000" />
+        // First group columns
+      },
+      {
+        // Second group - Details
+        Header: "Details",
+        accessor: "details",
+
+      },
+    ],
+    []
+  );
+  const columns2 = useMemo(
+    () => [
+      {
+        // first group - TV Show
+        Header: "S.no",
+        accessor: "sno",
+     
+        // First group columns
+      },
+      {
+        // Second group - Details
+        Header: "Subject",
+        accessor: "subject",
+
+      },
+      {
+        // Second group - Details
+        Header: "IP-1",
+        accessor: "ip1",
+
+      },
+      {
+        // Second group - Details
+        Header: "IP-2",
+        accessor: "ip2",
+
+      },
+      {
+        // Second group - Details
+        Header: "total",
+        accessor: "total",
+
+      },
+    ],
+    []
+  );
+  
+  
+  // data state to store the TV Maze API data. Its initial value is an empty array
+  const [data1, setData] = useState([]);
+  const [data2, setData2] = useState([]);
+  const [data3, setData3] = useState([]);
+  // Using useEffect to call the API once mounted and set the data
+  useEffect(() => {
+    (async () => {
+      const result = await axios("http://localhost:2500/rewardtable");
+
+      setData(result.data.message);
+    })();
+  }, []);
+  useEffect(() => {
+    (async () => {
+      const result=await axios("http://localhost:2500/rewarddistributed");
+      setData2(result.data.message);
+    })();
+  }, []);
+  useEffect(() => {
+    (async () => {
+      const result=await axios("http://localhost:2500/rewardinternal");
+      setData3(result.data.message);
+    })();
+  }, []);
+
+
+  const toggleDarkMode = () => {
+    localStorage.setItem("theme", !darkMode);
+
+    setDarkMode(!darkMode);
+    setIsDarkMode(!isDarkMode);
+  };
+
+  return (
+    <div className={`con ${darkMode ? 'dark-mode' : ''}`}>
+        <div className="header1">
+          <div className="Dash"> DASHBOARD {localStorage.getItem("theme")}</div>
+          <div className="theme">
+            <div
+              className="noti"
+              onClick={() => setShowNotifications(!showNotifications)}
+            >
+              <MdNotificationsNone />
+            </div>
+            <div className="light" onClick={toggleDarkMode}>
+           
+             {isDarkMode ? <IoMoon/> : <MdLightMode/>}
+
+            </div>
+          </div>
+        </div>
+      <div className="allbody">
+      <div style={{display:'flex', gap:'2%',height:'95%'}}>
+        <div style={{width:'58%'}}>
+        <div className="dashboardgra">
+          <div className="dashboardgraph1">
+            <div className="graph1details">
+              <div>
+                <CustomBarChart />
+              </div>
+              <div
+                 className="secondyearcolor"
+              >
+                Second Year Reward Points Graph
+              </div>
+            </div>
+            <div className="dashboardpointdet">
+              <div
+                style={{
+                  display: "flex",
+                  gap: "8px",
+                  justifyContent: "center",
+                }}
+              >
+                <div className="pointdetailicon">
+                  <MdOutlineAddAlert />
+                </div>
+                <div className="pointdetail">Points Details</div>
+              </div>
+              <Divider style={{ width: "167px", margin: "auto" }} />
+              <div className="averagerewardpoints">
+                <div
+                 className="pointdetailcolor"
+                >
+                  Average Reward points &ensp;&ensp;&ensp;&ensp;
+                </div>
+                <div
+                  className="pointdetailcolor"
+                >
+                  :
+                </div>
+                <div
+                  className="pointdetailcolor"
+                >
+                  2567
+                </div>
+              </div>
+              <div className="totalrewardpoint">
+                <div
+                  className="pointdetailcolor"
+                >
+                  Total Rewards points Earned
+                </div>
+                <div
+                 className="pointdetailcolor"
+                >
+                  :
+                </div>
+                <div
+                 className="pointdetailcolor"
+                >
+                  1500
+                </div>
+              </div>
+              <p></p>
+              <button className="position">Position#145/240</button>
+            </div>
+          </div>
+          
+        </div>
+
+        <div className="rpcardcontainer">
+          <div className="pointsum">
+            <div
+              style={{ fontSize: "20px", color: "#4318FF", marginTop: "3px" }}
+            >
+              <MdSummarize />
+            </div>
+            <div className="rpcardcontainerpointtit">
+              Points Summary
+            </div>
+          </div>
+          <div className="rpline">
+            <PenaltyCard
+              bgColor="#4318FF"
+              points="RP 2238"
+              name="Total Points"
+            />
+            <PenaltyCard
+              bgColor="#01B574"
+              points="RP 1274"
+              name="Balance Points"
+            />
+            <PenaltyCard
+              bgColor="#FF975C"
+              points="RP 1903"
+              name="Redeemed Points"
+            />
+            <PenaltyCard
+              bgColor="#F65656"
+              points="RP 0000"
+              name="Penalties Points"
+            />
+          </div>
+          <div className="eligiblerp">
+            <div className="eligiblepreviousem">
+              <div
+                className="elegiblecarryrptext"
+              >
+                Eligible carry in points from <br />
+                previous semester (2023 - ODD)
+              </div>
+              <div
+                className="elegiblecarryrppoint"
+              >
+                RP 1000
+              </div>
+            </div>
+            <div className="eligiblenextsem">
+              <div
+                className="elegiblecarryrptext"
+              >
+                Eligible carry forward points to
+                <br />
+                next semester (2023 - EVEN)
+              </div>
+              <div
+                className="elegiblecarryrppoint"
+              >
+                RP 1000
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      
+      <div className='detailedpointbox'>
+        <div className='detailedpointhead'>
+          <div style={{ fontSize: '25px' }}>
+            <RiAccountCircleLine className='detaileailedpointicon' />
+          </div>
+          <div className='detailedpointtitle'>Detailed Points Split up </div>
+        </div>
+        <div style={{ fontSize: '20px', textAlign: 'center', fontWeight: 'bold', textDecoration: 'underline' }}>
+          2023-2024 Even Semester
+        </div>
+
+        <div className='pointdetbutton'>
+          <div style={{ fontSize: '24px' }}>
+            <MdOutlineAccountTree className='detaileailedpointicon' />
+          </div>
+          <div className='pointdetailbutton'>Points Details</div>
+        </div>
+        <div className="r">   <Table columns={columns} data={data1} /></div>
       </div>
-    
-    
-    
-      <div className='eligiblerp'>
-       <div className='eligiblepreviousem'>
-         <div style={{fontSize:'18px', fontWeight:'bold'}}>Eligible carry in points from <br/>previous semester (2023 - ODD)</div>
-         <div style={{fontSize:'27px', fontWeight:'bold', color:'#4318FF'}}>RP 1000</div>
-       </div>
-       <div className='eligiblenextsem'>
-         <div style={{fontSize:'18px', fontWeight:'bold'}}>Eligible carry forward points to<br/>next semester (2023 - EVEN)</div>
-         <div style={{fontSize:'27px', fontWeight:'bold', color:'#4318FF'}}>RP 1000</div>
-       </div>
+ 
+        
+        </div>      
+    {/* <div style={{display:'flex',gap:'20px'}}>
+    <div style={{paddingTop:'10px', width:'50%'}}>
+    <div className="table1" > 
+                <div style={{display:'flex'}}>
+                  <div>icon</div>
+                  <div>Reward Points Distribution</div>
+                </div>
+    <Table className='table1backend' columns={columns2} data={data2} />
+    </div>
+    </div>
+     <div >  <Table columns={columns2} data={data3} /></div>
+    </div>
+      </div> */}
+
+
+      <div className="rpdistributiontablecontainer">
+        <div className="table1" style={{ justifyContent:'center', width:'47%'}}>
+          <span><i class="fa-solid fa-bars" style={{color:'blue'}}/>  </span><span className="rpinternaldistributon">Reward Points Distribution</span>
+          <Table className='table1backend' columns={columns2} data={data2} />
+        </div>
+        <div className="table2" style={{ justifyContent:'center', width:'47%'}}> 
+        <span><i class="fa-solid fa-book" style={{color:'blue'}}/> </span><span className="rpinternaldistributon">Internal Mark Distribution</span>
+          <Table columns={columns2} data={data3} />
+        </div></div>
       </div>
+
+      {showNotifications && (
+        <div className="l">
+          <div className="logs-popup">
+            <div>
+              <div className="noti1">
+                <div className="logs">Logs </div>
+                <div className="bellicon">
+                  <FaRegBell />{" "}
+                </div>
+              </div>
+              <div style={{justifyContent:'center',display:'flex'}}>
+              <div className="search-bar">
+              <div style={{marginTop:'2px',color: '#2B3674',fontSize:'12px',alignSelf:'center'}}><FaSearch /></div>
+              <input type="text" placeholder="Search" className="bar"/>
+              </div>
+              </div>
+              <div className='notilist'>
+                <div className='notiitems'> </div>
+                <div className='notiitems'> </div>
+                <div className='notiitems'> </div>
+                <div className='notiitems'> </div>
+                <div className='notiitems'> </div>
+                <div className='notiitems'> </div>
+              </div>
+            </div>
     </div>
-         </div>    
+        </div>
+      )}
     </div>
-   </div>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

@@ -1,0 +1,618 @@
+.leftside{
+    /* height: 100%; */
+    width: 15%;
+    background-color: #FDFDfd;
+    /* background-color: aqua; */
+  }
+
+  
+  .main{
+    display: flex;
+    height:'100vh';width:'100vw';
+    background-color: red;
+    overflow: hidden;
+  }
+  .rightside{
+    height: 100vh;
+    width: 85%;
+    background-color: #F4F7FE;
+    /* background-color: blue; */
+  }
+
+  .con{
+    width: 100;
+   
+    /* border: solid green; */
+    height: 100%;
+    /* background-color: #FF975C; */
+  }
+
+  .allbody{
+    overflow-y: scroll;
+    height: 92%;
+    padding-left: 1.5%;
+    -ms-overflow-style: none;  
+    scrollbar-width: none;
+    /* background-color: #4318FF; */
+  }
+
+  .allbody::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Aside starts */
+
+.Sidebar {
+    padding-left: 12%;
+  }
+  
+  .Sidehead {
+    display: flex;
+    margin-top: 12%;
+    margin-bottom: 40%;
+    margin-left: 2%;
+  }
+  
+  .Reward {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2B3674;
+  }
+  
+  .points {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2B3674;
+    font-style: italic;
+  }
+  
+  .line {
+    position: absolute;
+    left: 14.9%;
+    width: 0.2%;
+    height: 3.5%; 
+    background-color: #4318FF; 
+    transition: top 0.4s ease-in-out;
+  }
+  
+  
+  .Home {
+    font-size: 16px;
+    color: #A3AED0;
+    margin-bottom: 10%;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    /* position: relative; */
+    transition: color 1s;
+  }
+  
+  .Home .icon {
+    color: #A3AED0;
+    transition: color 1s;
+  }
+  
+  .Home.active {
+    color: #2B3674; 
+  }
+  
+  .Home.active .icon {
+    color: #4318FF; 
+  }
+  
+  .Dropdown {
+    position: fixed;
+    padding-left: 1.6%;
+    top: 230px;
+  }
+  
+  .DropdownItem {
+    font-size: 14px;
+    color: #A3AED0;
+    margin-bottom: 20%;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s;
+    
+  }
+  
+  .DropdownItem.active {
+    color: #2B3674; 
+  }
+  
+  .photo1 {
+    margin-top: 65% ;
+    margin-bottom: 75% ;
+  }
+  
+  .Signout{
+    font-size: 16px;
+    color: #A3AED0;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: color 0.3s;
+    margin-bottom:1px;
+  }
+  
+  .Signout.active {
+    color: #2B3674; 
+  }
+  
+  .theme{
+    display: flex;
+    height: 7%; 
+    padding: 0.3% 0%;
+    width: 6.875%; 
+    border: 1px solid #A3AED0 ;
+    background-color: #FDFDFD;
+    border-radius: 30px;
+    box-shadow: 3px 1px 25.2px 0px #7090B014;
+    justify-content: center;
+    gap:18%; /* 26px/1920px */
+  }
+  
+  .header1{
+    display: flex;
+    padding: 1% 0%;
+    /* justify-content: space-between; */
+    gap: 75.90184%;
+    
+    /* margin-bottom: 20px; */
+  }
+  
+  .Dash{
+    margin-left: 2%;
+    font-size: 34px;
+    font-weight: 450;
+    color: #2B3674;
+    /* font-family: 'DM Sans'; */
+  }
+  
+  .noti{
+    font-size: 25px;
+    color: #A3AED0;
+    align-self: center;
+    cursor: pointer;
+  }
+  
+  .light{
+    font-size: 25px;
+    color: #2B3674;
+    align-self: center;
+    cursor: pointer;
+  
+  }
+  
+  .DropdownItem.active {
+    color: #2B3674; 
+  }
+  
+   /* Graph and point details */
+   
+  .dashboardgraph1
+  {
+    height: 80%;
+    display: flex;
+  }
+  
+  
+  .graph2icon
+  {
+    height: 0%;
+    color: #4318ff ;
+    width: 5%;
+    font-size: 25px;
+    /* background-color: black; */
+    background-color: #F4F7FE;
+    border-radius: 7px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .dashboardgra
+  {
+    display: flex;
+    /* width: 100%; */
+    /* min-height: 40%; */
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    padding-top: 2%;
+    /* gap: 40%; */
+    padding-bottom: 4%;
+    margin-bottom: 2%;
+  }
+   .graph1details
+  {
+    text-align: center;
+    margin-top: 4%;
+  }
+ 
+  .dashboardpointdet
+  {
+    /* why i cant give the width and height as % ask to gerish */
+    border: dashed 3px #A3AED0;
+    height: 170px;
+    width: 250px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 10%;
+    margin-left: 40px;   
+  }
+  
+  .pointdetail
+  {
+    color: #2B3674;
+    margin-bottom: 5%;
+    font-size:16px;
+    font-weight: bold;
+  }
+  
+  .averagerewardpoints,.totalrewardpoint
+  {
+    display: flex;
+    justify-content: start;
+    gap: 6%;
+  }
+  .averagerewardpoints
+  {
+    margin-top: 7%;
+  }
+  .totalrewardpoint{
+    margin-top: 5%;
+  }
+  
+  .position
+  {
+    background-color: #4318ff;
+    color: #FDFDFD;
+    font-size: 12px;
+    padding: 3% 15%;
+    border-radius: 7px;
+    /* this margin top is needed to be filled with improvement 
+    after adding that we can remove this margin top 
+    dont forgot */
+    margin-top: 30px;
+    cursor: pointer;
+    border: 1px solid #4318ff;
+  }
+  
+  
+  /* Points Summary */
+  
+  .rpcardcontainer
+  {
+    margin-top: 1%;
+    background-color: #FDFDFD;
+    /* background-color: #2B3674; */
+    width: 100%;
+    border-radius: 20px;
+    height: 35%;
+    padding-bottom: 1%;
+  }
+  .rpline
+  {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .pointsum
+  {
+    display: flex;
+    gap: 1%;
+    margin-left: 5%;
+    margin-bottom: 3%;
+    padding-top: 3%;
+  }
+  
+  .eligiblerp
+  {
+    display: flex;
+    margin-top: 3%;
+  }
+  
+  .eligiblepreviousem
+  {
+    display: flex;
+    gap: 10%;
+    width: 50%;
+    margin-left: 2%;
+  }
+  
+  
+  .eligiblenextsem
+  {
+    display: flex;
+    gap: 10%;
+    width: 50%;
+  }
+  
+  
+  /* notification */
+  .logs-popup {
+    position:absolute ;
+    top: 10%;
+    left: 42%;
+    width:23%;
+    height: 80%;
+    background: #FDFDFD;
+    border: 1px solid none;
+    border-radius: 8px;
+  }
+
+  .noti1{
+    display: flex;
+    gap: 7px;
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+
+  .bellicon{
+    color: #FF975C;
+    transform: rotate(-15deg);
+    margin-top: 5px;
+  }
+
+  .logs{
+    color:#2B3674;
+    font-weight: 500;
+    font-size: 20px;
+    
+  }
+
+  .search-bar{
+    height: 40px;
+    width: 70%;
+    margin-top: 20px;
+    border: 1px solid #d7d8da ;
+    border-radius: 10px;
+    display: flex;
+    gap: 5px;
+    padding-left: 10px;
+    background-color: #F4F7FE;
+  }
+
+  /* .l{
+    position: relative;
+    background-color: gray;
+    height: 100vh;
+    width: 100vw;
+  } */
+
+  .bar{
+    border: none;
+    font-size: 16px;
+    width: 90%;
+    color: #2B3674;
+    font-weight: 500;
+    align-self: center;
+    background-color: #F4F7FE;
+  }
+
+  ::placeholder{
+    color: #2B3674;
+    font-weight: 500;
+    border: none;
+  }
+
+  input:focus {
+    border: none;
+    outline: none;
+  }
+
+  .notilist{
+    margin: 20px 20px;
+    padding: 20px 20px;
+    gap: 30px;
+    display: block;
+    overflow-y: scroll;
+    height: 400px;
+  }
+
+  .notiitems{
+    padding: 40px 40px;  
+    background-color: #F4F7FE;  
+    margin-top: 20px;
+  }
+
+  .notilist::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .notilist {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .table1, .table2{
+    background-color: #FDFDFD;
+    border-radius: 10px;
+    display: block;
+    /* min-width: 40% !important; */
+    justify-content: center;
+    text-align: space-between;
+    padding: 25px 30px; 
+    align-items: space-between;
+  }
+
+  .table1 Table, .table2 Table{
+    width: 99%;
+    margin-top: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-radius: 500px;
+    height: 90%;
+  }
+
+
+.rpdistributiontablecontainer
+  {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding-right: 20px;
+
+    margin-top: 10% 0px;
+  }
+
+
+  /* detailedpoint */
+  .detailedpointbox
+  {
+    background-color: #FDFDFD;
+    width: 38.104167%; /* 578px/1920 */
+    border-radius: 20px;
+    color: #2B3674;
+  }
+  .dark-mode .detailedpointbox{
+    background-color: #1A1D26;
+    color: #FEFCF8   ;
+  }
+
+  .dark-mode .header1, .dark-mode .allbody 
+  {
+    background-color: #181c26;
+  }
+
+  .dark-mode .Dash
+  {
+    color: #FEFCF8;
+  }
+
+  .rpcardcontainerpointtit
+  {
+    font-size: 20px;
+    font-weight: 500;
+    color: #2B3674;
+  }
+  
+  
+
+  .detailedpointtitle
+  {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .detaileailedpointicon
+  {
+    color: #4318FF ;
+  }
+  .elegiblecarryrppoint{
+    font-size: 20px ;
+    font-weight: 700;
+    color: #4318FF;
+  }
+  .elegiblecarryrptext
+  {
+    font-size: 14px;
+    font-weight: bold;
+    color: #2B3674;
+  }
+  
+  .detailedpointhead
+  {
+    padding: 20px 0px;
+    display: flex;
+    gap: 2%; 
+    font-size: 20px;
+   justify-content: center;
+  }
+
+  .secondyearcolor
+  {
+    padding-top: 15px;
+    color: #2B3674;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .pointdetailicon
+  {
+    color: #2B3674;
+    margin-top: 3px;
+  }
+
+  .rpinternaldistributon
+  {
+    margin-left: 10px;
+    font-weight: 500;
+    font-style: 20px;
+  }
+  .pointdetailcolor
+  {
+    font-size: 14px;
+    color: #4318FF;
+    font-weight: 500;
+  }
+  
+  .pointdetbutton
+  {
+    height: 48px;
+    justify-content: center;
+    align-items: center;
+    width: 227px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    border-left: none;
+    border: 1px solid #2B36744D ;
+    gap: 5%;
+    margin-top: 30px;
+    background-color: #F4F7FE;
+    border-radius: 0px 10px 10px 0px;
+  }
+
+  .dark-mode .pointdetbutton
+  {
+    background-color: #0B1437;
+    border: 1px solid  #F4F7FE ;
+    border-left: none;
+  }
+
+  .r Table{
+    width: 80%;
+    margin: 5% 10%;
+  }
+
+  .dark-mode .dashboardgra, .dark-mode .rpcardcontainer, .dark-mode .table1,
+  .dark-mode .table2, .dark-mode .head
+  {
+    background-color: #1A1D26;
+    color: #FEFCF8;
+  }
+.dark-mode .theme{
+  background-color: #0B1437;
+}
+  .dark-mode .secondyearcolor, .dark-mode .pointdetailcolor, .dark-mode .pointdetail,
+  .dark-mode .pointdetailicon, .dark-mode .rpcardcontainerpointtit,
+  .dark-mode .elegiblecarryrptext, .dark-mode .elegiblecarryrppoint ,
+  .dark-mode .rpinternaldistributon, .dark-mode .Reward, .dark-mode .noti
+  {
+    color: #FEFCF8;
+  }
+  .dark-mode .light
+  {
+    color: #4318ff;
+  }
+  .dark-mode .r Table th
+  {
+    color: #FEFCF8;
+    background-color: #d8d8d8
+  }
+
+  .dark-mode .Reward
+  {
+    background-color: red;
+  }
+  
+  .dark-mode .points
+  {
+    background-color: red;
+  }

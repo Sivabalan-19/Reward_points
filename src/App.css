@@ -1,252 +1,7 @@
-*
+/* *
 {
   color: #2B3674;
-}
-
-.leftside{
-    height: 100vh;
-    width: 15.104167%; /* 290px/1920 */
-    background-color: #FDFDfd;
-    /* background-color: aqua; */
-}
-
-.rightside{
-    height: 100vh;
-    width: 84.895833%; /* 1630px/1920 */
-    background-color: #F4F7FE;
-}
-
-  
-  .theme{
-    display: flex;
-    height: 5.740741%; /* 62px/1080 */
-    width: 6.875%; /* 132/1920 */
-    border: 1px solid #A3AED0 ;
-    background-color: #FDFDFD;
-    border-radius: 30px;
-    box-shadow: 3px 1px 25.2px 0px #7090B014;
-    justify-content: center;
-    gap: 5.354167%; /* 26px/1920px */
-  }
-  
-  .header1{
-    display: flex;
-    margin: 15px 0px;
-    gap: 75.90184%; /* 194px/1630 */
-  }
-  
-  .Dash{
-    margin-left: 20px;
-    font-size: 34px;
-    font-weight: 450;
-    color: #2B3674;
-    /* font-family: 'DM Sans'; */
-  }
-  
-  .noti{
-    font-size: 25px;
-    color: #A3AED0;
-    align-self: center;
-  }
-  
-  .light{
-    font-size: 25px;
-    color: #2B3674;
-    align-self: center;
-  
-  }
-  
-  .DropdownItem.active {
-    color: #2B3674; 
-  }
-  
-   
-  .dashboardgraph1
-  {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 62px;
-  }
-
-
-  .graph2icon
-  {
-    height: 33px;
-    color: #4318ff ;
-    width: 33px;
-    font-size: 28px;
-    background-color: #F4F7FE;
-    border-radius: 10px;
-    margin-left: 902px;
-    padding-top: 21px;
-  }
-  .dashboardgra
-  {
-    width: 49.583333%; /* 952px/1920 */
-    height: 50%; /* 540px/1080 */
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    background-color: #FFFFFF;
-  }
-   .graph1details
-  
-  {
-    text-align: center;
-  }
-  .barchartborder
-  {
-    height: 328px;
-    width: 389px/952px;
-    border: solid 2px #A3AED0;
-    border-style:  solid dotted;
-  
-  }
-  
-  .dashboardpointdet
-  {
-    border: solid 3px #A3AED0;
-    border-style: dashed;
-    height: 267px;
-    width: 318px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .pointdetail
-  {
-   margin-top:11px;
-     font-size:18px;
-  }
-  
-  .averagerewardpoints,.totalrewardpoint
-  {
-    display: flex;
-    justify-content: space-evenly;
-  }
-  .averagerewardpoints
-  {
-    margin-top: 18px;
-  }
-  .totalrewardpoint{
-    margin-top: 12px;
-  }
-  
-  .position
-  {
-    background-color: #4318ff;
-    color: #FDFDFD;
-    border: none;
-    font-size: 15px;
-    padding: 11px 41px;
-    border-radius: 7px;
-    margin-top: 45px;
-    cursor: pointer;
-  }
-  
-  
-  /* Reward Points Card */
-  
-  .rpcardcontainer
-  {
-    background-color: #FDFDFD;
-    width: 941px;
-    border-radius: 20px;
-    height: 392px;
-  }
-  .rpline
-  {
-    display: flex;
-    justify-content: space-evenly;
-  }
-  .con{
-    padding-left: 35px;
-  }
-  .pointsum
-  {
-    display: flex;
-    gap: 2px;
-    margin-left: 71px;
-    margin-bottom: 38px;
-    padding-top: 21px;
-  }
-  
-  .eligiblerp
-  {
-    display: flex;
-    gap: 30px ;
-    margin-top: 38px;
-  }
-  
-  .eligiblepreviousem
-  {
-    display: flex;
-    gap: 36px;
-    width: 443px;
-    margin-left: 28px;
-    height: 57px;
-  }
-  
-  
-  .eligiblenextsem
-  {
-    display: flex;
-    gap: 30px;
-    width: 426px;
-    height: 57px;
-  }
-  
-  
-  /* detailedpoints */
-  
-  .detailedpointbox
-  {
-    background-color: #ff0000;
-    height: 88.148148%; /* 952px/1080 */
-    width: 30.104167%; /* 578px/1920 */
-    border-radius: 20px;
-  }
-  
-  .detailedpointtitle
-  {
-    font-size: 18px;
-    font-weight: bold;
-    
-    
-  }
-  
-  .pointdetbutton
-  {
-    height: 48px;
-    justify-content: center;
-    align-items: center;
-    width: 227px;
-  }
-  .detailedpointhead
-  {
-    padding: 20px 0px;
-    display: flex;
-    gap: 3px; 
-    font-size: 20px;
-   justify-content: center;
-  }
-  
-  .pointdetbutton
-  {
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    border: 1px solid;
-    gap: 2px;
-    margin-top: 30px;
-    background-color: #F4F7FE;
-  
-    border-radius: 0px 10px 10px 0px;
-  
-  }
-
+} */
 
   /* login */
  /* Common styles */
@@ -293,6 +48,7 @@
   font-weight: 700;
   color: #4318FF;
   font-size: 15px;
+  cursor: pointer;
 }
 
 .notregisteredyeat
@@ -339,6 +95,7 @@
 .checkbox { 
   height: 15px;
   margin-right: 10px;
+  /* background-color: green; */
   width: 15px;
 }
 .keepmelogged
@@ -356,6 +113,7 @@
   
 }
 .signinbutton {
+  cursor: pointer;
   background-color: #4318FF;
   color: #FDFDFD;
   margin-top: 30px;

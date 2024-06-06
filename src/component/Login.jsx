@@ -5,16 +5,41 @@ import { Divider } from 'antd';
 import loginback from '../assets/loginback.png';
 import { FiSun, FiMoon } from "react-icons/fi"; // Import FiMoon icon for dark mode
 import logo from '../assets/logo.png';
-import { GoogleLogin } from 'react-google-login';
-
+// import { GoogleLogin } from 'react-google-login';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 function Login() {
+  const [inputs, setInputs] = useState({});
+  const navigate = useNavigate();
+  const handleSubmit = async(event) => {
+    
+    event.preventDefault();
+    const response=await axios.post('http://localhost:2500/', {
+      username: inputs.username,
+      userpassword:inputs.password
+    })
+    
+      if (response.data.message==='success') {
+        navigate('/dashboard')
+        } else 
+        {
+        alert('Invalid username')
+        }
+      
+  }
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs(values => ({...values, [name]: value}))
+  }
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [darkMode, setDarkMode] = useState(false); // State for tracking dark mode
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-
+  
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
@@ -27,18 +52,22 @@ function Login() {
   return (
     <div className={`imageandform ${darkMode ? 'dark-mode' : ''}`}>
       <div className='loginform'>
-        <div className='signin'>Sign In</div>
+        <div className='signin'>Sign In { localStorage.getItem("theme")}</div>
         <div style={{color:'#A3AED0'}}>Enter your email and password to sign in!</div>
-
         <div className='loginfield'>Email*</div>
-        <div><input type="text" placeholder='mail@simmmple.com' className='logininput'/></div>
+        <div><input type="text" placeholder='mail@simmmple.com' className='logininput' name='username'
+         value={inputs.username || ""} 
+         onChange={handleChange} /></div>
 
         <div className='loginfield'>Password*</div>
         <div className='password-container'>
           <input
-            type={passwordVisible ? "text" : "password"}
+            type={passwordVisible ? "password" : "text"}
             placeholder='Min. 8 characters'
             className='logininput'
+            name='password'
+            value={inputs.password || ""} 
+            onChange={handleChange}
           />
           <span className='toggle-password' onClick={togglePasswordVisibility}>
             <i className={`fas ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`} style={{color:'#A3AED0'}}></i>
@@ -51,7 +80,7 @@ function Login() {
           <div className='forgot'>Forgot Password?</div>
         </div>
 
-        <div><button className='signinbutton'>Sign In</button></div>
+        <div><button className='signinbutton' onClick={handleSubmit}>Sign In</button></div>
 
         <div style={{display:'flex', padding:'20px 0px'}}>
           <div  className='notregisteredyeat'>Not registered yet?</div>
@@ -63,14 +92,14 @@ function Login() {
         </div>
 
         <div>
-          <GoogleLogin
-            clientId="YOUR_GOOGLE_CLIENT_ID"
+          {/* <GoogleLogin
+            clientId='1046741513914-iprcol8k4pqgu1h1ivpgsla0km5aj4qp.apps.googleusercontent.com'
             buttonText="Sign in with Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
             className="googlebutton" 
-          />
+          /> */}
         </div>
       </div>
 
