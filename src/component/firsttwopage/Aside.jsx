@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { TbLogin2 } from "react-icons/tb";
 import { MdOutlineEditCalendar } from "react-icons/md";
 import { MdOutlineBarChart } from "react-icons/md";
-import photo from '../../assets/photo1.png'
+import photo from '../../assets/photo1.png';
 
 const Sidebar = ({ darkMode }) => {
   const [activeItem, setActiveItem] = useState('Dashboard');
@@ -19,18 +19,42 @@ const Sidebar = ({ darkMode }) => {
     const itemOffsetTop = itemRefs.current[index].offsetTop;
     const dropdownOffset = dropdownVisible && (item === 'Event Masters' || item === 'My Events') ? itemRefs.current[2].offsetTop : 0;
     setLinePosition(itemOffsetTop + dropdownOffset);
+    
     if (item === 'Event Register') {
       setDropdownVisible(!dropdownVisible);
     } else {
       setDropdownVisible(item === 'Event Masters' || item === 'My Events');
     }
-   
+
+    // Add navigation logic here
+    switch (item) {
+      case 'Dashboard':
+        navigate('/dashboard');
+        break;
+      case 'Points Container':
+        navigate('/dashboard/points-container');
+        break;
+      case 'Event Register':
+        // The dropdown visibility is handled separately
+        break;
+
+      case 'My Events':
+        navigate('/dashboard/my-events');
+        break;
+      case 'Event Masters':
+        navigate('/dashboard/event-masters');
+        break;
+      case 'Sign-Out':
+        navigate('/');
+        break;
+      default:
+        break;
+    }
   };
 
   useEffect(() => {
     setLinePosition(itemRefs.current[0].offsetTop);
   }, []);
-  
 
   return (
     <div className={`Sidebar ${darkMode ? 'dark-mode' : ''}`}>
@@ -64,9 +88,10 @@ const Sidebar = ({ darkMode }) => {
         <div className="Dropdown">
           <div
             ref={el => itemRefs.current[3] = el}
-            className={`DropdownItem ${activeItem === 'My Events' ? 'active' : ''}`}
-            onClick={() => handleItemClick('My Events', 3)}
-          >&nbsp;
+            className={`DropdownItem ${activeItem === 'My' ? 'active' : ''}`}
+            onClick={() => handleItemClick('My', 3)}
+          >
+            &ensp;
           </div>
           <div
             ref={el => itemRefs.current[4] = el}
@@ -76,9 +101,9 @@ const Sidebar = ({ darkMode }) => {
             Event Masters
           </div>
           <div
-            ref={el => itemRefs.current[5] = el}
+            ref={el => itemRefs.current[6] = el}
             className={`DropdownItem ${activeItem === 'My Events' ? 'active' : ''}`}
-            onClick={() => handleItemClick('My Events', 5)}
+            onClick={() => handleItemClick('My Events', 6)}
           >
             My Events
           </div>
@@ -88,9 +113,9 @@ const Sidebar = ({ darkMode }) => {
         <img src={photo} alt="photo1" style={{ maxWidth: '82.7%', maxHeight: '20.3%' }} />
       </div>
       <div
-        ref={el => itemRefs.current[6] = el}
+        ref={el => itemRefs.current[5] = el}
         className={`Signout ${activeItem === 'Sign-Out' ? 'active' : ''}`}
-        onClick={() => navigate('/')}
+        onClick={() => handleItemClick('Sign-Out', 5)}
       >
         <TbLogin2 className="icon" />&ensp;Sign-Out
       </div>
