@@ -172,6 +172,7 @@
     font-size: 28px;
     font-weight: 450;
     color: #2B3674;
+    overflow: hidden;
     /* font-family: 'DM Sans'; */
   }
   
@@ -403,7 +404,7 @@
     background-color: #F4F7FE;
   }
 
-  ::placeholder{
+  .search-bar::placeholder{
     color: #2B3674;
     font-weight: 500;
     border: none;
@@ -603,19 +604,23 @@
     margin-top: 10px;
   }
 
-  .dark-mode .dashboardgra, .dark-mode .rpcardcontainer, .dark-mode .table1,
-  .dark-mode .table2, .dark-mode .head, .dark-mode .logs-popup
+  .dark-mode .dashboardgra, .dark-mode .rpcardcontainer, .dark-mode .table1, .dark-mode .search-bar-em,.dark-mode th,
+  .dark-mode .table2, .dark-mode .head, .dark-mode .logs-popup ,.dark-mode .main-body,.dark-mode .ba-em,.dark-mode .ba-em1
+  
   {
     background-color: #1A1D26;
     color: #FEFCF8;
   }
-.dark-mode .theme , .dark-mode .con, .dark-mode .search-bar,.dark-mode .bar, .dark-mode .notiitems {
-  background-color: #0B1437;
+.dark-mode .theme , .dark-mode .con, .dark-mode .search-bar,.dark-mode .bar, .dark-mode .notiitems, .dark-mode .search-bar-em1{
+  background-color: #181C26;
 }
   .dark-mode .secondyearcolor, .dark-mode .pointdetailcolor, .dark-mode .pointdetail,
-  .dark-mode .pointdetailicon, .dark-mode .rpcardcontainerpointtit,
+  .dark-mode .pointdetailicon, .dark-mode .rpcardcontainerpointtit, .dark-mode .search-em ,
   .dark-mode .elegiblecarryrptext, .dark-mode .elegiblecarryrppoint ,
-  .dark-mode .rpinternaldistributon, .dark-mode .Reward, .dark-mode .noti, .dark-mode .points
+  .dark-mode .Dash-em1, .dark-mode .em-subtiti , .dark-mode .page-em, .dark-mode .rowpage-em,
+  .dark-mode .rpinternaldistributon, .dark-mode .Reward, .dark-mode .noti, .dark-mode .points,.dark-mode .Dash-em ,
+  .dark-mode .eventm-em, .dark-mode .ba-em,.dark-mode .ba-em1, .dark-mode .nodatafoundtext, .dark-mode .nodatafoundicon-em
+  
   {
     color: #FEFCF8;
   }
@@ -623,10 +628,30 @@
   {
     color: #4318ff;
   }
-  .dark-mode .r Table th
+  .dark-mode .r Table th  , .dark-mode .table1 Table th ,.dark-mode .table2 Table th, .dark-mode .table-em th
   {
     color: #FEFCF8;
-    background-color: #d8d8d8
+    background-color: rgb(56, 56, 56);
+    border: 1px solid  rgb(56, 56, 56);
+  }
+  .dark-mode .r Table td, .dark-mode .table1 td, .dark-mode .table2 td, .dark-mode .table-em  td
+  {
+    border-bottom: 1px solid  rgb(56, 56, 56);
+  }
+  .dark-mode .r Table , .dark-mode .table1 Table, .dark-mode .table2 Table, .dark-mode .table-em 
+  {
+    border: 1px solid  rgb(56, 56, 56);
   }
 
  
+
+  .dark-mode .ba-em::placeholder
+  {
+    color: #FEFCF8;
+  }
+
+  .dark-mode .tablefoot-em , .dark-mode .nextpagebut-em,.dark-mode .noofrow-em
+  {
+    background-color: #1A1D26;
+    color: #FEFCF8 ;
+  }

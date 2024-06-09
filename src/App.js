@@ -4,6 +4,11 @@ import Login from './component/firsttwopage/Login';
 import Dashboard from './component/firsttwopage/Dashboard';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import Table from './component/table';
+import PointContainer2 from './component/tablewithbutton';
+import PointContainer from './component/pointtable';
+import Table2 from './component/registerdetail';
+import Eventinfo from './component/firsttwopage/Eventregister';
 function App() {
   const [darkMode, setDarkMode] = useState(false);
 
@@ -22,13 +27,16 @@ function App() {
               <Sidebar darkMode={darkMode} />
             </div>
             <div className="rightside">
-              <Dashboard darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+              <PointContainer darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
             </div>
           </div>
         } />
+
+     
         
       </Routes>
     </BrowserRouter>
+ 
   );
 }
 

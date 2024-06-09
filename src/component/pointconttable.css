@@ -19,3 +19,38 @@
     color: #d10000; /* Adjust icon color */
     pointer-events: none; /* To prevent click on the icon */
   }
+
+
+
+
+
+
+
+
+  
+  .dark-mode .eventinfobox
+  {
+    background-color: #1A1D26;
+    
+  }
+  
+  .dark-mode .myeventtit,.dark-mode .RxCross2,
+  .dark-mode .myeventdesctit,.dark-mode .labelee,
+   .dark-mode .labe, .dark-mode .labele
+  {
+    color: #FEFCF8;
+  }
+  
+  .dark-mode .value, .dark-mode .myeventtexdescr{
+    color: #DEE6FF;
+  }
+  
+  
+  /* Point Container */
+  
+  .pointcontainerbox
+  {
+    min-width: 95.337423%; /* 1554px/1630 */
+    
+  }
+  

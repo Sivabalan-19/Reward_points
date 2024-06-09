@@ -24,6 +24,7 @@ const Sidebar = ({ darkMode }) => {
     } else {
       setDropdownVisible(item === 'Event Masters' || item === 'My Events');
     }
+   
   };
 
   useEffect(() => {

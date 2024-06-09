@@ -20,6 +20,13 @@ var con = mysql.createConnection(
     if (err) throw err;
     console.log("Connected!");
   });  
+  app.post('/changeregister',function(req,res){
+    
+    var id=req.body.id;
+    
+    con.query("UPDATE pointcontainer SET register = 1 WHERE sno="+id,function (err, result) {
+      res.send("success!");
+    })});
   app.post('/',function(req,res){
     
       var pass=req.body.userpassword;
@@ -43,27 +50,20 @@ var con = mysql.createConnection(
     var detai=[]
       con.query("select * from info", function(err,result) {
         content.forEach((r)=>{
-            
             detai.push(
                 {
                     "category":r+" ("+result[0].Technical_events_time+")",
                     "details":result[0].Technical_events
                 }
             )
-          
-            
-            
         })
-  
       res.send({message: detai});
     })
     })
     app.get("/pointtable", function(req, res) {
       var detai=[]
-        con.query("select * from pointcontainer", function(err,result) {
-       
+        con.query("select * from pointcontainer where register=0", function(err,result) {
           result.forEach((r)=>{
-          
             detai.push({
               "id":r.sno,
               "Date":r.D_ate,
@@ -72,13 +72,55 @@ var con = mysql.createConnection(
               "Tpye":r.T_pye,
               "Activity_type":r.Activity_type,
               "points":r.points,
-              "Organier":r.Organier
+              "Organier":r.Organier,
+              "seat":r.seat,
+              "descr":r.descr
             })
           });  
           console.log(detai) 
           res.send({message: detai}); 
       })
       })
+      app.get("/register", function(req, res) {
+        var detai=[]
+          con.query("select * from pointcontainer where register=1", function(err,result) {
+            result.forEach((r)=>{
+              detai.push({
+                "id":r.sno,
+                "Date":r.D_ate,
+                "Activity_code":r.Activity_code,
+                "Activity_name":r.Activity_name,
+                "Tpye":r.T_pye,
+                "Activity_type":r.Activity_type,
+                "points":r.points,
+                "Organier":r.Organier,
+                "seat":r.seat,
+                "descr":r.descr
+              })
+            });  
+            console.log(detai) 
+            res.send({message: detai}); 
+        })
+        })
+      app.get("/detailer", function(req, res) {
+        var detai=[]
+          con.query("select * from detailer", function(err,result) {
+            result.forEach((r)=>{
+              detai.push({
+                "Date":r.Date,
+                "Activity_code":r.activity_code,
+                "Activity_name":r.activity_Name,
+                "Tpye":r.activity_type,
+                "Activity_type":r.activity_category,
+                "points":r.point,
+                "Organier":r.organizer,
+              
+              })
+            });  
+            console.log(detai) 
+            res.send({message: detai}); 
+        })
+        })
     app.get("/rewarddistributed",function(req,res){
 
       var d=[]

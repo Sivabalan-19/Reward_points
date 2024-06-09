@@ -1,0 +1,359 @@
+.header11{
+    height: 10%;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .Dash-em{
+    margin-left: 2%;
+    font-size: 28px;
+    font-weight: 450;
+    color: #2B3674;
+    overflow: hidden;
+    /* font-family: 'DM Sans'; */
+  }
+
+  .Dash-em1{
+    margin-left: 12px;
+    font-size: 20px;
+    font-weight: 450;
+    color: #2B3674;
+    margin-top: 12px;
+    /* font-family: 'DM Sans'; */
+  }
+
+  
+
+ .main-body{
+    background-color: #FDFDFD;
+    width: 100%;
+    height: 98%;
+    border-radius: 10PX;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+
+
+ 
+ .scrollonly-em{
+    height: 96%; width: 96% ;
+ }
+ 
+
+ .search-bar-em{
+    margin-left: 20px;
+    height: 40px;
+    width: 10%;
+    border: 1px solid #d7d8da ;
+    border-radius: 10px;
+    display: flex;
+    /* gap: 2px; */
+    padding:  0px 7px;
+    background-color: #F4F7FE;
+  }
+
+  .ba-em{
+    border: none;
+    font-size: 13px;
+    width: 90%;
+    color: #2B3674;
+    font-weight: bold;
+    align-self: center;
+    background-color: #F4F7FE;
+  }
+
+  .ba-em::placeholder{
+    color: #2B3674;
+    font-weight: bold;
+    border: none;
+  }
+
+  .ba-em:focus {
+    border: none;
+    outline: none;
+  }
+
+  .search-bar-em1{
+    height: 40px;
+    margin-left: 20px;
+    width: 12.5%;
+    border: 1px solid #d7d8da ;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    background-color: #F4F7FE;
+  }
+
+  .table-em{
+    width: 99%;
+    border: 1px solid #dddddd;
+    margin-top: 10px; 
+  }
+
+  .em-subtiti{
+    color: #2B3674;
+    margin-top: 5px;
+  }
+
+  .sim-em{
+    height: 92%;
+    width: 100%;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  
+    scrollbar-width: none;
+  }
+
+  .sim-em::-webkit-scrollbar {
+    display: none;
+  }
+
+  .table-em table{
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .view-em{
+    background-color: #4318FF;
+    border: none;
+    color: #FDFDFD;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .eventm-em{
+    color: #2B3674;
+    font-weight: 500;
+    margin-right: 60x;
+  }
+
+  .tablebottem-em{
+    gap: 10px;
+    width: 10%;
+    justify-content: center;
+    display: flex;
+  }
+
+  .nodatafoundicon-em
+  {
+    font-size: 60px;
+    color:#2B3674;
+  }
+
+  .nodatafoundtext
+  {
+    font-size: 18px;
+    font-weight: bold;
+    color:#2B3674;
+  }
+
+  .tablefoot-em{
+    height: 40px; width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F4F7FE;
+    display: flex;
+  }
+
+  .page-em{
+    font-weight: 600;
+    padding-left: 10px;
+    color: #2B3674;
+  }
+
+  .rowpage-em{
+    color: #2B3674;
+    font-weight: 600;
+  }
+
+  .nextpagebut-em
+   {
+    border: none;
+    font-size: 20px;
+    color: #2B3674;
+    background-color: #F4F7FE;
+  }
+
+  .noofrow-em{
+
+    border-radius: 5px;
+    border: 0.5px solid grey;
+    padding: 3px 10px;
+    color: #2B3674;
+    font-weight: 600;
+  }
+
+  .search-em{
+    margin-top: 2px;
+    color: #2B3674;
+    font-size: 12px;
+    align-self: center;
+  }
+
+
+
+
+  /* myevent ifo */
+
+  .container {
+    width: 100%;
+    min-width: 100%;
+    display: flex;
+    height: 100%;
+  }
+  
+  .eventinfobox {
+    width: 100%;
+    padding-bottom: 20px;
+  }
+  
+  .myeventtitle {
+    display: flex;
+    padding: 2.5% 3.75%; /* Use percentages for padding */
+    justify-content: space-between;
+  }
+  
+  .myeventtit {
+    text-decoration: underline;
+    font-size: 2.0vw; /* Responsive font size */
+    font-weight: 700;
+  }
+  
+  .cross {
+    font-size: 1.2vw; /* Responsive font size */
+    border: none;
+    padding: 0;
+    background: transparent;
+    margin-top: 0.5vw; /* Responsive margin */
+  }
+  
+  .dark-mode .cross i 
+  {
+    color: #FEFCF8;
+  }
+  
+  
+  .activity-info {
+    color: #2d3651;
+    padding: 1% 6%;
+  }
+  
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+  }
+  
+  .info-item{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .info-item1{
+    display: flex;
+    width: 100%;
+  }
+  
+  .info-column {
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 48%;
+  }
+  
+    
+    .labele {
+      font-weight: 500;
+      font-size: 1.041667vw;
+      width: 50%;
+  }
+  
+  .labe {
+    font-weight: 500;
+    font-size: 1.041667vw; /* Responsive font size */
+    
+  }
+  
+  
+  .value { 
+    width: 40%;
+  }
+
+  .value1 { 
+    width: 73%; 
+  }
+  .valuee{
+    font-weight: 500;
+    font-size: 0.9375vw; 
+  }
+  
+  .myeventdesctit {
+    text-decoration: underline;
+    font-size: 1.041667vw; /* Responsive font size */
+    font-weight: 500;
+    padding: 1.041667% 0; /* Responsive padding */
+  }
+  
+  .myeventdescription {
+    padding: 0 4.305556%; /* Responsive padding */
+    max-width: 92.638037%; /* 755px/815 */
+    text-align: justify;
+  }
+  
+  .myeventtexdescr {
+    font-weight: 400;
+    min-height: 19.53125vw; 
+    max-height: 19.53125vw;
+    overflow: scroll;
+    font-size: 0.9375vw;
+    padding: 1.041667% 1.388889%;
+    -ms-overflow-style: none;  
+    scrollbar-width: none; 
+  }
+
+  .dialoge{
+    height: 500px;
+    width: 1000px;
+    background-color: #1A1D26;
+  }
+  
+  .myeventtexdescr::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .myeventregis {
+    text-align: center;
+  }
+  
+  .myeventregiesbut {
+    background-color: #4318FF;
+    color: #FDFDFD;
+    font-weight: 700;
+    border: none;
+    margin-top: 5.083333%; /* Responsive margin */
+    border-radius: 10px; /* Responsive border-radius */
+    padding: 1.641667% 18.680556%; 
+    cursor: pointer;  /* Responsive padding */
+  }
+  
+  .dark-mode .eventinfobox
+  {
+    background-color: #1A1D26;
+    
+  }
+  
+  .dark-mode .myeventtit,.dark-mode .RxCross2,
+  .dark-mode .myeventdesctit,
+   .dark-mode .labe, .dark-mode .labele
+  {
+    color: #FEFCF8;
+  }
+  
+  .dark-mode .value, .dark-mode .myeventtexdescr{
+    color: #DEE6FF;
+  }
+  

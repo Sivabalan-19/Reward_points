@@ -1,91 +1,153 @@
 import React, { useState } from "react";
-import { useFilters, useTable } from "react-table";
-import '../component/pointconttable.css';
-import { FiSun, FiMoon } from "react-icons/fi"; 
-export default function Table({ columns, data }) {
-  // Use the useTable Hook to send the columns and data to build the table
-  const {
-    getTableProps, // table props from react-table
-    getTableBodyProps, // table body props from react-table
-    headerGroups, // headerGroups, if your table has groupings
-    rows, // rows for the table based on the data passed
-    prepareRow, 
-    setFilter,
-  } = useTable({
-    columns,
-    data
-  },useFilters
-);
-const [filterInput, setFilterInput] = useState("");
-const [filterInput2, setFilterInput2] = useState("");
+import { useFilters, useTable, usePagination } from "react-table";
+import { FaRegBell, FaSearch } from "react-icons/fa";
+import { MdOutlineLockClock } from "react-icons/md";
+import { TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TableFooter } from '@mui/material';
 
-const [sortDir, setSortDir] = useState("lowtohigh");
-// Update the state when input changes
-const handleFilterChange = e => {
+export default function Table({ columns, data }) {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    setFilter,
+    nextPage,
+    previousPage,
+    canPreviousPage,
+    canNextPage,
+    setPageSize,
+    pageCount,
+    gotoPage,
+    page,
+    state: { pageIndex, pageSize },
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: { pageIndex: 0, pageSize: 10 }, // Set initial page index and page size
+    },
+    useFilters,
+    usePagination
+  );
+
+  const [filterInput, setFilterInput] = useState("");
+  const [filterInput2, setFilterInput2] = useState("");
+
+  const handleFilterChange = e => {
     const value = e.target.value || undefined;
-    setFilter("Activity_name", value); // Update the show.name filter. Now our table will filter and show only the rows which have a matching value
+    setFilter("Activity_name", value);
     setFilterInput(value);
   };
-  const handleFilterChange2 = event => {
-    const value1 = event.target.value || undefined;
-    setFilter("Activity_code", value1); // Update the show.name filter. Now our table will filter and show only the rows which have a matching value
-    setFilterInput2(value1);
-  };
- 
-  const handleFilterChange3 = event => {
-    
-    setFilter("Tpye", event.target.value); // Update the show.name filter. Now our table will filter and show only the rows which have a matching value
-  
-  };
- 
 
-// Input element
+  const handleFilterChange2 = e => {
+    const value = e.target.value || undefined;
+    setFilter("Activity_code", value);
+    setFilterInput2(value);
+  };
 
-  /* 
-    Render the UI for your table
-    - react-table doesn't have UI, it's headless. We just need to put the react-table props from the Hooks, and it will do its magic automatically
-  */
+  const handleFilterChange3 = e => {
+    setFilter("Activity_type", e.target.value);
+  };
+
+  const handlePageSizeChange = e => {
+    setPageSize(Number(e.target.value));
+  };
+
   return (
-    <div>
-         <input value={filterInput} onChange={handleFilterChange} placeholder={"Acitivity name"} className="inputwithsearch"/>
-         <div className="input-container">
-            <input 
-                value={filterInput2} 
-                onChange={handleFilterChange2} 
-                placeholder={"Search Activity code"} 
-                className="input-with-search" 
+    <div className="main-body">
+      <div className="scrollonly-em">
+        <div style={{ display: 'flex', width: '100%', height: '8%', alignItems: 'center' }}>
+          <div className="eventm-em" > Event Master</div>
+
+          <div className="search-bar-em">
+            <input
+              value={filterInput2}
+              onChange={handleFilterChange2}
+              placeholder={"Activity Code"}
+              className="ba-em"
             />
-          
+            <div className="search-em" ><FaSearch /></div>
+          </div>
+
+          <div className="search-bar-em">
+            <input value={filterInput} onChange={handleFilterChange} placeholder={"Acitivity Name"} className="ba-em" />
+            <div className="search-em" ><FaSearch /></div>
+          </div>
+
+          <div className="search-bar-em1">
+            <select onChange={handleFilterChange3} className="ba-em">
+              <option style={{ color: '#2B3674', fontWeight: '600' }} value="" selected disabled hidden>Sort By Category</option>
+              <option value="Reward">Reward</option>
+              <option value="Honour">Honour</option>
+            </select>
+          </div>
         </div>
-        <select onChange={handleFilterChange3} className="inputwithsearch">
-            <option value="" selected disabled hidden>Search Acitivity code</option>
-      <option value="Technical">Technical</option>
-      <option value="Non Technical">Non Technical</option>
-    </select>
+        <div className="sim-em" >
+          <div className="table-em">
             <table {...getTableProps()}>
-            
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-              })}
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+
+              <thead>
+                {headerGroups.map(headerGroup => (
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map(column => (
+                      <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              {pageCount > 0 ? (
+                <tbody {...getTableBodyProps()}>
+                  {page.map(row => {
+                    prepareRow(row);
+                    return (
+                      <tr {...row.getRowProps()}>
+                        {row.cells.map(cell => {
+                          return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                        })}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              ) : (
+                <tbody>
+                  <tr>
+                    <td colSpan={columns.length} style={{ textAlign: 'center', padding: '20px',  justifyContent:'center'}}>
+                      <div style={{ height: '200px', justifyContent: 'center',display:'flex',justifyContent:'center',alignItems:'center' }}>
+                      <div> <div className="nodatafoundicon-em"><MdOutlineLockClock/></div>
+                        <div className="nodatafoundtext">No Data Found</div></div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              )}
+
+            </table>
+            <div className="tablefoot-em" >
+              <div style={{ display: 'flex', width: '90%', justifyContent: 'space-between' }}>
+                <span className="page-em" >
+                  Page{' '}
+                  <strong>
+                    {pageIndex + 1} of {pageCount}
+                  </strong>{' '}
+                </span>
+                <div><span className="rowpage-em">Rows Per Page</span>&ensp;
+                  <select className="noofrow-em" onChange={handlePageSizeChange}>
+                    {[10, 20, 30, 40, 50].map(pageSize => (
+                      <option key={pageSize} value={pageSize}>
+                        {pageSize}
+                      </option>
+                    ))}
+                  </select></div>
+              </div>
+              <div className="tablebottem-em">
+                <button className="nextpagebut-em" onClick={() => previousPage()} disabled={!canPreviousPage}>{'<'}</button>
+                <button className="nextpagebut-em" onClick={() => nextPage()} disabled={!canNextPage}>{'>'}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

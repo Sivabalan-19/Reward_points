@@ -2,6 +2,7 @@
 import React, { useState,setState } from "react";
 import { useMemo, useEffect } from "react";
 import axios from "axios";
+import Dialog from '@mui/material/Dialog';
 import Table from "./tableButton"
 import { IoMoon } from "react-icons/io5";
 import { MdLightMode, MdOutlineAccountTree } from "react-icons/md";
@@ -16,7 +17,26 @@ import {
 } from "react-icons/md";
 import { Divider } from "@mui/material";
 import { FaRegBell , FaSearch } from "react-icons/fa";
-  const PointContainer = ({ darkMode, toggleDarkMode }) => {
+import Eventview from "./firsttwopage/Eventview";
+  const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
+    const [showEventRegister, setShowEventRegister] = useState(false);
+    const [data, setData] = useState([]);
+    const [eventData, setEventData] = useState(null);
+    
+    const showRegisterForm = (id,data) => {
+      console.log(data)
+      setShowEventRegister(true);
+      
+      let row = data.find(o => o.id == id);
+      setEventData(id);
+    
+    };
+  
+    const formClose = () => {
+      setShowEventRegister(false);
+      setEventData(null);
+    };
+  
     const [showNotifications, setShowNotifications] = useState(false);
 
 
@@ -45,12 +65,6 @@ import { FaRegBell , FaSearch } from "react-icons/fa";
             accessor: "Activity_code",
     
           },
-          {
-            // Second group - Details
-            Header: "Activity_type",
-            accessor: "Tpye",
-    
-          },
          
           {
             // Second group - Details
@@ -71,19 +85,33 @@ import { FaRegBell , FaSearch } from "react-icons/fa";
          
             // First group columns
           },
+          {
+            // first group - TV Show
+            Header: "available",
+            accessor: "seat",
          
+            // First group columns
+          },
          
-         
-        
+          {
+            Header: "Action",
+            accessor: "id",
+            Cell: ({ cell: { value } }) => (
+              <div>
+                <button className="view-em" onClick={() => showRegisterForm(value,data)}>
+                  view
+                </button>
+              </div>
+            )
+          }
         ],
         []
       );
-      const [data, setData] = useState([]);
       const [showregister, setshowregister] = useState([]);
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get("http://localhost:2500/detailer");
+            const response = await axios.get("http://localhost:2500/register");
             // Assuming your data has an 'id' field, otherwise, adjust accordingly
             setData(response.data.message.map((row, index) => ({ ...row, sno: index + 1 })));
           } catch (error) {
@@ -100,8 +128,7 @@ import { FaRegBell , FaSearch } from "react-icons/fa";
           id: id,
      
         })
-          
-        setData((prevData) => prevData.filter((row) => row.id !== id));
+
       };
   return (
     
@@ -151,8 +178,11 @@ import { FaRegBell , FaSearch } from "react-icons/fa";
     </div>
         </div>
       )}
+        <Dialog open={showEventRegister} onClose={formClose}>
+        <Eventview detail={data} id={eventData} onDeleteRow={(id) => handleDeleteRow(id)}/>
+      </Dialog>
     </div>
   )
 }
 
-export default PointContainer
+export default PointContainer2
