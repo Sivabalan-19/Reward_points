@@ -105,9 +105,10 @@
   }
   
   .Dropdown {
+
     position: fixed;
     padding-left: 1.6%;
-    top: 230px;
+    top: 245px;
   }
   
   .DropdownItem {
@@ -163,17 +164,32 @@
     height: 10%;
     /* background-color: #0B1437; */
     display: flex;
-    gap: 75.90184%;
+    gap: 77.4%;
     align-items: center;
   }
   
   .Dash{
     margin-left: 2%;
     font-size: 28px;
-    font-weight: 450;
+    font-weight: 600;
     color: #2B3674;
     overflow: hidden;
     /* font-family: 'DM Sans'; */
+  }
+
+  .Dash-pt{
+    margin-left: 2%;
+    font-size: 26px;
+    font-weight: 600;
+    color: #2B3674;
+  }
+
+  .header101{
+    height: 10%;
+    /* background-color: #0B1437; */
+    display: flex;
+    gap: 73%;
+    align-items: center;
   }
   
   .noti{
@@ -218,8 +234,6 @@
 .dark-mode .con {
   background-color: #1A1D26;
 }
-
-.dark-mode .header1
   
   
   .graph2icon
@@ -300,7 +314,10 @@
   
   .rpcardcontainer
   {
-    padding: 20px;
+    padding-bottom: 20px;
+    height: 270px;
+    display: flex;
+    /* align-items: center; */
     background-color: #FDFDFD;
     /* background-color: #2B3674; */
     border-radius: 20px;
@@ -483,9 +500,10 @@
     color: #FEFCF8   ;
   }
 
-  .dark-mode .header1, .dark-mode .allbody 
+  .dark-mode .header1,.dark-mode .header11, .dark-mode .allbody ,.dark-mode .header101
   {
-    background-color: #181c26;
+    /* background-color: #181c26; */
+    background-color: #20242e;
   }
 
   .dark-mode .Dash
@@ -619,26 +637,39 @@
   .dark-mode .elegiblecarryrptext, .dark-mode .elegiblecarryrppoint ,
   .dark-mode .Dash-em1, .dark-mode .em-subtiti , .dark-mode .page-em, .dark-mode .rowpage-em,
   .dark-mode .rpinternaldistributon, .dark-mode .Reward, .dark-mode .noti, .dark-mode .points,.dark-mode .Dash-em ,
-  .dark-mode .eventm-em, .dark-mode .ba-em,.dark-mode .ba-em1, .dark-mode .nodatafoundtext, .dark-mode .nodatafoundicon-em
+  .dark-mode .eventm-em, .dark-mode .ba-em,.dark-mode .ba-em1, .dark-mode .nodatafoundtext, .dark-mode .nodatafoundicon-em,
+  .dark-mode .Home.active, .dark-mode .Dash-pt ,.dark-mode .DropdownItem.active 
   
   {
-    color: #FEFCF8;
+    color: white;
   }
-  .dark-mode .light
+  .dark-mode .light ,.dark-mode .Home.active .icon
   {
-    color: #4318ff;
+    color: #3314be;
   }
   .dark-mode .r Table th  , .dark-mode .table1 Table th ,.dark-mode .table2 Table th, .dark-mode .table-em th
   {
     color: #FEFCF8;
-    background-color: rgb(56, 56, 56);
-    border: 1px solid  rgb(56, 56, 56);
+    /* background-color: rgb(56, 56, 56); */
+    background-color: rgb(65, 64, 64);
+    border-top: 1px solid  rgb(56, 56, 56);
+    border-bottom: 1px solid  rgb(56, 56, 56);
+    border-left: 1px solid rgb(65, 64, 64);
+    border-right: 1px solid rgb(65, 64, 64);
   }
-  .dark-mode .r Table td, .dark-mode .table1 td, .dark-mode .table2 td, .dark-mode .table-em  td
+  .dark-mode .r Table td, .dark-mode .table1 td, .dark-mode .table2 td 
   {
     border-bottom: 1px solid  rgb(56, 56, 56);
+    
   }
-  .dark-mode .r Table , .dark-mode .table1 Table, .dark-mode .table2 Table, .dark-mode .table-em 
+
+  .dark-mode .table-em  td
+  {
+    border-right: 1px solid #181C26 ;
+    border-left: 1px solid #181C26 ;
+    border-bottom: 1px solid  rgb(56, 56, 56);
+  }
+  .dark-mode .r Table , .dark-mode .table1 Table, .dark-mode .table2 Table, .dark-mode .table-em
   {
     border: 1px solid  rgb(56, 56, 56);
   }

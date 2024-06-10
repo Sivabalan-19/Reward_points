@@ -88,8 +88,8 @@ const Sidebar = ({ darkMode }) => {
         <div className="Dropdown">
           <div
             ref={el => itemRefs.current[3] = el}
-            className={`DropdownItem ${activeItem === 'My' ? 'active' : ''}`}
-            onClick={() => handleItemClick('My', 3)}
+            className={`Home ${activeItem === 'Event Register' ? 'active' : ''}`}
+            onClick={() => handleItemClick('Event Register', 3)}
           >
             &ensp;
           </div>

@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useFilters, useTable, usePagination } from "react-table";
 import { FaRegBell, FaSearch } from "react-icons/fa";
 import { MdOutlineLockClock } from "react-icons/md";
 import { TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TableFooter } from '@mui/material';
-
-export default function Table({ columns, data }) {
+const delay = ms => new Promise(
+  resolve => setTimeout(resolve, ms)
+);
+export default function Table({ columns, data ,Table_header_name}) {
+  const [isTableReady, setIsTableReady] = useState(false);
   const {
     getTableProps,
     getTableBodyProps,
@@ -33,7 +36,17 @@ export default function Table({ columns, data }) {
 
   const [filterInput, setFilterInput] = useState("");
   const [filterInput2, setFilterInput2] = useState("");
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsTableReady(true);
+    }, 100); // 1 second delay
 
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  if (!isTableReady) {
+    return <div></div>;
+  }
   const handleFilterChange = e => {
     const value = e.target.value || undefined;
     setFilter("Activity_name", value);
@@ -58,7 +71,7 @@ export default function Table({ columns, data }) {
     <div className="main-body">
       <div className="scrollonly-em">
         <div style={{ display: 'flex', width: '100%', height: '8%', alignItems: 'center' }}>
-          <div className="eventm-em" > Event Master</div>
+          <div className="eventm-em" > {Table_header_name}</div>
 
           <div className="search-bar-em">
             <input

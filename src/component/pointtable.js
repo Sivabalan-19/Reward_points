@@ -106,10 +106,8 @@ import { FaRegBell , FaSearch } from "react-icons/fa";
   return (
     
     <div className={`con ${darkMode ? 'dark-mode' : ''}`}>
-      <div className="header11">
-        <div style={{display:'flex',width:'90%', alignItems:'center',height:'100%'}}> 
-          <div className="Dash-em">Event Registration  </div> <div className="Dash-em1" ><IoIosArrowForward /></div> <div className="em-subtiti"  >Event Master</div>
-        </div>
+      <div className="header101">
+        <div className="Dash-pt">Points Container</div>
         <div className="theme">
           <div className="noti" onClick={() => setShowNotifications(!showNotifications)} >
             <MdNotificationsNone />
@@ -120,7 +118,7 @@ import { FaRegBell , FaSearch } from "react-icons/fa";
         </div>
       </div>
     <div className="allbody" >
-      <Table columns={columns} data={data}  handleDeleteRow={handleDeleteRow} />
+      <Table columns={columns} data={data} Table_header_name="Points Container" handleDeleteRow={handleDeleteRow} />
     </div>
 
     {showNotifications && (

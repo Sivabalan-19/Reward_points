@@ -194,7 +194,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
   return (
     <div className={`con ${darkMode ? 'dark-mode' : ''}`}>
       <div className="header1">
-        <div className="Dash">DASHBOARD</div>
+        <div className="Dash"> Dashboard </div>
         <div className="theme">
           <div className="noti" onClick={() => setShowNotifications(!showNotifications)} >
             <MdNotificationsNone />

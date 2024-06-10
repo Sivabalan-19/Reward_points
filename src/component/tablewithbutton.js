@@ -108,7 +108,7 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
         </div>
       </div>
       <div className="allbody">
-        <Table columns={columns} data={data} handleDeleteRow={handleDeleteRow} />
+        <Table columns={columns} data={data} Table_header_name="Event Master" handleDeleteRow={handleDeleteRow} />
       </div>
 
       {showNotifications && (

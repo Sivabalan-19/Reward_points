@@ -135,7 +135,7 @@
       <div className={`con ${darkMode ? 'dark-mode' : ''}`}>
         <div className="header11">
           <div style={{display:'flex',width:'90%', alignItems:'center',height:'100%'}}> 
-            <div className="Dash-em">Event Registration  </div> <div className="Dash-em1" ><IoIosArrowForward /></div> <div className="em-subtiti"  >Event Master</div>
+            <div className="Dash-em">Event Registration  </div> <div className="Dash-em1" ><IoIosArrowForward /></div> <div className="em-subtiti"  >My Events</div>
           </div>
           <div className="theme">
             <div className="noti" onClick={() => setShowNotifications(!showNotifications)} >
@@ -147,7 +147,7 @@
           </div>
         </div>
       <div className="allbody" >
-        <Table columns={columns} data={data}  handleDeleteRow={handleDeleteRow} />
+        <Table columns={columns} data={data} Table_header_name="My Events" handleDeleteRow={handleDeleteRow} />
       </div>
 
       {showNotifications && (

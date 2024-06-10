@@ -55,7 +55,7 @@ function Login() {
         <div className='signin'>Sign In { localStorage.getItem("theme")}</div>
         <div style={{color:'#A3AED0'}}>Enter your email and password to sign in!</div>
         <div className='loginfield'>Email*</div>
-        <div><input type="text" placeholder='mail@simmmple.com' className='logininput' name='username'
+        <div><input type="text" placeholder='mail@simmmple.com' required className='logininput' name='username'
          value={inputs.username || ""} 
          onChange={handleChange} /></div>
 
@@ -66,6 +66,7 @@ function Login() {
             placeholder='Min. 8 characters'
             className='logininput'
             name='password'
+            required
             value={inputs.password || ""} 
             onChange={handleChange}
           />
