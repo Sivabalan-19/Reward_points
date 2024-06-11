@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './Dashboard.css';
+import '../Student/Dashboard.css';
 import { IoMdHome } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { TbLogin2 } from "react-icons/tb";
 import { MdOutlineEditCalendar } from "react-icons/md";
 import { MdOutlineBarChart } from "react-icons/md";
-import photo from '../../assets/photo1.png';
+import photo from '../assets/photo1.png';
 
 const Sidebar = ({ darkMode }) => {
   const [activeItem, setActiveItem] = useState('Dashboard');

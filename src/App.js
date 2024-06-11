@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Sidebar from './component/firsttwopage/Aside';
-import Login from './component/firsttwopage/Login';
-import DashboardLayout from './component/firsttwopage/DashboardLayout';
-import Table2 from './component/registerdetail';
+import Sidebar from './component/Aside';
+import Login from './component/Login';
+import DashboardLayout from './Student/DashboardLayout';
+import Table2 from './Student/Eventmaster';
 import './App.css';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-
+  localStorage.setItem("index", 0);
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -26,7 +26,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/dashboard/*" element={<DashboardLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+          <Route path="/dashboard/*" element={<DashboardLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} /> 
         </Routes>
       </BrowserRouter>
     </div>

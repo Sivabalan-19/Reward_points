@@ -1,11 +1,11 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Sidebar from './Aside';
+import Sidebar from '../component/Aside';
 import Dashboard from './Dashboard';
-import Table from '../table';
-import PointContainer2 from '../tablewithbutton';
-import PointContainer from '../pointtable';
-import Table2 from '../registerdetail';
+import Table from '../component/table';
+import PointContainer2 from '../component/tablewithbutton';
+import PointContainer from './pointtable';
+import Table2 from './Eventmaster';
 import Eventinfo from './Eventregister';
 
 const DashboardLayout = ({ darkMode, toggleDarkMode }) => (

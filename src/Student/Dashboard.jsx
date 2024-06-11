@@ -1,12 +1,12 @@
 
 import React, { useState,setState } from "react";
-import "../Eventmasters.css";
+import "./Eventmasters.css";
 import axios from "axios";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { MdLightMode, MdOutlineAccountTree } from "react-icons/md";
 import { useMemo, useEffect } from "react";
 import {store, useGlobalState} from 'state-pool';
-import Table from "../table";
+import Table from "../component/table";
 
 import {
   BarChart,
@@ -28,17 +28,24 @@ import {
 } from "react-icons/md";
 import { Divider } from "@mui/material";
 import { FaRegBell , FaSearch } from "react-icons/fa";
-
+import Notification from "./notification";
 
 
 const Dashboard = ({ darkMode, toggleDarkMode }) => {
-
+  const [average, setaverage] = useState([]);
+  const [RP, setRP] = useState([]);
+  const [position, setposition] = useState([]);
+  const [count, setcount] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
- 
+  const [balance, setbalance] = useState([]);
+  const [redeemed, setredeemed] = useState([]);
+  const [penalty, setpenalty] = useState([]);
+  const [total, settotal] = useState([]);
+
   
   const data = [
-    { name: "Average Points", value: 245.12, fill: "#FF975C" },
-    { name: "Overall Points", value: 435.34, fill: "#4318FF" },
+    { name: "Average Points", value: average, fill: "#FF975C" },
+    { name: "Overall Points", value: RP, fill: "#4318FF" },
   ];
 
   const CustomLabel = ({ x, y, width, value }) => (
@@ -167,6 +174,26 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
  
+  useEffect(() => {
+    (async () => {
+      const result = await axios("http://localhost:2500/bar");
+      console.log(result.data.message[0].AverageRP);
+      setaverage(result.data.message[0].AverageRP);
+      setRP(result.data.message[0].TotalRP);
+      setposition(result.data.message[0].Position);
+      setcount(result.data.message[0].c);
+    })();
+  }, []);
+  useEffect(() => {
+    (async () => {
+      const result = await axios("http://localhost:2500/rectangle");
+      settotal(result.data.message[0].total);
+      setbalance(result.data.message[0].balance);
+      setredeemed(result.data.message[0].redeemed);
+      setpenalty(result.data.message[0].penalty);
+    })();
+  }, []);
+ 
   // Using useEffect to call the API once mounted and set the data
   useEffect(() => {
     (async () => {
@@ -196,7 +223,13 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
       <div className="header1">
         <div className="Dash"> Dashboard </div>
         <div className="theme">
-          <div className="noti" onClick={() => setShowNotifications(!showNotifications)} >
+          <div className="noti" onClick={
+            
+            () => {
+              
+              
+              
+              setShowNotifications(!showNotifications)}} >
             <MdNotificationsNone />
           </div>
           <div className="light" onClick={toggleDarkMode}>
@@ -206,7 +239,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
       </div>
       <div className="allbody" style={{ display:'flex',flexDirection:'column',gap:'2%'}}>
       <div style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
-        <div style={{width:'60%' , display:'flex',flexDirection:'column',justifyContent:'space-between',height:'690px'}}>
+        <div style={{width:'60%' , display:'flex',flexDirection:'column',justifyContent:'space-between',height:'715px'}}>
         <div className="dashboardgra">
           <div className="dashboardgraph1">
             <div className="graph1details">
@@ -247,7 +280,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
                 <div
                   className="pointdetailcolor"
                 >
-                  2567
+                  {average}
                 </div>
               </div>
               <div className="totalrewardpoint">
@@ -264,11 +297,11 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
                 <div
                  className="pointdetailcolor"
                 >
-                  1500
+                 {RP}
                 </div>
               </div>
               <p></p>
-              <button className="position">Position#145/240</button>
+              <button className="position">Position#{position}/{count}</button>
             </div>
           </div>
           
@@ -289,22 +322,22 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
           <div className="rpline">
             <PenaltyCard
               bgColor="#4318FF"
-              points="RP 2238"
+              points={total}
               name="Total Points"
             />
             <PenaltyCard
               bgColor="#01B574"
-              points="RP 1274"
+              points={balance}
               name="Balance Points"
             />
             <PenaltyCard
               bgColor="#FF975C"
-              points="RP 1903"
+              points={redeemed}
               name="Redeemed Points"
             />
             <PenaltyCard
               bgColor="#F65656"
-              points="RP 0000"
+              points={penalty}
               name="Penalties Points"
             />
           </div>
@@ -382,33 +415,8 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
         </div>
       </div>
 
-      {showNotifications && (
-        <div className="l">
-          <div className="logs-popup">
-            <div>
-              <div className="noti1">
-                <div className="logs">Logs </div>
-                <div className="bellicon">
-                  <FaRegBell />{" "}
-                </div>
-              </div>
-              <div style={{justifyContent:'center',display:'flex'}}>
-              <div className="search-bar">
-              <div style={{marginTop:'2px',color: '#2B3674',fontSize:'12px',alignSelf:'center'}}><FaSearch /></div>
-              <input type="text" placeholder="Search" className="bar"/>
-              </div>
-              </div>
-              <div className='notilist'>
-                <div className='notiitems'> </div>
-                <div className='notiitems'> </div>
-                <div className='notiitems'> </div>
-                <div className='notiitems'> </div>
-                <div className='notiitems'> </div>
-                <div className='notiitems'> </div>
-              </div>
-            </div>
-    </div>
-        </div>
+      {showNotifications && ( <Notification></Notification>
+       
       )}
 
 

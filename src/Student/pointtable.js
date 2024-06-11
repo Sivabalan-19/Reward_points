@@ -2,7 +2,7 @@
 import React, { useState,setState } from "react";
 import { useMemo, useEffect } from "react";
 import axios from "axios";
-import Table from "./tableButton"
+import Table from "../component/tableButton"
 import { IoMoon } from "react-icons/io5";
 import { MdLightMode, MdOutlineAccountTree } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
@@ -16,6 +16,7 @@ import {
 } from "react-icons/md";
 import { Divider } from "@mui/material";
 import { FaRegBell , FaSearch } from "react-icons/fa";
+import Notification from "./notification";
   const PointContainer = ({ darkMode, toggleDarkMode }) => {
     const [showNotifications, setShowNotifications] = useState(false);
 
@@ -27,36 +28,25 @@ import { FaRegBell , FaSearch } from "react-icons/fa";
             accessor: "sno"
           },
           {
-            // first group - TV Show
             Header: "Date",
             accessor: "Date",
-         
-            // First group columns
           },
           {
-            // Second group - Details
             Header: "Activity_name",
             accessor: "Activity_name",
-    
           },
           {
-            // Second group - Details
             Header: "Activity_code",
             accessor: "Activity_code",
-    
           },
           {
-            // Second group - Details
             Header: "Activity_type",
             accessor: "Tpye",
-    
           },
          
           {
-            // Second group - Details
             Header: "Activity Category",
             accessor: "Activity_type",
-    
           },
           {
             // Second group - Details
@@ -65,15 +55,9 @@ import { FaRegBell , FaSearch } from "react-icons/fa";
     
           },
           {
-            // first group - TV Show
             Header: "Organiser",
             accessor: "Organier",
-         
-            // First group columns
           },
-         
-         
-         
         
         ],
         []
@@ -122,32 +106,7 @@ import { FaRegBell , FaSearch } from "react-icons/fa";
     </div>
 
     {showNotifications && (
-        <div className="l">
-          <div className="logs-popup">
-            <div>
-              <div className="noti1">
-                <div className="logs">Logs </div>
-                <div className="bellicon">
-                  <FaRegBell />{" "}
-                </div>
-              </div>
-              <div style={{justifyContent:'center',display:'flex'}}>
-              <div className="search-bar">
-              <div style={{marginTop:'2px',color: '#2B3674',fontSize:'12px',alignSelf:'center'}}><FaSearch /></div>
-              <input type="text" placeholder="Search" className="bar"/>
-              </div>
-              </div>
-              <div className='notilist'>
-                <div className='notiitems'> </div>
-                <div className='notiitems'> </div>
-                <div className='notiitems'> </div>
-                <div className='notiitems'> </div>
-                <div className='notiitems'> </div>
-                <div className='notiitems'> </div>
-              </div>
-            </div>
-    </div>
-        </div>
+        <Notification></Notification>
       )}
     </div>
   )

@@ -250,6 +250,7 @@
   }
   .dashboardgra
   {
+    height: 52%;
     border-radius: 20px;
     background-color: #FFFFFF;
     padding: 2%;
@@ -362,12 +363,13 @@
   
   /* notification */
   .logs-popup {
-    position:absolute ;
+    position:absolute ; 
     top: 10%;
     left: 42%;
     width:23%;
     height: 80%;
     background: #FDFDFD;
+    /* background-color: red; */
     border: 1px solid none;
     border-radius: 8px;
   }
@@ -433,18 +435,54 @@
   }
 
   .notilist{
-    margin: 20px 20px;
+    /* background-color: #0B1437; */
     padding: 20px 20px;
     gap: 30px;
     display: block;
     overflow-y: scroll;
-    height: 400px;
+    height: 530px;
   }
 
   .notiitems{
-    padding: 40px 40px;  
-    background-color: #F4F7FE;  
-    margin-top: 20px;
+    height: 50px;
+    width: 100%;
+    background-color: #9e9898;
+    justify-content: space-between;
+    display: flex;
+    overflow: hidden;    
+  }
+
+  .photoss{
+    height: 100%;
+    width: 20%;
+    /* background-color: white; */
+  }
+
+  .notimes{
+    display: flex;
+    flex-direction: column;
+    /* background-color: #0033ff; */
+    width: 54%;
+    height: 100%;
+    align-items: start;
+    justify-content: space-between;
+  }
+
+  .notipop{
+    height: 100%;
+    width: 20%;
+    /* background-color: white; */
+  }
+
+  .impname{  
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .impname1{  
+    font-size: 13px;
+    font-weight: 600;
+    color: #A3AED0;
   }
 
   .notilist::-webkit-scrollbar {
@@ -491,7 +529,7 @@
   {
     height: 100%;
     background-color: #FDFDFD;
-    width: 38.104167%; /* 578px/1920 */
+    width: 38.104167%;
     border-radius: 20px;
     color: #2B3674;
   }
@@ -608,7 +646,7 @@
 
   .r Table{
     width: 80%;
-    margin-top: 16px;
+    margin-top: 6px;
   }
 
   .dark-mode .rightside

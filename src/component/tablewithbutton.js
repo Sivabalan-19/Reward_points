@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import Eventinfo from "./firsttwopage/Eventregister";
+import Eventinfo from "../Student/Eventregister";
 import axios from "axios";
 import Dialog from '@mui/material/Dialog';
 import Table from "./tableButton"
@@ -7,6 +7,7 @@ import { IoMoon } from "react-icons/io5";
 import { MdLightMode, MdNotificationsNone } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaRegBell, FaSearch } from "react-icons/fa";
+import Notification from "../Student/notification";
 
 const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -112,38 +113,11 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
       </div>
 
       {showNotifications && (
-        <div className="l">
-          <div className="logs-popup">
-            <div>
-              <div className="noti1">
-                <div className="logs">Logs</div>
-                <div className="bellicon">
-                  <FaRegBell />
-                </div>
-              </div>
-              <div style={{ justifyContent: 'center', display: 'flex' }}>
-                <div className="search-bar">
-                  <div style={{ marginTop: '2px', color: '#2B3674', fontSize: '12px', alignSelf: 'center' }}>
-                    <FaSearch />
-                  </div>
-                  <input type="text" placeholder="Search" className="bar" />
-                </div>
-              </div>
-              <div className='notilist'>
-                <div className='notiitems'></div>
-                <div className='notiitems'></div>
-                <div className='notiitems'></div>
-                <div className='notiitems'></div>
-                <div className='notiitems'></div>
-                <div className='notiitems'></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Notification></Notification>
       )}
 
       <Dialog  open={showEventRegister} onClose={formClose}>
-        <Eventinfo detail={data} id={eventData} onDeleteRow={(id) => handleDeleteRow(id)}/>
+        <Eventinfo detail={data} id={eventData} onDeleteRow={(id) => handleDeleteRow(id) } onc={formClose}/>
       </Dialog>
     </div>
   );

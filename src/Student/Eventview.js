@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../component/Eventmasters.css';
+import './Eventmasters.css';
 
 
     function Eventview(props) {
@@ -23,7 +23,7 @@ import '../../component/Eventmasters.css';
              
              <div className='myeventtitle'>
                 <div className='myeventtit'>Event Details :</div>
-                <div><button className='cross'><i className="fa-solid fa-xmark"></i></button></div>
+                <div><button className='cross close-button' onClick={props.onc}><i className="fa-solid fa-xmark"></i></button></div>
         </div>
                  <div className="activity-info">
                      <div className="info-row"> 

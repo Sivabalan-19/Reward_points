@@ -4,7 +4,10 @@
     align-items: center;
     width: 100%;
   }
-
+.close-button{
+  border: none;
+  background-color: transparent;
+}
   .Dash-em{
     margin-left: 2%;
     font-size: 28px;
@@ -204,7 +207,7 @@
   }
   
   .eventinfobox {
-    width: 100%;
+    width: 600px;
     padding-bottom: 20px;
   }
   
@@ -335,7 +338,7 @@
     border: none;
     margin-top: 5.083333%; /* Responsive margin */
     border-radius: 10px; /* Responsive border-radius */
-    padding: 1.641667% 18.680556%; 
+    padding: 2.641667% 20.680556%; 
     cursor: pointer;  /* Responsive padding */
   }
   
