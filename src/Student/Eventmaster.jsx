@@ -15,10 +15,11 @@
     MdOutlineLightMode,
     MdDarkMode,
   } from "react-icons/md";
-  import { Divider } from "@mui/material";
+  import { Divider, colors } from "@mui/material";
   import { FaRegBell , FaSearch } from "react-icons/fa";
   import Eventview from "./Eventview";
 import Notification from "./notification";
+import { format } from 'date-fns';
     const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
       const [showEventRegister, setShowEventRegister] = useState(false);
       const [data, setData] = useState([]);
@@ -51,6 +52,10 @@ import Notification from "./notification";
               // first group - TV Show
               Header: "Date",
               accessor: "Date",
+              
+        Cell: ({ cell: { value } }) => (
+          <span>{format(new Date(value), 'yyyy-MM-dd')}</span>
+        )
           
               // First group columns
             },
@@ -88,8 +93,16 @@ import Notification from "./notification";
             },
             {
               // first group - TV Show
-              Header: "available",
-              accessor: "seat",
+              Header: "Status",
+              accessor: "status", 
+              Cell: ({ cell: { value } }) => (
+    
+                <div style={{display:'flex'}}>
+                <span >{value ==1 ?<div style={{color:'green'}}> NOT STARTED</div>:<div style={{color:'red'}}>{value==2} upcomming </div>}</span>
+                <span></span>
+              </div>
+              )
+
           
               // First group columns
             },
@@ -114,7 +127,8 @@ import Notification from "./notification";
             try {
               const response = await axios.get("http://localhost:2500/register");
               // Assuming your data has an 'id' field, otherwise, adjust accordingly
-              setData(response.data.message.map((row, index) => ({ ...row, sno: index + 1 })));
+              const reversedData = response.data.message.reverse().map((row, index) => ({ ...row, sno: index + 1 }));
+              setData(reversedData);
             } catch (error) {
               console.error("Error fetching data:", error);
             }

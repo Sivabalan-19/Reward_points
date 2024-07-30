@@ -1,0 +1,132 @@
+.pop
+{
+  height: 100%;
+  width: 100%;
+  background-color: #F65656;
+}
+
+.popcr
+{
+  height: 100%;
+  width: 100%;
+  background-color: #01B574;
+}
+
+.popupmainbox
+{
+  width: 98%;
+  height: 100%;
+  background-color: #FDFDFD;
+}
+
+.crossineventpop
+{
+  display: flex;
+  width: 96%;
+  padding-top: 10px;
+  font-size: 25px;
+  justify-content: flex-end;
+}
+
+.eventstat
+{
+  font-weight: bold;
+  text-align: center;
+  font-size: 30px;
+}
+
+.eventpopicon
+{
+  background-color: #01B574;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.eventpopicon-trash
+{
+  background-color: #F65656;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.chekck
+{
+  color: #FDFDFD;
+  font-size: 60px;
+  padding-top: 10px;
+  padding-left: 5px;
+}
+
+.descrpop
+{
+  text-align: justify;
+  font-size: 23px;
+}
+
+.popupinfo
+{
+  /* background-color: yellow; */
+  display: flex;
+  justify-content: center;
+}
+
+.dark-mode .popupmainbox
+{
+  background-color: #1A1D26;
+  color: #FEFCF8 ;
+}
+.dark-mode i{
+  color: #FEFCF8;
+}
+
+
+.trashbuttondiv
+{
+  width: 100%;
+  height: 20%;
+  color: #FDFDFD;
+  justify-content: space-evenly;
+  align-items: center;
+  display: flex;
+}
+
+.nocontiuebut
+{
+  background-color: #4318FF;
+  border: none;
+  height: 100%;
+  color: #FDFDFD;
+  border-radius: 10px;
+  font-weight: bold;
+  width:70%;
+}
+
+.trashreqbut
+{
+  background-color: #F65656;
+  border: none;
+  height: 100%;
+  width: 70%;
+  border-radius: 10px;
+
+  color: #FDFDFD;
+  font-weight: bold;
+}
+
+
+.poptrashdivstyle
+{
+  height: 60%;
+  width: 50%;
+  justify-content: center;
+  display: flex;
+}
+

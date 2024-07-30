@@ -1,25 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../Student/Dashboard.css';
 import { IoMdHome } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { TbLogin2 } from "react-icons/tb";
+import '../Student/Dashboard.css';
 import { MdOutlineEditCalendar } from "react-icons/md";
 import { MdOutlineBarChart } from "react-icons/md";
-import photo from '../assets/photo1.png';
+import photo from '../assets/photo1.png'
+import { useAuth } from '../AuthContext';
 
 const Sidebar = ({ darkMode }) => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   const [activeItem, setActiveItem] = useState('Dashboard');
   const [linePosition, setLinePosition] = useState(0);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const itemRefs = useRef([]);
-  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('activeItem');
+    localStorage.removeItem('linePosition');
+    logout();
+  };
 
   const handleItemClick = (item, index) => {
     setActiveItem(item);
     const itemOffsetTop = itemRefs.current[index].offsetTop;
     const dropdownOffset = dropdownVisible && (item === 'Event Masters' || item === 'My Events') ? itemRefs.current[2].offsetTop : 0;
     setLinePosition(itemOffsetTop + dropdownOffset);
-    
+
+    localStorage.setItem('activeItem', item);
+    localStorage.setItem('linePosition', itemOffsetTop + dropdownOffset);
+
     if (item === 'Event Register') {
       setDropdownVisible(!dropdownVisible);
     } else {
@@ -37,7 +48,6 @@ const Sidebar = ({ darkMode }) => {
       case 'Event Register':
         // The dropdown visibility is handled separately
         break;
-
       case 'My Events':
         navigate('/dashboard/my-events');
         break;
@@ -45,7 +55,7 @@ const Sidebar = ({ darkMode }) => {
         navigate('/dashboard/event-masters');
         break;
       case 'Sign-Out':
-        navigate('/');
+        handleLogout();
         break;
       default:
         break;
@@ -53,14 +63,22 @@ const Sidebar = ({ darkMode }) => {
   };
 
   useEffect(() => {
-    setLinePosition(itemRefs.current[0].offsetTop);
+    const savedLinePosition = parseFloat(localStorage.getItem('linePosition'));
+    const savedActiveItem = localStorage.getItem('activeItem');
+
+    if (savedLinePosition && savedActiveItem) {
+      setLinePosition(savedLinePosition);
+      setActiveItem(savedActiveItem);
+    } else {
+      setLinePosition(itemRefs.current[0].offsetTop);
+    }
   }, []);
 
   return (
     <div className={`Sidebar ${darkMode ? 'dark-mode' : ''}`}>
       <div className="Sidehead">
         <div className="Reward">REWARD&nbsp;</div>
-        <div className="points">POINTS </div>
+        <div className="points">POINTS</div>
       </div>
       <div className="line" style={{ top: linePosition }}></div>
       <div
@@ -112,11 +130,7 @@ const Sidebar = ({ darkMode }) => {
       <div className="photo1">
         <img src={photo} alt="photo1" style={{ maxWidth: '82.7%', maxHeight: '20.3%' }} />
       </div>
-      <div
-        ref={el => itemRefs.current[5] = el}
-        className={`Signout ${activeItem === 'Sign-Out' ? 'active' : ''}`}
-        onClick={() => handleItemClick('Sign-Out', 5)}
-      >
+      <div className="Signout" onClick={handleLogout}>
         <TbLogin2 className="icon" />&ensp;Sign-Out
       </div>
     </div>

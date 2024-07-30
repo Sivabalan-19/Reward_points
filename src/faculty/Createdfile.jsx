@@ -1,0 +1,45 @@
+import React from 'react'
+import { FaCheck } from "react-icons/fa6";
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+
+function Created({ open, onClose }) {
+  return (
+    <Dialog
+    open={open}
+    onClose={onClose}
+    maxWidth="sm" // Set maxWidth to small to further control the width
+    fullWidth
+    sx={{
+      '& .MuiPaper-root': {
+        width: '600px', // Set custom width here
+      },
+    }}
+  >
+      <div className='popcr'  style={{display:'flex', justifyContent:'flex-end' }}>
+      <div className='popupmainbox'>
+        <div style={{ textAlign: 'center', padding: '20px' }}>
+          <div style={{ fontSize: '20px', fontWeight: 'bold' }}>Event created Successfully</div>
+          <div style={{padding:'25px 0px', justifyContent:'center',display:'flex'}}>
+              <div className='eventpopicon'>
+                <div className='chekck' ><FaCheck />
+                </div>
+              </div>
+          </div>
+          <div style={{ padding: '20px 0px' }}>
+            Don’t forget to check the <br />
+            MY EVENTS page for regular Updates
+          </div>
+        </div>
+        </div>
+      </div>
+      {/* <DialogActions>
+        <Button onClick={onClose} color="primary">OK</Button>
+      </DialogActions> */}
+    </Dialog>
+  );
+}
+
+export default Created;

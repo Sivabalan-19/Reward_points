@@ -1,13 +1,15 @@
 const express=require('express')
 const path=require('path')
 var mysql = require('mysql');
+const multer= require('multer')
 const app=express();
 const corps=require('cors');
+const { CONNREFUSED } = require('dns');
 var id=1;
-
+var name="hi"
 app.use(express.json())
 app.use(corps())
-
+app.use(express.static("public"))
 var content=["Technical_event","Skill","Assignment","Interview","Technical_society_Activity","Product","TAC","Special_Lab_Initiatives","Extra_Curricular_Activities_times","External_events"]
 var con = mysql.createConnection(
     {
@@ -20,35 +22,52 @@ var con = mysql.createConnection(
     if (err) throw err;
     console.log("Connected!");
   });  
+  const fs = require('fs');
+
+  const Sto = multer.diskStorage({
+    destination: (req, file, cb) => {
+      const destPath = path.join(__dirname, 'public/images');
+      if (!fs.existsSync(destPath)) {
+        fs.mkdirSync(destPath, { recursive: true });
+      }
+      cb(null, destPath);
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
+    }
+  });
+  
+const upload=multer({storage:Sto})
+app.post('/upload',upload.single('image'),function(req,res){
+  const eventId = req.body.eventId;
+  const image = req.file.filename;
+ console.log()
+  const sql = 'UPDATE POINTS_COLLECTED_COPY SET document = ? WHERE Activity_name = ?';
+  const values = [image, eventId];
+  console.log("HI")
+  con.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Error saving data to the database:', err);
+      return res.status(500).send('Error saving data to the database.');
+    }
+    res.status(200).send('File uploaded and data saved successfully.');
+    console.log("HI")
+  });
+});
+  app.post('/addevents', function(req, res){
+    var event;
+    var eventdata = req.body.eventdata;
+
+    if(eventdata.rewardmode){
+      event="reward"
+    }else{
+      event="honour"
+    }
 
 
-//   app.post('/addevents', function(req, res){
-//     const sql = `
-//     INSERT INTO points_collected_copy (
-//       StartDate, 
-//       Activity_code, 
-//       Activity_name, 
-//       Activity_type, 
-//       Activity_category, 
-//       points, 
-//       Organizer, 
-//       Availability, 
-//       registered, 
-//       status, 
-//       duration, 
-//       description, 
-//       EndDate, 
-//       start_bigintscheduling, 
-//       end_bigintscheduling, 
-//       No_of_students_expected
-//     ) VALUES (
-//       ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-//     )
-//   `;
-//     console.query(sql,[req.body.],function (err, result){
-
-//     },)}
-// );
+    con.query(`INSERT INTO POINTS_COLLECTED_COPY (Activity_code,Activity_name,Activity_type,Activity_category,points,Organizer,Availability,description,No_of_students_expected,faculty_id) VALUES ("${eventdata.eventName}","${eventdata.eventName}","${eventdata.selectedType}","${event}",${eventdata.maxPoints},"${name}",${eventdata.noOfStudents},"${eventdata.eventDetails}",${eventdata.noOfStudents},${id})`)
+  }
+);
 app.get("/notifications",function (req, res){
 con.query("SELECT Activity_type,Activity_name,'Event Registered' AS source_table FROM points_collected_copy pc JOIN Registered_Events re ON pc.Event_id = re.Event_id WHERE re.user_id = "+id+" Union All SELECT Activity_type,Activity_name,'RP ADDED' AS source_table FROM points_collected ecs JOIN points_collected_copy pcc ON ecs.event_id = pcc.Event_id WHERE ecs.user_id ="+id,function(err,result){
   res.send({message:result});
@@ -65,7 +84,7 @@ con.query("WITH RankedStudents AS ( SELECT user_id, total, ROW_NUMBER() OVER (OR
 app.get("/rectangle",function(req,res){
 
   con.query("SELECT * FROM student_rp_gatered where user_id="+id,function(err,result){
-    console.log(result);
+
     res.send({message:result});
 
   })
@@ -75,13 +94,19 @@ app.get("/rectangle",function(req,res){
     var iD=req.body.id;
 
     con.query("INSERT INTO `Registered_Events` (`user_id`, `Event_id`) VALUES("+id+","+iD+")",function (err, result) {
+      con.query("UPDATE `POINTS_COLLECTED_COPY` SET `Availability` = `Availability` - 1 WHERE `Event_id` ="+iD,function (err, result) {
  
-      res.send("success!");
-    })});
+        res.send("success!");
+      })
+    })
+    
+  
+  });
   app.post('/',function(req,res){
     
       var pass=req.body.userpassword;
-
+      name=req.body.username
+     
       con.query("SELECT userpassword,position,user_id FROM login where username='"+req.body.username+"'",function (err, result) {
 
         if(Object.keys(result).length==0){
@@ -101,6 +126,30 @@ app.get("/rectangle",function(req,res){
           }
     });
       })
+      app.post('/email',function(req,res){
+    
+        var email=req.body.email;
+       
+       
+        con.query("SELECT userpassword,position,user_id FROM login where email='"+email+"'",function (err, result) {
+  
+          if(Object.keys(result).length==0){
+            res.send({message : 'not successful'});
+         
+          }
+           
+          else if(true)
+            {
+              id=result[0].user_id;
+         
+           
+              res.send({message : 'success',position:result[0].position});
+            }
+            else{
+              res.send({message : 'not successful'});
+            }
+      });
+        })
   app.get("/rewardtable", function(req, res) {
     var detai=[]
     
@@ -130,8 +179,8 @@ app.get("/rectangle",function(req,res){
     })
     app.get("/pointtable", function(req, res) {
       var detai=[]
-        con.query("SELECT pc.* FROM points_collected_copy pc LEFT JOIN Registered_Events re ON pc.Event_id = re.Event_id AND re.user_id = "+id+" WHERE re.user_id IS NULL;", function(err,result) {
-          result.forEach((r)=>{
+        con.query("SELECT pc.* FROM points_collected_copy pc LEFT JOIN Registered_Events re ON pc.Event_id = re.Event_id AND re.user_id = "+id+" WHERE re.user_id IS NULL  AND pc.Availability > 0 ", function(err,result) {
+          result.forEach((r)=>{ 
            
             detai.push({
               "id":r.Event_id,
@@ -143,7 +192,8 @@ app.get("/rectangle",function(req,res){
               "points":r.points,
               "Organier":r.Organizer,
               "seat":r.Availability,
-              "descr":r.description
+              "descr":r.description,
+              
             })
           });  
    
@@ -165,13 +215,22 @@ app.get("/rectangle",function(req,res){
                 "points":r.points,
                 "Organier":r.Organizer,
                 "seat":r.Availability,
-                "descr":r.description
+                "descr":r.description,
+                "status":r.status
               })
             });  
         
             res.send({message: detai}); 
         })
         })
+        app.get("/r", function(req, res) {
+          var detai=[]
+         
+            con.query("SELECT pc.* FROM points_collected_copy pc WHERE pc.faculty_id = "+id , function(err,result) {
+          
+              res.send({message: result}); 
+          })
+          })
       app.get("/detailer", function(req, res) {
         var detai=[]
           con.query("SELECT ecs.*, pcc.* FROM points_collected ecs JOIN points_collected_copy pcc ON ecs.event_id = pcc.Event_id WHERE ecs.user_id ="+id, function(err,result) {
@@ -242,7 +301,7 @@ app.get("/rectangle",function(req,res){
       con.query("SELECT * FROM mark_distributed where user_id ="+id, function(err,result){
        
         result.forEach((r)=>{
-              console.log(r)
+         
                 ip1_ta=r.ip1+ip1_ta;
                 ip2_ta=r.ip2+ip2_ta;
                 overall_ta=r.ip1+r.ip2+overall_ta;

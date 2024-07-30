@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './component/Aside';
 import Login from './component/Login';
 import DashboardLayout from './Student/DashboardLayout';
 import Table2 from './Student/Eventmaster';
 import './App.css';
+import Faculty_DashboardLayout from './faculty/Faculty_dashboardlayout';
+import ProtectedRoute from './ProtectedRoute';
+import { AuthProvider } from './AuthContext';
+import Error404 from './Error404';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   localStorage.setItem("index", 0);
+
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -23,15 +28,31 @@ function App() {
 
   return (
     <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/dashboard/*" element={<DashboardLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} /> 
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route 
+              path="/faculty/*" 
+              element={
+                <ProtectedRoute>
+                  <Faculty_DashboardLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+              </ProtectedRoute>} 
+            /> 
+            <Route 
+              path="/dashboard/*" 
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+                </ProtectedRoute>
+              } 
+            /> 
+            <Route path="*" element={<Error404></Error404>} />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </div>
   );
 }
 
 export default App;
-

@@ -8,7 +8,7 @@ export default function Notification() {
       (async () => {
         const result = await axios("http://localhost:2500/notifications");
   
-        setData(result.data.message);
+        setData(result.data.message.reverse());
       })();
     }, []);
     console.log(data1);

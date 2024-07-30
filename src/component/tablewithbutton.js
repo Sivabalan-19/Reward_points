@@ -8,7 +8,7 @@ import { MdLightMode, MdNotificationsNone } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaRegBell, FaSearch } from "react-icons/fa";
 import Notification from "../Student/notification";
-
+import { format } from 'date-fns';
 const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showEventRegister, setShowEventRegister] = useState(false);
@@ -32,13 +32,16 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
   const columns = useMemo(
     () => [
       { Header: "SNO", accessor: "sno" },
-      { Header: "Date", accessor: "Date" },
+      { Header: "Date", accessor: "Date",
+        Cell: ({ cell: { value } }) => (
+          <span>{format(new Date(value), 'yyyy-MM-dd')}</span>
+        ) },
       { Header: "Activity_name", accessor: "Activity_name" },
       { Header: "Activity_code", accessor: "Activity_code" },
       { Header: "Activity Category", accessor: "Activity_type" },
       { Header: "Points", accessor: "points" },
       { Header: "Organiser", accessor: "Organier" },
-      { Header: "available", 
+      { Header: "seat", 
         accessor: "seat" ,
         Cell: ({ cell: { value } }) => {
           
@@ -73,7 +76,8 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:2500/pointtable");
-        setData(response.data.message.map((row, index) => ({ ...row, sno: index + 1 })));
+        const reversedData = response.data.message.reverse().map((row, index) => ({ ...row, sno: index + 1 }));
+        setData(reversedData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

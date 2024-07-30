@@ -6,6 +6,7 @@ import Table from "../component/tableButton"
 import { IoMoon } from "react-icons/io5";
 import { MdLightMode, MdOutlineAccountTree } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
+import { format } from 'date-fns';
 import {
   MdOutlineAddAlert,
   MdBarChart,
@@ -30,6 +31,10 @@ import Notification from "./notification";
           {
             Header: "Date",
             accessor: "Date",
+            
+        Cell: ({ cell: { value } }) => (
+          <span>{format(new Date(value), 'yyyy-MM-dd')}</span>
+        )
           },
           {
             Header: "Activity_name",
@@ -69,7 +74,9 @@ import Notification from "./notification";
           try {
             const response = await axios.get("http://localhost:2500/detailer");
             // Assuming your data has an 'id' field, otherwise, adjust accordingly
-            setData(response.data.message.map((row, index) => ({ ...row, sno: index + 1 })));
+           
+            const reversedData = response.data.message.reverse().map((row, index) => ({ ...row, sno: index + 1 }));
+        setData(reversedData);
           } catch (error) {
             console.error("Error fetching data:", error);
           }

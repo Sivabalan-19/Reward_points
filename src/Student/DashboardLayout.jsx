@@ -7,6 +7,8 @@ import PointContainer2 from '../component/tablewithbutton';
 import PointContainer from './pointtable';
 import Table2 from './Eventmaster';
 import Eventinfo from './Eventregister';
+import EventRequest from '../faculty/EventRequest';
+import Asidefalculti from '../faculty/FacultyLogin';
 
 const DashboardLayout = ({ darkMode, toggleDarkMode }) => (
   <div className={`main ${darkMode ? 'dark-mode' : ''}`}>
