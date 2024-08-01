@@ -82,7 +82,7 @@ const RevieW = ({ goToPreviousPage }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:2500/r");
+        const response = await axios.get(process.env.REACT_APP_API_URL+"r");
         console.log(response)
         const reversedData = response.data.message.reverse().map((row, index) => ({ ...row, sno: index + 1 }));
         setData(reversedData);
@@ -96,7 +96,7 @@ const RevieW = ({ goToPreviousPage }) => {
 
   const handleDeleteRow = async (id) => {
     setshowregister(!showregister);
-    await axios.post('http://localhost:2500/changeregister', { id });
+    await axios.post(process.env.REACT_APP_API_URL+'changeregister', { id });
   };
 
   return (

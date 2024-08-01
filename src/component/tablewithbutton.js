@@ -75,7 +75,7 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:2500/pointtable");
+        const response = await axios.get(process.env.REACT_APP_API_URL+"pointtable");
         const reversedData = response.data.message.reverse().map((row, index) => ({ ...row, sno: index + 1 }));
         setData(reversedData);
       } catch (error) {
@@ -89,7 +89,7 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
 
 
   const handleDeleteRow = async (id) => {
-    const response = await axios.post('http://localhost:2500/changeregister', { id });
+    const response = await axios.post(process.env.REACT_APP_API_URL+'changeregister', { id });
     setData((prevData) => prevData.filter((row) => row.id !== id));
     setShowEventRegister(false);
     setEventData(null);

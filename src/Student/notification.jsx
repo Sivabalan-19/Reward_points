@@ -6,7 +6,7 @@ export default function Notification() {
     const [data1, setData] = useState([]);
     useEffect(() => {
       (async () => {
-        const result = await axios("http://localhost:2500/notifications");
+        const result = await axios(process.env.REACT_APP_API_URL+"notifications");
   
         setData(result.data.message.reverse());
       })();

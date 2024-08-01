@@ -72,7 +72,7 @@ import Notification from "./notification";
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get("http://localhost:2500/detailer");
+            const response = await axios.get(process.env.REACT_APP_API_URL+"detailer");
             // Assuming your data has an 'id' field, otherwise, adjust accordingly
            
             const reversedData = response.data.message.reverse().map((row, index) => ({ ...row, sno: index + 1 }));
@@ -87,7 +87,7 @@ import Notification from "./notification";
       console.log(data);
       const handleDeleteRow = async(id) => {
         setshowregister(!showregister)
-        const response=await axios.post('http://localhost:2500/changeregister', {
+        const response=await axios.post(process.env.REACT_APP_API_URL+"changeregister", {
           id: id,
      
         })

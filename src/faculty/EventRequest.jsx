@@ -6,6 +6,12 @@ import '../Student/Dashboard.css'
 function EventRequest() {
   const [currentPage, setCurrentPage] = useState(1);
   const [file,setfile]=useState()
+  const [rows, setRows] = useState([
+    { id: 1, name: 'Abcd', maxMarks: 20 },
+    { id: 2, name: 'Abcd', maxMarks: 20 },
+    { id: 2, name: 'Abcd', maxMarks: 20 },
+  ]);
+
   let currentTime = new Date();
   const initialFormData = {
     EventType: '',
@@ -33,7 +39,7 @@ function EventRequest() {
   const handleImageSubmit = async(event) => {
     
   
-    const response=await axios.post('http://localhost:2500/upload', formdata)    
+    const response=await axios.post(process.env.REACT_APP_API_URL+'upload', formdata)    
   }
 
   const handlefile=(e)=>{
@@ -72,7 +78,7 @@ function EventRequest() {
   const handleSubmit = async(event) => {
     
   
-    const response=await axios.post('http://localhost:2500/addevents', {
+    const response=await axios.post(process.env.REACT_APP_API_URL+'addevents', {
       eventdata: formData,
     
      
@@ -89,6 +95,8 @@ function EventRequest() {
           formData={formData}
           handleFormDataChange={handleFormDataChange}
           handDelete={handleDelete}
+          rows={rows}
+          setRows={setRows}
         />
       )}
       {currentPage === 2 && (

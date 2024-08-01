@@ -3,14 +3,14 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import Slide from '@mui/material/Slide';
-import Trash from './trash';
 import "./trash.css"
+import Rubics from '../component/Rubics';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Popup(props) {
+export default function Rubicspopup(props) {
   const [open, setOpen] = React.useState(true);
 
   const handleClose = () => {
@@ -38,14 +38,15 @@ export default function Popup(props) {
           },
           '& .MuiPaper-root': {
             width: '600px', // Set custom width if needed
-            height: '290px', // Set custom height if needed
+            height: '320px', // Set custom height if needed
           },
         }}
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogContent>
           
-            <Trash h={handleClose} handDelete={props.handDelete}/>
+            <Rubics h={handleClose} rows={props.row} setRows={props.setRows}/>
+        
         </DialogContent>
       </Dialog>
     </React.Fragment>

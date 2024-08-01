@@ -758,6 +758,11 @@
  color: #0B1437;
  font-weight: 600;
   }
+
+  .progressibar{
+    /* background-color: blue; */
+    margin-right: 30px;
+  }
   
   .inside-below-padding{
     /* background-color: pink; */
@@ -769,6 +774,7 @@
     color: #0B1437;
     font-weight: 600;
     font-size: 19px;
+    width: 20%;
   }
   
   .box-tt{
@@ -846,7 +852,39 @@
     color: #0B1437;
     font-size: 13px;
   }
+
+  .dropdown-select1-ry{
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .rubics-main{
+    /* background-color: #007bff; */
+    border: 1px solid gray;
+    font-size: 14px;
+    text-decoration: underline;
+    padding: 10px 60px;
+    border-radius: 4px;
+    color: #0522a7;
+    cursor: pointer;
+    text-align: center;
+  }
   
+ 
+  .progressibar[value="100"]::-webkit-progress-value {
+
+    border-radius: 50%;
+    border-color: red;
+  }
+  .progressibar
+  {
+    width: 100%;
+    height: 25%;
+  }
   .dropdown-select11 {
     width: 96%;
     padding: 10px;

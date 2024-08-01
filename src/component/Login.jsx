@@ -10,6 +10,8 @@ import { jwtDecode } from "jwt-decode";
 import { GoogleLogin,googleLogout } from '@react-oauth/google';
 import { useAuth } from '../AuthContext';
 function Login() {
+  const api= process.env.REACT_APP_API_URL
+  console.log(api)
   const { login } = useAuth();
   const clientId = '817763532692-mepg5s5h15m5vevuj9369nqtkqgc266f.apps.googleusercontent.com';
   const [inputs, setInputs] = useState({});
@@ -19,7 +21,7 @@ function Login() {
   const handleSubmit = async (event) => {
    
     try {
-      const response = await axios.post('http://localhost:2500/', {
+      const response = await axios.post(api, {
         username: inputs.username,
         userpassword: inputs.password
       });
@@ -29,7 +31,7 @@ function Login() {
       fakeToken = '1234567890';
       login(fakeToken);
       navigate('/dashboard');
-        navigate('/dashboard');
+        
       } else if (response.data.message === 'success' && response.data.position === 2) {
         fakeToken = '1234';
         login(fakeToken);
@@ -51,7 +53,7 @@ function Login() {
     }
   
     try {
-      const response = await axios.post('http://localhost:2500/email', {
+      const response = await axios.post(api+"email", {
         email: userData.email,
       });
       

@@ -8,7 +8,7 @@ function Reportstatus({ detail, id }) {
   useEffect(() => {
     const handleSubmit = async () => {
       try {
-        const response = await axios.post('http://localhost:2500/r', {
+        const response = await axios.post(process.env.REACT_APP_API_URL+'r', {
           id: id
         });
         setFormData(response.data.message[0]);

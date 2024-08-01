@@ -176,7 +176,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
  
   useEffect(() => {
     (async () => {
-      const result = await axios("http://localhost:2500/bar");
+      const result = await axios(process.env.REACT_APP_API_URL+"bar");
       console.log(result.data.message[0].AverageRP);
       setaverage(result.data.message[0].AverageRP);
       setRP(result.data.message[0].TotalRP);
@@ -186,7 +186,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
   }, []);
   useEffect(() => {
     (async () => {
-      const result = await axios("http://localhost:2500/rectangle");
+      const result = await axios(process.env.REACT_APP_API_URL+"rectangle");
       settotal(result.data.message[0].total);
       setbalance(result.data.message[0].balance);
       setredeemed(result.data.message[0].redeemed);
@@ -197,20 +197,20 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
   // Using useEffect to call the API once mounted and set the data
   useEffect(() => {
     (async () => {
-      const result = await axios("http://localhost:2500/rewardtable");
+      const result = await axios(process.env.REACT_APP_API_URL+"rewardtable");
 
       setData(result.data.message);
     })();
   }, []);
   useEffect(() => {
     (async () => {
-      const result=await axios("http://localhost:2500/rewarddistributed");
+      const result=await axios(process.env.REACT_APP_API_URL+"rewarddistributed");
       setData2(result.data.message);
     })();
   }, []);
   useEffect(() => {
     (async () => {
-      const result=await axios("http://localhost:2500/rewardinternal");
+      const result=await axios(process.env.REACT_APP_API_URL+"rewardinternal");
       setData3(result.data.message);
     })();
   }, []);
@@ -223,13 +223,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
       <div className="header1">
         <div className="Dash"> Dashboard </div>
         <div className="theme">
-          <div className="noti" onClick={
-            
-            () => {
-              
-              
-              
-              setShowNotifications(!showNotifications)}} >
+          <div className="noti" onClick={() => {setShowNotifications(!showNotifications)}} >
             <MdNotificationsNone />
           </div>
           <div className="light" onClick={toggleDarkMode}>

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { MdNotificationsNone, MdLightMode, MdDarkMode } from "react-icons/md";
 import { TbTrashXFilled } from "react-icons/tb";
 import Popup from './Popup.js';
-
-function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete }) {
+import Rubicspopup from './Rubicspopup.jsx';
+function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete ,rows,setRows}) {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showNotifications2, setShowNotifications2] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const handleSelectChange = (event) => {
@@ -62,8 +63,16 @@ function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete }) 
         <div className='below-header'>
           <div className='inside-below'>
             <div className='inside-below-padding'>
-              <div style={{ display: 'flex', width: '90%', height: '50px', alignItems: 'center' }}>
+              <div style={{ display: 'flex', width: '100%', height: '50px', alignItems: 'center' }}>
                 <div className='event-details'>EVENT DETAILS</div>
+                <div style={{width:'100%'}}>
+                <div style={{display:'flex',width:'100%',gap:'1%'}}>
+                  <div style={{width:'40%',borderRadius:'50%'}}><progress  value="100" max="100"  class="progressibar">  </progress></div>
+                  <div style={{width:'40%',borderRadius:'50%'}}><progress  value="0"  max="100" class="progressibar"> </progress></div>
+                </div>
+                <div style={{fontSize:'12px',color:'#0B1437',}}> step 1 of 2</div>
+                </div>
+
               </div>
               <div className='note'>Note</div>
               <div className='box-tt'>
@@ -112,7 +121,7 @@ function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete }) 
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label" >Mode of the Event *</label>
+                    <label className="form-label" >Mode of the Event <span className="required">*</span></label>
                     <div className="form-options">
                       <label className="form-row">
                         <div className='click--box'>
@@ -142,7 +151,7 @@ function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete }) 
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label">Activity Category *</label>
+                    <label className="form-label">Activity Category <span className="required">*</span></label>
                     <div className="form-options">
                       <label className="form-row" >
                         <div className='click--box'>
@@ -201,13 +210,14 @@ function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete }) 
                     />
                   </div>
 
+                  <div  style={{display:'flex',justifyContent:'space-between',width:'90%'}}>
                   <div className="dropdown-container">
                     <label htmlFor="max-points" className="dropdown-label">
-                      Maximum Reward Points
+                      Maximum Reward Points <span className="required">*</span>
                     </label>
                     <input
                       id="max-points"
-                      className="dropdown-select1"
+                      className="dropdown-select1-ry"
                       type='number'
                       value={formData.maxPoints}
                       onChange={(e) => handleFormDataChange({ maxPoints: e.target.value })}
@@ -217,8 +227,18 @@ function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete }) 
                   </div>
 
                   <div className="dropdown-container">
+                    <label htmlFor="max-points" className="dropdown-label"  >
+                      Rubics Sheet <span className="required">*</span>
+                    </label>
+                    <div className="rubics-main"  onClick={() => {
+                    setShowNotifications2(!showNotifications2)}} >view sheet</div>
+                  </div>
+                  </div>
+
+                  <div className="dropdown-container">
                     <label htmlFor="department-year" className="dropdown-label">
-                      Departments and Years (e.g., CSE 2nd Year)
+                      Departments and Years (e.g., CSE 2nd Year) <span className="required">*</span>
+
                     </label>
                     <input
                       id="department-year"
@@ -235,7 +255,7 @@ function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete }) 
               <div className='threebuttonintwopage1'>
                 <div>
                   <button type="button" className='previouseventbut1' onClick={() => {
-              setShowNotifications(!showNotifications)}}>
+                    setShowNotifications(!showNotifications)}}>
                     <div style={{ fontSize: '19px', alignItems: 'center' }} >
                       <TbTrashXFilled />
                     </div>
@@ -251,9 +271,9 @@ function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete }) 
             </div>
           </div>
         </div>
-        {showNotifications && (  <Popup handDelete={handDelete}></Popup>
-       
-      )}
+        {showNotifications && (<Popup handDelete={handDelete}></Popup>)}
+        {showNotifications2 && (<Rubicspopup row={rows} setRows={setRows}></Rubicspopup>)}
+        
       </div>
     </form>
   );
