@@ -8,9 +8,15 @@ function Reportstatus({ detail, id }) {
   useEffect(() => {
     const handleSubmit = async () => {
       try {
+        axios.defaults.withCredentials = true;
         const response = await axios.post(process.env.REACT_APP_API_URL+'r', {
           id: id
-        });
+        },{
+          headers:{
+                   withCredentials:true,
+
+                  }
+ });
         setFormData(response.data.message[0]);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -22,7 +28,7 @@ function Reportstatus({ detail, id }) {
 
   return (
     <div className='con'>
-      <div className="header101">
+      <div className="header1">
         <div className="Dash">Event Report</div>    
         <div className="theme">
           <div className="noti">

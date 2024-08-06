@@ -7,7 +7,7 @@ import { MdOutlineEditCalendar } from "react-icons/md";
 import { MdOutlineBarChart } from "react-icons/md";
 import photo from '../assets/photo1.png'
 import { useAuth } from '../AuthContext';
-
+import axios from 'axios';
 const Sidebar = ({ darkMode }) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
@@ -19,6 +19,23 @@ const Sidebar = ({ darkMode }) => {
   const handleLogout = () => {
     localStorage.removeItem('activeItem');
     localStorage.removeItem('linePosition');
+    const fetchData = async () => {
+      try {
+        axios.defaults.withCredentials = true;
+        const response = await axios.get(process.env.REACT_APP_API_URL+"logout",{
+          headers:{
+                   withCredentials:true,
+
+                  }
+ });
+       
+       
+       
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData()
     logout();
   };
 
@@ -98,6 +115,7 @@ const Sidebar = ({ darkMode }) => {
       <div
         ref={el => itemRefs.current[2] = el}
         className={`Home ${activeItem === 'Event Register' ? 'active' : ''}`}
+        // className="Home"
         onClick={() => handleItemClick('Event Register', 2)}
       >
         <MdOutlineEditCalendar className="icon" />&ensp;Event Register

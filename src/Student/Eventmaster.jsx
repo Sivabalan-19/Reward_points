@@ -20,6 +20,7 @@
   import Eventview from "./Eventview";
 import Notification from "./notification";
 import { format } from 'date-fns';
+import Notipopup from "./Notipopup";
     const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
       const [showEventRegister, setShowEventRegister] = useState(false);
       const [data, setData] = useState([]);
@@ -125,7 +126,13 @@ import { format } from 'date-fns';
         useEffect(() => {
           const fetchData = async () => {
             try {
-              const response = await axios.get(process.env.REACT_APP_API_URL+"register");
+              axios.defaults.withCredentials = true;
+              const response = await axios.get(process.env.REACT_APP_API_URL+"register",{
+                headers:{
+                         withCredentials:true,
+     
+                        }
+       });
               // Assuming your data has an 'id' field, otherwise, adjust accordingly
               const reversedData = response.data.message.reverse().map((row, index) => ({ ...row, sno: index + 1 }));
               setData(reversedData);
@@ -139,17 +146,23 @@ import { format } from 'date-fns';
         console.log(data);
         const handleDeleteRow = async(id) => {
           setshowregister(!showregister)
+          axios.defaults.withCredentials = true;
           const response=await axios.post(process.env.REACT_APP_API_URL+"changeregister", {
             id: id,
       
-          })
+          },{
+            headers:{
+                     withCredentials:true,
+ 
+                    }
+   })
 
         };
     return (
       
       <div className={`con ${darkMode ? 'dark-mode' : ''}`}>
         <div className="header11">
-          <div style={{display:'flex',width:'90%', alignItems:'center',height:'100%'}}> 
+          <div style={{display:'flex',width:'100%', alignItems:'center',height:'100%'}}> 
             <div className="Dash-em">Event Registration  </div> <div className="Dash-em1" ><IoIosArrowForward /></div> <div className="em-subtiti"  >My Events</div>
           </div>
           <div className="theme">
@@ -164,10 +177,9 @@ import { format } from 'date-fns';
       <div className="allbody" >
         <Table columns={columns} data={data} Table_header_name="My Events" handleDeleteRow={handleDeleteRow} />
       </div>
+      
 
-      {showNotifications && (
-         <Notification></Notification>
-        )}
+      {showNotifications && (<Notipopup ></Notipopup>)}
           <Dialog  open={showEventRegister} onClose={formClose}>
           <Eventview detail={data} id={eventData} onDeleteRow={(id) => handleDeleteRow(id)} onc={formClose}/>
         </Dialog>

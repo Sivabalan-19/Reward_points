@@ -7,6 +7,7 @@ import { MdNotificationsNone, MdLightMode } from "react-icons/md";
 import Eventview from "../Student/Eventview";
 import Notification from "../Student/notification";
 import { format } from 'date-fns';
+import Notipopup from "../Student/Notipopup";
 const RevieW = ({ goToPreviousPage }) => {
   const [showEventRegister, setShowEventRegister] = useState(false);
   const [data, setData] = useState([]);
@@ -82,7 +83,13 @@ const RevieW = ({ goToPreviousPage }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(process.env.REACT_APP_API_URL+"r");
+        axios.defaults.withCredentials = true;
+        const response = await axios.get(process.env.REACT_APP_API_URL+"r",{
+          headers:{
+                   withCredentials:true,
+
+                  }
+ });
         console.log(response)
         const reversedData = response.data.message.reverse().map((row, index) => ({ ...row, sno: index + 1 }));
         setData(reversedData);
@@ -96,12 +103,18 @@ const RevieW = ({ goToPreviousPage }) => {
 
   const handleDeleteRow = async (id) => {
     setshowregister(!showregister);
-    await axios.post(process.env.REACT_APP_API_URL+'changeregister', { id });
+    axios.defaults.withCredentials = true;
+    await axios.post(process.env.REACT_APP_API_URL+'changeregister', { id },{
+      headers:{
+               withCredentials:true,
+
+              }
+});
   };
 
   return (
     <div className="con">
-      <div className="header11">
+      <div className="header1">
         <div style={{ display: 'flex', width: '90%', alignItems: 'center', height: '100%' }}>
           <div className="Dash-em">Event Registration</div>
           <div className="Dash-em1"><IoIosArrowForward /></div>
@@ -119,9 +132,7 @@ const RevieW = ({ goToPreviousPage }) => {
       <div className="allbody">
         <Table columns={columns} data={data} Table_header_name="My Events" handleDeleteRow={handleDeleteRow} />
       </div>
-      {showNotifications && (
-        <Notification />
-      )}
+      {showNotifications && (<Notipopup ></Notipopup>)}
       <Dialog open={showEventRegister} onClose={formClose}>
         <Eventview detail={data} id={eventData} onDeleteRow={(id) => handleDeleteRow(id)} onc={formClose} />
       </Dialog>

@@ -130,3 +130,44 @@
   display: flex;
 }
 
+
+
+
+.fal-11-rep{
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  
+  /* background-color: #01B574; */
+}
+
+.heade{
+  height: 10%;
+  width: 100%;
+  /* background-color: #01B574; */
+  display: flex;
+  align-items: center;
+}
+
+.heade1{
+  height: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* background-color: #bea7a7; */
+}
+
+.heade2{
+  height: 76%;
+  width: 100%;
+  /* background-color: #030000; */
+}
+
+.view-button {
+  background-color: transparent;
+  border: none;
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}

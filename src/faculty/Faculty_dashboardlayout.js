@@ -7,6 +7,8 @@ import EventRequest from './EventRequest';
 
 import ReviewRequest from './Reviewrequest';
 import Myevents from './myevents';
+import Falcultyfirstpage from './Falcultyfirstpage';
+import Myeventrequest from './My-event-request';
 const Faculty_DashboardLayout = ({ darkMode, toggleDarkMode }) => (
   <div className={`main ${darkMode ? 'dark-mode' : ''}`}>
     <div className="leftside">
@@ -14,9 +16,9 @@ const Faculty_DashboardLayout = ({ darkMode, toggleDarkMode }) => (
     </div>
     <div className="rightside">
       <Routes>
-        <Route path="event-enter" element={<EventRequest/>} />
+        <Route path="My-Events" element={<Myeventrequest></Myeventrequest>} />
         <Route path="review" element={<ReviewRequest/>} />
-        <Route path="My-Events" element={<Myevents/>} />
+        <Route path="event-enter" element={<EventRequest/>} />
       </Routes>
     </div>
   </div>

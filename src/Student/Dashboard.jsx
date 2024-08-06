@@ -29,6 +29,7 @@ import {
 import { Divider } from "@mui/material";
 import { FaRegBell , FaSearch } from "react-icons/fa";
 import Notification from "./notification";
+import Notipopup from "./Notipopup";
 
 
 const Dashboard = ({ darkMode, toggleDarkMode }) => {
@@ -116,14 +117,14 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
   const columns = useMemo(
     () => [
       {
-        // first group - TV Show
+
         Header: "Category",
         accessor: "category",
      
-        // First group columns
+    
       },
       {
-        // Second group - Details
+ 
         Header: "Details",
         accessor: "details",
 
@@ -167,6 +168,22 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
     ],
     []
   );
+
+  const[tabledata,settabledata]=useState( [
+    { category: 'Technical events', count: 0, points: 0.00 },
+    { category: 'Skills', count: null, points: 0.00 },
+    { category: 'Assignments', count: 0, points: 0.00 },
+    { category: 'Interview', count: 0, points: 0.00 },
+    { category: 'Technical Society Activities', count: 0, points: 0.00 },
+    { category: 'Product Development', count: null, points: 0.00 },
+    { category: 'TAC', count: null, points: 0.00 },
+    { category: 'Special Lab Initiatives', count: 0, points: 0.00 },
+    { category: 'Extra-Curricular Activities', count: 0, points: 0.00 },
+    { category: 'Student Initiatives', count: null, points: 0.00 },
+    { category: 'External Events', count: null, points: 0.00 },
+    { category: 'Cumulative Points', count: null, points: 0.00 },
+    { category: 'REWARD POINTS FROM HONOR POINTS', count: null, points: 0.00 },
+  ])
   
   
   // data state to store the TV Maze API data. Its initial value is an empty array
@@ -176,45 +193,68 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
  
   useEffect(() => {
     (async () => {
-      const result = await axios(process.env.REACT_APP_API_URL+"bar");
-      console.log(result.data.message[0].AverageRP);
+      axios.defaults.withCredentials = true;
+      const result = await axios.get(process.env.REACT_APP_API_URL+"bar",{
+        headers:{
+                 withCredentials:true,
+
+                }
+});
+      console.log(result.data.message[0].TotalRP);
+      
       setaverage(result.data.message[0].AverageRP);
       setRP(result.data.message[0].TotalRP);
       setposition(result.data.message[0].Position);
-      setcount(result.data.message[0].c);
-    })();
-  }, []);
-  useEffect(() => {
-    (async () => {
-      const result = await axios(process.env.REACT_APP_API_URL+"rectangle");
-      settotal(result.data.message[0].total);
-      setbalance(result.data.message[0].balance);
+      setcount(result.data.message[0].count);
+      setbalance(result.data.message[0].TotalRP);
       setredeemed(result.data.message[0].redeemed);
       setpenalty(result.data.message[0].penalty);
+      settotal(result.data.message[0].TotalRP);
     })();
   }, []);
  
-  // Using useEffect to call the API once mounted and set the data
+ 
   useEffect(() => {
     (async () => {
-      const result = await axios(process.env.REACT_APP_API_URL+"rewardtable");
+      axios.defaults.withCredentials = true;
+      const result = await axios.get(process.env.REACT_APP_API_URL+"rewardtable",{
+        headers:{
+                 withCredentials:true,
 
-      setData(result.data.message);
+                }
+});
+      console.log(result.data.message)
+      settabledata(result.data.message)
+     
     })();
   }, []);
   useEffect(() => {
     (async () => {
-      const result=await axios(process.env.REACT_APP_API_URL+"rewarddistributed");
+      axios.defaults.withCredentials = true;
+      const result=await axios.get(process.env.REACT_APP_API_URL+"rewarddistributed",{
+        headers:{
+                 withCredentials:true,
+
+                }
+});
       setData2(result.data.message);
     })();
   }, []);
   useEffect(() => {
     (async () => {
-      const result=await axios(process.env.REACT_APP_API_URL+"rewardinternal");
+      axios.defaults.withCredentials = true;
+      const result=await axios.get(process.env.REACT_APP_API_URL+"rewardinternal",{
+        headers:{
+                 withCredentials:true,
+
+                }
+});
       setData3(result.data.message);
     })();
   }, []);
 
+
+  
 
 
 
@@ -386,7 +426,26 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
           </div>
           <div className='pointdetailbutton'>Points Details</div>
         </div>
-        <div className="r">   <Table columns={columns} data={data1} /></div>
+        <div className="r">
+        <div className="points-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Count Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tabledata.map((row, index) => (
+            <tr key={index}>
+              <td>{row.category}{row.count !== null ? `(${row.count})` : ''}</td>
+              <td>{row.points.toFixed(2)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+          </div>
       </div>
  
         
@@ -409,9 +468,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
         </div>
       </div>
 
-      {showNotifications && ( <Notification></Notification>
-       
-      )}
+      {showNotifications && (<Notipopup></Notipopup>)}
 
 
     </div>

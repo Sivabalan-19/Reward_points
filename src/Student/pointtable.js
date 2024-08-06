@@ -18,6 +18,7 @@ import {
 import { Divider } from "@mui/material";
 import { FaRegBell , FaSearch } from "react-icons/fa";
 import Notification from "./notification";
+import Notipopup from "./Notipopup";
   const PointContainer = ({ darkMode, toggleDarkMode }) => {
     const [showNotifications, setShowNotifications] = useState(false);
 
@@ -72,7 +73,14 @@ import Notification from "./notification";
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get(process.env.REACT_APP_API_URL+"detailer");
+            axios.defaults.withCredentials = true;
+            const response = await axios.get(process.env.REACT_APP_API_URL+"detailer",{
+              headers:{
+                       withCredentials:true,
+   
+                      }
+     });
+            console.log(response.data.message)
             // Assuming your data has an 'id' field, otherwise, adjust accordingly
            
             const reversedData = response.data.message.reverse().map((row, index) => ({ ...row, sno: index + 1 }));
@@ -87,17 +95,23 @@ import Notification from "./notification";
       console.log(data);
       const handleDeleteRow = async(id) => {
         setshowregister(!showregister)
+        axios.defaults.withCredentials = true;
         const response=await axios.post(process.env.REACT_APP_API_URL+"changeregister", {
           id: id,
      
-        })
+        },{
+          headers:{
+                   withCredentials:true,
+
+                  }
+ })
           
         setData((prevData) => prevData.filter((row) => row.id !== id));
       };
   return (
     
     <div className={`con ${darkMode ? 'dark-mode' : ''}`}>
-      <div className="header101">
+      <div className="header1">
         <div className="Dash-pt">Points Container</div>
         <div className="theme">
           <div className="noti" onClick={() => setShowNotifications(!showNotifications)} >
@@ -112,9 +126,8 @@ import Notification from "./notification";
       <Table columns={columns} data={data} Table_header_name="Points Container" handleDeleteRow={handleDeleteRow} />
     </div>
 
-    {showNotifications && (
-        <Notification></Notification>
-      )}
+    {showNotifications && (<Notipopup ></Notipopup>)}
+    
     </div>
   )
 }

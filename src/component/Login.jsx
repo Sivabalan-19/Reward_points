@@ -21,10 +21,16 @@ function Login() {
   const handleSubmit = async (event) => {
    
     try {
+      axios.defaults.withCredentials = true;
       const response = await axios.post(api, {
         username: inputs.username,
         userpassword: inputs.password
-      });
+      },{
+        headers:{
+                 withCredentials:true,
+
+                }
+});
       console.log(response.data.position);
       if (response.data.message === 'success' && response.data.position === 1) {
        
@@ -53,9 +59,15 @@ function Login() {
     }
   
     try {
+      axios.defaults.withCredentials = true;
       const response = await axios.post(api+"email", {
         email: userData.email,
-      });
+      },{
+        headers:{
+                 withCredentials:true,
+
+                }
+});
       
       console.log(response.data.position);
       if (response.data.message === 'success' && response.data.position === 1) {

@@ -9,6 +9,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { FaRegBell, FaSearch } from "react-icons/fa";
 import Notification from "../Student/notification";
 import { format } from 'date-fns';
+import Notipopup from "../Student/Notipopup";
 const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showEventRegister, setShowEventRegister] = useState(false);
@@ -75,7 +76,13 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(process.env.REACT_APP_API_URL+"pointtable");
+        axios.defaults.withCredentials = true;
+        const response = await axios.get(process.env.REACT_APP_API_URL+"pointtable",{
+          headers:{
+                   withCredentials:true,
+
+                  }
+ });
         const reversedData = response.data.message.reverse().map((row, index) => ({ ...row, sno: index + 1 }));
         setData(reversedData);
       } catch (error) {
@@ -89,7 +96,13 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
 
 
   const handleDeleteRow = async (id) => {
-    const response = await axios.post(process.env.REACT_APP_API_URL+'changeregister', { id });
+    axios.defaults.withCredentials = true;
+    const response = await axios.post(process.env.REACT_APP_API_URL+'changeregister', { id },{
+      headers:{
+               withCredentials:true,
+
+              }
+});
     setData((prevData) => prevData.filter((row) => row.id !== id));
     setShowEventRegister(false);
     setEventData(null);
@@ -98,7 +111,7 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
   return (
     <div className={`con ${darkMode ? 'dark-mode' : ''}`}>
       <div className="header11">
-        <div style={{ display: 'flex', width: '90%', alignItems: 'center', height: '100%' }}>
+        <div style={{ display: 'flex', width: '100%', alignItems: 'center', height: '100%' }}>
           <div className="Dash-em">Event Registration</div>
           <div className="Dash-em1"><IoIosArrowForward /></div>
           <div className="em-subtiti">Event Master</div>
@@ -116,9 +129,7 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
         <Table columns={columns} data={data} Table_header_name="Event Master" handleDeleteRow={handleDeleteRow} />
       </div>
 
-      {showNotifications && (
-        <Notification></Notification>
-      )}
+      {showNotifications && (<Notipopup ></Notipopup>)}
 
       <Dialog  open={showEventRegister} onClose={formClose}>
         <Eventinfo detail={data} id={eventData} onDeleteRow={(id) => handleDeleteRow(id) } onc={formClose}/>
@@ -126,5 +137,4 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
     </div>
   );
 };
-
 export default PointContainer2;

@@ -3,11 +3,13 @@ import { TbTrashXFilled } from "react-icons/tb";
 import { MdNotificationsNone, MdLightMode } from "react-icons/md";
 import Popup from './Popup.js';
 import Created from './Createdfile.jsx';
+import Notipopup from '../Student/Notipopup.jsx';
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 function Faculti2({ goToPreviousPage, formData, handleFormDataChange, handleSubmit, handDelete,handlefile,handleUpload }) {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showNotifications11, setShowNotifications11] = useState(false);
   const [showCreated, setShowCreated] = useState(false);
 
   const handleFormSubmit = async (event) => {
@@ -17,23 +19,23 @@ function Faculti2({ goToPreviousPage, formData, handleFormDataChange, handleSubm
       console.log(formData);
       setShowCreated(true);
 
-      await delay(2000);
-      handleUpload()
+    
+      
       handleSubmit();
+      handleUpload();
+      // await delay(100);
       handDelete();
+     
     } else {
       alert('Please fill in all required fields.');
     }
   };
 
-  const handleFileChange = (event) => {
-    handleFormDataChange({ document: event.target.files[0] });
-  };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <div className='con'>
-        <div className="header101">
+    <form onSubmit={handleFormSubmit} className='con'>
+      
+        <div className="header1">
           <div className="Dash">Event Request</div>
           <div className="theme">
             <div className="noti" onClick={() => setShowNotifications(!showNotifications)}>
@@ -48,8 +50,16 @@ function Faculti2({ goToPreviousPage, formData, handleFormDataChange, handleSubm
         <div className='below-header'>
           <div className='inside-below'>
             <div className='inside-below-padding'>
-              <div style={{ display: 'flex', width: '90%', height: '50px', alignItems: 'center' }}>
+            <div style={{ display: 'flex', width: '100%', height: '50px', alignItems: 'center' }}>
                 <div className='event-details'>EVENT DETAILS</div>
+                <div style={{width:'100%'}}>
+                <div style={{display:'flex',width:'100%',gap:'1%'}}>
+                  <div style={{width:'40%',borderRadius:'50%'}}><progress  value="100" max="100"  class="progressibar">  </progress></div>
+                  <div style={{width:'40%',borderRadius:'50%'}}><progress  value="100"  max="100" class="progressibar"> </progress></div>
+                </div>
+                <div style={{fontSize:'12px',color:'#0B1437',}}> step 2 of 2</div>
+                </div>
+
               </div>
               <div style={{ color: '#0B1437', fontWeight: '600' }}>Note</div>
               <div className='box-tt'>
@@ -128,7 +138,7 @@ function Faculti2({ goToPreviousPage, formData, handleFormDataChange, handleSubm
                       className="dropdown-select1"
                       type='file'
                       onChange={handlefile}
-                      required
+                      accept="application/pdf"
                     />
                   </div>
                 </div>
@@ -136,7 +146,7 @@ function Faculti2({ goToPreviousPage, formData, handleFormDataChange, handleSubm
 
               <div className='threebuttonintwopage'>
                 <div>
-                  <button type="button" className='trashbutinpage' onClick={() => setShowNotifications(!showNotifications)}>
+                  <button type="button" className='trashbutinpage' onClick={() => setShowNotifications11(!showNotifications11)}>
                     <TbTrashXFilled />
                   </button>
                 </div>
@@ -150,9 +160,10 @@ function Faculti2({ goToPreviousPage, formData, handleFormDataChange, handleSubm
             </div>
           </div>
         </div>
-        {showNotifications && <Popup handDelete={handDelete} />}
+        {showNotifications && (<Notipopup ></Notipopup>)}
+        {showNotifications11 && <Popup handDelete={handDelete} />}
         <Created open={showCreated} onClose={() => setShowCreated(false)} />
-      </div>
+    
     </form>
   );
 }

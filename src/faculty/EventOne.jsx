@@ -3,8 +3,12 @@ import { MdNotificationsNone, MdLightMode, MdDarkMode } from "react-icons/md";
 import { TbTrashXFilled } from "react-icons/tb";
 import Popup from './Popup.js';
 import Rubicspopup from './Rubicspopup.jsx';
+import Notipopup from '../Student/Notipopup.jsx';
+import Deptpopup from './Deptpopup.jsx';
 function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete ,rows,setRows}) {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showNotifications3, setShowNotifications3] = useState(false);
+  const [showNotifications1, setShowNotifications1] = useState(false);
   const [showNotifications2, setShowNotifications2] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -34,7 +38,7 @@ function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete ,ro
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (formData.EventType && formData.selectedType && formData.eventName && formData.eventDetails && formData.maxPoints && formData.departmentAndYear) {
+    if (formData.EventType && formData.selectedType && formData.eventName && formData.eventDetails && formData.maxPoints ) {
       goToNextPage();
     } else {
       alert('Please fill in all required fields.');
@@ -46,16 +50,19 @@ function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete ,ro
   };
 
   return (
-    <form onSubmit={handleSubmit} className={isDarkMode ? 'dark-mode' : 'light-mode'}>
-      <div className='con'>
-        <div className="header101">
+    <form 
+    onSubmit={handleSubmit}
+     className={ `con ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+        <div className="header1">
           <div className="Dash">Event Request </div>
           <div className="theme">
-            <div className="noti">
+            <div className="noti"
+            onClick={() => setShowNotifications(!showNotifications)} 
+            >
               <MdNotificationsNone />
             </div>
             <div className="light" onClick={toggleDarkMode}>
-              {isDarkMode ? <MdLightMode /> : <MdDarkMode />}
+              {isDarkMode ?   <MdDarkMode /> :<MdLightMode />}
             </div>
           </div>
         </div>
@@ -240,22 +247,21 @@ function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete ,ro
                       Departments and Years (e.g., CSE 2nd Year) <span className="required">*</span>
 
                     </label>
-                    <input
-                      id="department-year"
+                    <div
                       className="dropdown-select1"
-                      type='text'
-                      value={formData.departmentAndYear}
-                      onChange={(e) => handleFormDataChange({ departmentAndYear: e.target.value })}
-                      placeholder='Type here...'
-                      required
-                    />
+                      style={{cursor:'pointer'}}
+                      onClick={() => {
+                        setShowNotifications3(!showNotifications3)}}
+                    >
+                      choose file
+                      </div>
                   </div>
                 </div>
               </div>
               <div className='threebuttonintwopage1'>
                 <div>
                   <button type="button" className='previouseventbut1' onClick={() => {
-                    setShowNotifications(!showNotifications)}}>
+                    setShowNotifications1(!showNotifications1)}}>
                     <div style={{ fontSize: '19px', alignItems: 'center' }} >
                       <TbTrashXFilled />
                     </div>
@@ -271,10 +277,11 @@ function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete ,ro
             </div>
           </div>
         </div>
-        {showNotifications && (<Popup handDelete={handDelete}></Popup>)}
+        {showNotifications && (<Notipopup ></Notipopup>)}
+        {showNotifications3 && (<Deptpopup ></Deptpopup>)}
+        {showNotifications1 && (<Popup handDelete={handDelete}></Popup>)}
         {showNotifications2 && (<Rubicspopup row={rows} setRows={setRows}></Rubicspopup>)}
         
-      </div>
     </form>
   );
 }

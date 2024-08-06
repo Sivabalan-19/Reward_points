@@ -35,27 +35,54 @@ function EventRequest() {
   };
   const [formData, setFormData] = useState(initialFormData);
   const[filE,setfilE]=useState()
-  const formdata=new FormData()
-  const handleImageSubmit = async(event) => {
-    
-  
-    const response=await axios.post(process.env.REACT_APP_API_URL+'upload', formdata)    
-  }
 
   const handlefile=(e)=>{
     setfilE(e.target.files[0])
   }
-  const handleUpload=()=>{
-    console.log(filE)
-    formdata.append('image',filE)
-    formdata.append('eventId', formData.eventName);
-    handleImageSubmit()
-  }
+  // const handleUpload=()=>{
+    
+  //   formdata.append('image',filE)
+  //   formdata.append('eventId', formData.eventName);
+   
+  //   console.log(formData)
+  //   if(formData){
+  //     console.log(formData)
+  //     console.log("image upload start")
+  //     const response=axios.post(process.env.REACT_APP_API_URL+'upload', formdata,{
+  //       headers:{
+  //                withCredentials:true,
+  
+  //               }
+  // })    
+  //   }
+    
+  // }
+  const handleUpload = async () => {
+    if (!filE) {
+      alert('Please select a file first!');
+      return;
+    }
 
+    const formDatA = new FormData();
+    formDatA.append('pdf', filE);
+    formDatA.append('eventId', formData.eventName);
+    console.log(formDatA)
+    axios.defaults.withCredentials = true;
+    Response=await axios.post("http://localhost:5000/upload", 
+    formDatA,{
+      headers:{
+               withCredentials:true,
+
+              }
+}
+   );
+
+     
+    }
   const handleDelete=()=>{
     
-    setFormData(initialFormData);
-    setCurrentPage(1);
+    // setFormData(initialFormData);
+    // setCurrentPage(1);
   console.log(formData)
   
     
@@ -77,12 +104,17 @@ function EventRequest() {
 
   const handleSubmit = async(event) => {
     
-  
+    axios.defaults.withCredentials = true;
     const response=await axios.post(process.env.REACT_APP_API_URL+'addevents', {
       eventdata: formData,
     
      
-    })
+    },{
+      headers:{
+               withCredentials:true,
+
+              }
+})
 
       
   }

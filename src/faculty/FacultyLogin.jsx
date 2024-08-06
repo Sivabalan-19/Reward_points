@@ -6,6 +6,7 @@ import { TbLogin2 } from "react-icons/tb";
 import photo from '../assets/photo1.png'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import axios from 'axios';
 const Asidefalculti = ({ darkMode }) => {
   const { logout } = useAuth();
   const [activeItem1, setActiveItem] = useState(localStorage.getItem('activeItem1') || 'My Event');
@@ -21,6 +22,22 @@ const Asidefalculti = ({ darkMode }) => {
   };
   
   const handleLogout = () => {
+    localStorage.removeItem('activeItem');
+    localStorage.removeItem('linePosition');
+    const fetchData = async () => {
+      try {
+        axios.defaults.withCredentials = true;
+        const response = await axios.get(process.env.REACT_APP_API_URL+"r",{
+          headers:{
+                   withCredentials:true,
+
+                  }
+ });
+ fetchData()
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
     logout();
 
   };
@@ -77,7 +94,6 @@ const Asidefalculti = ({ darkMode }) => {
         <img src={photo} alt="photo1" style={{ maxWidth: '82.7%', maxHeight: '20.3%' }} />
       </div>
       <div className="Signout"  onClick={handleLogout}>
-        
         <TbLogin2 className="icon" />&ensp;Sign-Out
       </div>
     </div>

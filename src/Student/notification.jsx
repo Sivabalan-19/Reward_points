@@ -1,67 +1,98 @@
-import React,{useState,useEffect} from 'react'
-import { FaRegBell , FaSearch } from "react-icons/fa";
-import axios from 'axios';  
+import React, { useState, useEffect } from 'react';
+import { FaRegBell, FaSearch } from "react-icons/fa";
+import axios from 'axios';
+import { format } from 'date-fns';
+import { FiClock } from 'react-icons/fi'; // Assuming you're using this icon for the clock
+import { BsFillExclamationCircleFill, BsCheckCircle } from 'react-icons/bs'; // Assuming these icons for rejection and success
+
 export default function Notification() {
-    const [filterText, setFilterText] = useState('');
-    const [data1, setData] = useState([]);
-    useEffect(() => {
-      (async () => {
-        const result = await axios(process.env.REACT_APP_API_URL+"notifications");
-  
-        setData(result.data.message.reverse());
-      })();
-    }, []);
-    console.log(data1);
+  const [filterText, setFilterText] = useState('');
+  const [data1, setData] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        axios.defaults.withCredentials = true;
+        const result = await axios.get(process.env.REACT_APP_API_URL + "notifications",{
+          headers:{
+                   withCredentials:true,
+
+                  }
+ });
+        setData(result.data.message);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    })();
+  }, []);
+
   const handleFilterTextChange = (event) => {
     setFilterText(event.target.value);
   };
 
   const filteredStudents = data1.filter(student => {
-    return student.source_table.toLowerCase().includes(filterText.toLowerCase()) ||
-    student.Activity_type.toLowerCase().includes(filterText.toLowerCase());
+    return student.type.toLowerCase().includes(filterText.toLowerCase()) ||
+      student.Activity_name.toLowerCase().includes(filterText.toLowerCase());
   });
 
+  let lastDate = null;
+
   return (
-    <div className="l">
     <div className="logs-popup">
       <div>
         <div className="noti1">
-          <div className="logs">Logs </div>
+          <div className="logs">Logs</div>
           <div className="bellicon">
-            <FaRegBell />{" "}
+            <FaRegBell />
           </div>
         </div>
-        <div style={{justifyContent:'center',display:'flex'}}>
-        <div className="search-bar">
-        <div style={{marginTop:'2px',color: '#2B3674',fontSize:'12px',alignSelf:'center'}}><FaSearch /></div>
-      
-        <input
-          type="text"
-          placeholder="Search"
-          value={filterText}
-          onChange={handleFilterTextChange}
-          className="bar"
-        />
-
-        </div>
+        <div style={{ justifyContent: 'center', display: 'flex' }}>
+          <div className="search-bar">
+            <div style={{ marginTop: '2px', color: '#2B3674', fontSize: '12px', alignSelf: 'center' }}><FaSearch /></div>
+            <input
+              type="text"
+              placeholder="Search"
+              value={filterText}
+              onChange={handleFilterTextChange}
+              className="bar"
+            />
+          </div>
         </div>
         <div className='notilist'>
-        {filteredStudents.map((student, index) => (
-            <div className='notiitems'>
-            <div className='photoss'> </div>
-            <div className='notimes'> 
-                <div className='impname'>{student.source_table}</div>
-                <div className='impname1'>{student.Activity_type}</div>
-            </div>
-            <div className='notipop'></div>
-          </div>
-    
-        ))}
+          {filteredStudents.map((student, index) => {
+            let shouldPrintDate = false;
+            const dateFormatted = format(new Date(student.StartDate), 'EEEE, MMM d, yyyy');
+            if (dateFormatted !== lastDate) {
+              shouldPrintDate = true;
+              lastDate = dateFormatted;
+            }
 
-          
+            return (
+              <div key={index}>
+                {shouldPrintDate && <div className="date-header">{dateFormatted}</div>}
+                <div className='notiitems'>
+                  <div className='photoss'>
+                    <div className={`icon-container ${student.type.toLowerCase().replace(/\s+/g, '-')}`}>
+                      {student.type === 'Event Created Successfully' && <BsCheckCircle />}
+                      {student.type === 'Attendance Pending' && <FiClock />}
+                      {student.type === 'Event Approval Rejected' && <BsFillExclamationCircleFill />}
+                      {/* Add more conditions for different types */}
+                    </div>
+                  </div>
+                  <div className='notimes'>
+                    <div className='impname'>{student.type}</div>
+                    <div className='impname1'>{student.Activity_name}</div>
+                    <div className='description'>{student.description}</div>
+                  </div>
+                  <div className='notipop'>
+                    {/* Add additional icons or actions here if necessary */}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
-</div>
-  </div>
-  )
+    </div>
+  );
 }
