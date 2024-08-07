@@ -6,6 +6,7 @@ import '../Student/Dashboard.css'
 function EventRequest() {
   const [currentPage, setCurrentPage] = useState(1);
   const [file,setfile]=useState()
+  const [dAta, setdAta] = useState([]);
   const [rows, setRows] = useState([
     { id: 1, name: 'Abcd', maxMarks: 20 },
     { id: 2, name: 'Abcd', maxMarks: 20 },
@@ -58,6 +59,7 @@ function EventRequest() {
     
   // }
   const handleUpload = async () => {
+    console.log('uploaded')
     if (!filE) {
       alert('Please select a file first!');
       return;
@@ -67,14 +69,9 @@ function EventRequest() {
     formDatA.append('pdf', filE);
     formDatA.append('eventId', formData.eventName);
     console.log(formDatA)
-    axios.defaults.withCredentials = true;
+   
     Response=await axios.post("http://localhost:5000/upload", 
-    formDatA,{
-      headers:{
-               withCredentials:true,
-
-              }
-}
+    formDatA
    );
 
      
@@ -89,6 +86,7 @@ function EventRequest() {
   }
   const goToNextPage = () => {
     setCurrentPage(currentPage + 1);
+
   };
 
   const goToPreviousPage = () => {
@@ -103,16 +101,17 @@ function EventRequest() {
   };
 
   const handleSubmit = async(event) => {
-    
+ 
     axios.defaults.withCredentials = true;
     const response=await axios.post(process.env.REACT_APP_API_URL+'addevents', {
       eventdata: formData,
-    
+    departmentdata:dAta,
+    points:rows
      
     },{
       headers:{
                withCredentials:true,
-
+               'Authorization': localStorage.getItem("authToken")
               }
 })
 
@@ -129,6 +128,7 @@ function EventRequest() {
           handDelete={handleDelete}
           rows={rows}
           setRows={setRows}
+          setdAta={setdAta}
         />
       )}
       {currentPage === 2 && (

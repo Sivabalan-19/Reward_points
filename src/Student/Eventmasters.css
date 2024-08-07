@@ -42,6 +42,8 @@
  
  .scrollonly-em{
     height: 96%; width: 96% ;
+    overflow-y: scroll;
+    scrollbar-width: none;
  }
  
 
@@ -121,6 +123,7 @@
   }
 
   .sim-em{
+    margin-top: 10px; 
     height: 92%;
     width: 100%;
     overflow-y: scroll;

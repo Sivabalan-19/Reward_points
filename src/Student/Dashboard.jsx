@@ -197,7 +197,8 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
       const result = await axios.get(process.env.REACT_APP_API_URL+"bar",{
         headers:{
                  withCredentials:true,
-
+                 'Authorization': localStorage.getItem("authToken")
+           
                 }
 });
       console.log(result.data.message[0].TotalRP);
@@ -220,7 +221,8 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
       const result = await axios.get(process.env.REACT_APP_API_URL+"rewardtable",{
         headers:{
                  withCredentials:true,
-
+           
+                  'Authorization': localStorage.getItem("authToken")
                 }
 });
       console.log(result.data.message)
@@ -234,6 +236,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
       const result=await axios.get(process.env.REACT_APP_API_URL+"rewarddistributed",{
         headers:{
                  withCredentials:true,
+                 'Authorization': localStorage.getItem("authToken")
 
                 }
 });
@@ -246,6 +249,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
       const result=await axios.get(process.env.REACT_APP_API_URL+"rewardinternal",{
         headers:{
                  withCredentials:true,
+                 'Authorization': localStorage.getItem("authToken")
 
                 }
 });

@@ -25,6 +25,7 @@ const Sidebar = ({ darkMode }) => {
         const response = await axios.get(process.env.REACT_APP_API_URL+"logout",{
           headers:{
                    withCredentials:true,
+                   'Authorization': localStorage.getItem("authToken")
 
                   }
  });

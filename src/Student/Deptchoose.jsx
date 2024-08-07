@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-function Deptchoose() {
+function Deptchoose({setdAta}) {
   // Initial state for selected checkboxes
   const [selected, setSelected] = useState({});
-
+ 
   // Handle checkbox change
   const handleCheckboxChange = (year, dept) => {
     setSelected(prevSelected => {
@@ -33,7 +33,10 @@ function Deptchoose() {
 
   // Submit handler
   const handleSubmit = () => {
+    setdAta(prepareData())
+   
     const data = prepareData();
+
     console.log("Data to send:", data);
     // Send the data to the backend using fetch or any other method
     // fetch('your-backend-endpoint', {

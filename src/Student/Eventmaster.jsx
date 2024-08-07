@@ -130,7 +130,7 @@ import Notipopup from "./Notipopup";
               const response = await axios.get(process.env.REACT_APP_API_URL+"register",{
                 headers:{
                          withCredentials:true,
-     
+                         'Authorization': localStorage.getItem("authToken")
                         }
        });
               // Assuming your data has an 'id' field, otherwise, adjust accordingly
@@ -153,7 +153,7 @@ import Notipopup from "./Notipopup";
           },{
             headers:{
                      withCredentials:true,
- 
+                     'Authorization': localStorage.getItem("authToken")
                     }
    })
 

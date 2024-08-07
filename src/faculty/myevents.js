@@ -51,7 +51,7 @@ function Myevents({nextPage}) {
         const response = await axios.get(process.env.REACT_APP_API_URL+"r",{
           headers:{
                    withCredentials:true,
-
+                   'Authorization': localStorage.getItem("authToken")
                   }
  });
         console.log(response.data.message)

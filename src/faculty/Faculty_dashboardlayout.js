@@ -16,7 +16,7 @@ const Faculty_DashboardLayout = ({ darkMode, toggleDarkMode }) => (
     </div>
     <div className="rightside">
       <Routes>
-        <Route path="My-Events" element={<Myeventrequest></Myeventrequest>} />
+        <Route path="My-Events" element={<Myeventrequest />} />
         <Route path="review" element={<ReviewRequest/>} />
         <Route path="event-enter" element={<EventRequest/>} />
       </Routes>

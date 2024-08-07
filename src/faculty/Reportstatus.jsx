@@ -14,7 +14,7 @@ function Reportstatus({ detail, id }) {
         },{
           headers:{
                    withCredentials:true,
-
+                   'Authorization': localStorage.getItem("authToken")
                   }
  });
         setFormData(response.data.message[0]);

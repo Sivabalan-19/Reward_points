@@ -11,13 +11,13 @@ import { GoogleLogin,googleLogout } from '@react-oauth/google';
 import { useAuth } from '../AuthContext';
 function Login() {
   const api= process.env.REACT_APP_API_URL
-  console.log(api)
+
   const { login } = useAuth();
   const clientId = '817763532692-mepg5s5h15m5vevuj9369nqtkqgc266f.apps.googleusercontent.com';
   const [inputs, setInputs] = useState({});
   const navigate = useNavigate();
   const [userata, setUserData] = useState();
-  var fakeToken=''
+
   const handleSubmit = async (event) => {
    
     try {
@@ -28,22 +28,29 @@ function Login() {
       },{
         headers:{
                  withCredentials:true,
-
+                 'Authorization': localStorage.getItem("authToken")
                 }
 });
-      console.log(response.data.position);
+    
       if (response.data.message === 'success' && response.data.position === 1) {
        
-      fakeToken = '1234567890';
+       var fakeToken = response.data.accessToken;
       login(fakeToken);
       navigate('/dashboard');
         
       } else if (response.data.message === 'success' && response.data.position === 2) {
-        fakeToken = '1234';
+        var fakeToken = response.data.accessToken;
         login(fakeToken);
-        console.log("hi")
-        navigate('/faculty/event-enter');
-        navigate('/faculty/event-enter');
+      
+        navigate('/faculty/My-Events');
+      
+      } 
+      else if (response.data.message === 'success' && response.data.position === 3) {
+        var fakeToken = response.data.accessToken;
+        login(fakeToken);
+      
+        navigate('/admin/layout');
+   
       } else {
         alert('Invalid username');
       }
@@ -52,33 +59,42 @@ function Login() {
     }
   };
   const handleSubmit2 = async (userData) => {
-    console.log(userData)
+ 
     if (!userData) {
       console.error("Error: userData is null or undefined.");
       return;
     }
   
     try {
+  
       axios.defaults.withCredentials = true;
       const response = await axios.post(api+"email", {
         email: userData.email,
       },{
         headers:{
                  withCredentials:true,
+                 'Authorization': localStorage.getItem("authToken")
 
                 }
 });
       
-      console.log(response.data.position);
+   
       if (response.data.message === 'success' && response.data.position === 1) {
-        login();
+        var fakeToken = response.data.accessToken;
+        login(fakeToken);
         navigate('/dashboard');
       } else if (response.data.message === 'success' && response.data.position === 2) {
-        fakeToken = '1234';
+        var fakeToken = response.data.accessToken;
         login(fakeToken);
-        console.log("hi")
-        navigate('/faculty/event-enter');
-        navigate('faculty/event-enter');
+   
+        navigate('/faculty/My-Events');
+       
+      }else if (response.data.message === 'success' && response.data.position === 3) {
+        var fakeToken = response.data.accessToken;
+        login(fakeToken);
+    
+        navigate('/admin/report');
+   
       } else {
         alert('Invalid username');
       }

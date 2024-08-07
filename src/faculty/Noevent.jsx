@@ -8,7 +8,7 @@ function Noevent() {
         navigate('/faculty/event-enter');
       };
   return (
-    <div className='con' style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',backgroundColor:'white'}}>
+    <div className='main-body' style={{flexDirection:'column'}}>
         <img src={photo} alt="" style={{ maxWidth: '50%', maxHeight: '50%' }} />
         <div > <button onClick={handleButtonClick} style={{height:'40px',width:'260px',display:'flex',marginTop:'20px',justifyContent:'center',alignItems:'center',backgroundColor:'blue',borderRadius:'10px',border:'none',color:'white'}}> Create Request</button></div>
     </div>

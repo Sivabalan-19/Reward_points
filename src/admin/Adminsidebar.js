@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { IoMdHome } from "react-icons/io";
-import { MdOutlineBarChart } from "react-icons/md";
 import { MdOutlineEditCalendar } from "react-icons/md";
 import { TbLogin2 } from "react-icons/tb";
 import photo from '../assets/photo1.png';
@@ -8,31 +7,31 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import axios from 'axios';
 
-const Asidefalculti = ({ darkMode }) => {
+const Adminsidebar = ({ darkMode }) => {
   const { logout } = useAuth();
-  const [activeItem1, setActiveItem] = useState(localStorage.getItem('activeItem1') || 'My Event');
-  const [linePosition1, setLinePosition] = useState(0);
-  const itemRefs1 = useRef([]);
+  const [activeItem, setActiveItem] = useState(localStorage.getItem('activeItem') || 'Dashboard');
+  const [linePosition, setLinePosition] = useState(0);
+  const itemRefs = useRef([]);
   const navigate = useNavigate();
 
   const handleItemClick = (item, index) => {
     setActiveItem(item);
-    const itemOffsetTop = itemRefs1.current[index].offsetTop;
+    const itemOffsetTop = itemRefs.current[index].offsetTop;
     setLinePosition(itemOffsetTop);
-    localStorage.setItem('activeItem1', item);
-    localStorage.setItem('linePosition1', itemOffsetTop);
+    localStorage.setItem('activeItem', item);
+    localStorage.setItem('linePosition', itemOffsetTop);
   };
 
   const handleLogout = async () => {
     try {
       // Clear local storage
-      localStorage.removeItem('activeItem1');
-      localStorage.removeItem('linePosition1');
+      localStorage.removeItem('activeItem');
+      localStorage.removeItem('linePosition');
       
       // Ensure that the active item and line position are reset
-      setActiveItem('My Event');
-      if (itemRefs1.current[0]) {
-        setLinePosition(itemRefs1.current[0].offsetTop);
+      setActiveItem('Dashboard');
+      if (itemRefs.current[0]) {
+        setLinePosition(itemRefs.current[0].offsetTop);
       }
 
       // Call logout function
@@ -50,16 +49,16 @@ const Asidefalculti = ({ darkMode }) => {
   };
 
   useEffect(() => {
-    const savedLinePosition = parseFloat(localStorage.getItem('linePosition1'));
-    const savedActiveItem = localStorage.getItem('activeItem1');
+    const savedLinePosition = parseFloat(localStorage.getItem('linePosition'));
+    const savedActiveItem = localStorage.getItem('activeItem');
 
     if (savedLinePosition && savedActiveItem) {
       setLinePosition(savedLinePosition);
       setActiveItem(savedActiveItem);
     } else {
       // Set default position if no saved values
-      if (itemRefs1.current[0]) {
-        setLinePosition(itemRefs1.current[0].offsetTop);
+      if (itemRefs.current[0]) {
+        setLinePosition(itemRefs.current[0].offsetTop);
       }
     }
   }, []);
@@ -70,33 +69,23 @@ const Asidefalculti = ({ darkMode }) => {
         <div className="Reward">REWARD&nbsp;</div>
         <div className="points">POINTS</div>
       </div>
-      <div className="line" style={{ top: linePosition1 }}></div>
+      <div className="line" style={{ top: linePosition }}></div>
       <div
-        ref={el => itemRefs1.current[0] = el}
-        className={`Home ${activeItem1 === 'My Event' ? 'active' : ''}`}
+        ref={el => itemRefs.current[0] = el}
+        className={`Home ${activeItem === 'Dashboard' ? 'active' : ''}`}
         onClick={() => {
-          handleItemClick('My Event', 0);
-          navigate('My-Events');
+          handleItemClick('Dashboard', 0);
+          navigate('dashboard');
         }}
       >
-        <IoMdHome className="icon" />&ensp;My Event
+        <IoMdHome className="icon" />&ensp;Dashboard
       </div>
       <div
-        ref={el => itemRefs1.current[1] = el}
-        className={`Home ${activeItem1 === 'Points Container' ? 'active' : ''}`}
+        ref={el => itemRefs.current[1] = el}
+        className={`Home ${activeItem === 'Reports' ? 'active' : ''}`}
         onClick={() => {
-          handleItemClick('Points Container', 1);
-          navigate('event-enter');
-        }}
-      >
-        <MdOutlineBarChart className="icon" />&ensp;Event Request
-      </div>
-      <div
-        ref={el => itemRefs1.current[2] = el}
-        className={`Home ${activeItem1 === 'Event Register' ? 'active' : ''}`}
-        onClick={() => {
-          handleItemClick('Event Register', 2);
-          navigate('review');
+          handleItemClick('Reports', 1);
+          navigate('reports');
         }}
       >
         <MdOutlineEditCalendar className="icon" />&ensp;Reports
@@ -111,4 +100,4 @@ const Asidefalculti = ({ darkMode }) => {
   );
 }
 
-export default Asidefalculti;
+export default Adminsidebar;

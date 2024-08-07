@@ -5,7 +5,7 @@ import Popup from './Popup.js';
 import Rubicspopup from './Rubicspopup.jsx';
 import Notipopup from '../Student/Notipopup.jsx';
 import Deptpopup from './Deptpopup.jsx';
-function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete ,rows,setRows}) {
+function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete ,rows,setRows,setdAta}) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showNotifications3, setShowNotifications3] = useState(false);
   const [showNotifications1, setShowNotifications1] = useState(false);
@@ -278,7 +278,7 @@ function Faculti1({ goToNextPage, formData, handleFormDataChange, handDelete ,ro
           </div>
         </div>
         {showNotifications && (<Notipopup ></Notipopup>)}
-        {showNotifications3 && (<Deptpopup ></Deptpopup>)}
+        {showNotifications3 && (<Deptpopup setdAta={setdAta}></Deptpopup>)}
         {showNotifications1 && (<Popup handDelete={handDelete}></Popup>)}
         {showNotifications2 && (<Rubicspopup row={rows} setRows={setRows}></Rubicspopup>)}
         

@@ -77,7 +77,7 @@ import Notipopup from "./Notipopup";
             const response = await axios.get(process.env.REACT_APP_API_URL+"detailer",{
               headers:{
                        withCredentials:true,
-   
+                       'Authorization': localStorage.getItem("authToken")
                       }
      });
             console.log(response.data.message)
@@ -102,7 +102,7 @@ import Notipopup from "./Notipopup";
         },{
           headers:{
                    withCredentials:true,
-
+                   'Authorization': localStorage.getItem("authToken")
                   }
  })
           

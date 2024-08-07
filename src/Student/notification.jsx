@@ -16,7 +16,7 @@ export default function Notification() {
         const result = await axios.get(process.env.REACT_APP_API_URL + "notifications",{
           headers:{
                    withCredentials:true,
-
+                   'Authorization': localStorage.getItem("authToken")
                   }
  });
         setData(result.data.message);

@@ -9,6 +9,7 @@ import Faculty_DashboardLayout from './faculty/Faculty_dashboardlayout';
 import ProtectedRoute from './ProtectedRoute';
 import { AuthProvider } from './AuthContext';
 import Error404 from './Error404';
+import Admin_layout from './admin/Admin_layout';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -47,6 +48,15 @@ function App() {
                 </ProtectedRoute>
               } 
             /> 
+              <Route 
+              path="/admin/*" 
+              element={
+                <ProtectedRoute>
+                  <Admin_layout darkMode={darkMode} toggleDarkMode={toggleDarkMode}></Admin_layout>
+                </ProtectedRoute>
+              } 
+            /> 
+            
             <Route path="*" element={<Error404></Error404>} />
           </Routes>
         </Router>

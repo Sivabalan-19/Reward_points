@@ -44,7 +44,7 @@ export default function Deptpopup(props) {
       >
         <DialogContent>
           
-            <Deptchoose h={handleClose} rows={props.row} setRows={props.setRows}/>
+            <Deptchoose h={handleClose} rows={props.row} setRows={props.setRows} setdAta={props.setdAta}/>
         
         </DialogContent>
       </Dialog>

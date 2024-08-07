@@ -87,7 +87,7 @@ const RevieW = ({ goToPreviousPage }) => {
         const response = await axios.get(process.env.REACT_APP_API_URL+"r",{
           headers:{
                    withCredentials:true,
-
+                   'Authorization': localStorage.getItem("authToken")
                   }
  });
         console.log(response)
@@ -107,7 +107,7 @@ const RevieW = ({ goToPreviousPage }) => {
     await axios.post(process.env.REACT_APP_API_URL+'changeregister', { id },{
       headers:{
                withCredentials:true,
-
+               'Authorization': localStorage.getItem("authToken")
               }
 });
   };
