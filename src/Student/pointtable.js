@@ -34,7 +34,7 @@ import Notipopup from "./Notipopup";
             accessor: "Date",
             
         Cell: ({ cell: { value } }) => (
-          <span>{format(new Date(value), 'yyyy-MM-dd')}</span>
+          <span>{format(new Date(value), 'dd-MM-yy')}</span>
         )
           },
           {
@@ -52,7 +52,7 @@ import Notipopup from "./Notipopup";
          
           {
             Header: "Activity Category",
-            accessor: "Activity_type",
+            accessor: "Activity_category",
           },
           {
             // Second group - Details
@@ -70,17 +70,18 @@ import Notipopup from "./Notipopup";
       );
       const [data, setData] = useState([]);
       const [showregister, setshowregister] = useState([]);
+      
       useEffect(() => {
         const fetchData = async () => {
           try {
             axios.defaults.withCredentials = true;
-            const response = await axios.get(process.env.REACT_APP_API_URL+"detailer",{
+            const response = await axios.get(process.env.REACT_APP_API_URL+"dr",{
               headers:{
                        withCredentials:true,
                        'Authorization': localStorage.getItem("authToken")
                       }
      });
-            console.log(response.data.message)
+          
             // Assuming your data has an 'id' field, otherwise, adjust accordingly
            
             const reversedData = response.data.message.reverse().map((row, index) => ({ ...row, sno: index + 1 }));
@@ -92,22 +93,7 @@ import Notipopup from "./Notipopup";
     
         fetchData();
       }, []);
-      console.log(data);
-      const handleDeleteRow = async(id) => {
-        setshowregister(!showregister)
-        axios.defaults.withCredentials = true;
-        const response=await axios.post(process.env.REACT_APP_API_URL+"changeregister", {
-          id: id,
-     
-        },{
-          headers:{
-                   withCredentials:true,
-                   'Authorization': localStorage.getItem("authToken")
-                  }
- })
-          
-        setData((prevData) => prevData.filter((row) => row.id !== id));
-      };
+
   return (
     
     <div className={`con ${darkMode ? 'dark-mode' : ''}`}>
@@ -123,7 +109,7 @@ import Notipopup from "./Notipopup";
         </div>
       </div>
     <div className="allbody" >
-      <Table columns={columns} data={data} Table_header_name="Points Container" handleDeleteRow={handleDeleteRow} />
+      <Table columns={columns} data={data} Table_header_name="Points Container" />
     </div>
 
     {showNotifications && (<Notipopup ></Notipopup>)}

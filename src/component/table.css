@@ -1,105 +1,176 @@
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    border: 1px solid #dddddd;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #dddddd;
+  width: 100%;
 }
 td {
-    border-bottom: 1px solid #dddddd;
-    text-align: left;
-    padding: 10px;
+  border-bottom: 1px solid #dddddd;
+  text-align: left;
+  padding: 10px;
+  font-size: 14px;
 }
-th{
-    border-bottom: 1px solid #dddddd;
-    color: #2B3674;
-    padding: 10px;
-    text-align: left;
-    background-color: #F4F7FE;
+th {
+  border-bottom: 1px solid #dddddd;
+  color: #2b3674;
+  padding: 10px;
+  text-align: left;
+  background-color: #f4f7fe;
+  /* cursor: not-allowed; */
 }
 
- tr:nth-child(even) {
-  background-color: #f3f4f4;
-}
+
 
 
 
 /* rubics.css */
 .rubicsheet {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    /* background-color: yellow ; */
-  }
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* background-color: yellow ; */
+}
 
-  .thofrubic{
-    border-bottom: 1px solid #dddddd;
-    color: #2B3674;
-    padding: 10px;
-    text-align: center;
-    background-color: #F4F7FE;    
-  }
-  
-  .table-layout {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    max-height: 200px; 
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+.thofrubic {
+  border-bottom: 1px solid #dddddd;
+  color: #2b3674;
+  padding: 10px;
+  text-align: center;
+  background-color: #f4f7fe;
+}
 
-  }
-  
-  .rubictable {
-    border-collapse: collapse;
-    width: 97%;
-    justify-content: center;
-  }
-    
-  tfoot {
-    font-weight: bold;
-  }
-  
-  .name-rubic {
-    background-color: transparent;
-    width: 100%;
-    border: none;
-    text-align: center;
-  }
-  
-  .add-button, .trash-button-bot, .save-button-bot {
-    margin: 10px ;
-    border: none;
-    cursor: pointer;
-    height: 35px;
-    width: 90px;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .add-button {
-    background-color: blue;
-    color: white;
-  }
+.table-layout {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  max-height: 200px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
-  .button-out{    
-    display: flex;
-    justify-content: end;
-  }
-  
-  .trash-button-bot {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  .save-button-bot {
-    background-color: #02c87f;
-    color: white;
-  }
-  
-  .button-group-bot {
-    width: 100%;
-    display: flex;
-    justify-content: end;
-  }
+.rubictable {
+  border-collapse: collapse;
+  width: 97%;
+  justify-content: center;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+.name-rubic {
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  text-align: center;
+}
+
+.add-button,
+.trash-button-bot,
+.save-button-bot {
+  margin: 10px;
+  border: none;
+  cursor: pointer;
+  height: 35px;
+  width: 90px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.add-button {
+  background-color: blue;
+  color: white;
+}
+
+.button-out {
+  display: flex;
+  justify-content: end;
+}
+
+.trash-button-bot {
+  background-color: #f44336;
+  color: white;
+}
+
+.save-button-bot {
+  background-color: #02c87f;
+  color: white;
+}
+
+.button-group-bot {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+
+.col-body{
+  height: 98%;
+  padding-top: 2%;
+  width: 96%;
+  padding: 0 2%;
+  background-color: #fdfdfd;
+  border-radius: 10px;
+}
+
+.inp-fal-rep{
+  height: 30%;
+  width: 90%;
+  padding: 7px 0;
+  border-radius: 7px;
+  border: 1px solid #d7d8da ;
+  background-color: #F4F7FE;
+  padding-left: 7%;
+  color: #2B3674;
+  font-weight: bold;
+}
+.inp-fal-rep::placeholder{
+  color: #2B3674;
+  font-weight: bold;
+  border: none;
+}
+
+.search-bar-em1-rep1-ad{
+  height: 30px;
+  width: 100%;
+  padding: 2px 0;
+  border: 1px solid #d7d8da ;
+  border-radius: 10px;
+  background-color: #F4F7FE;
+}
+
+.ba-em----s{
+  border: none;
+  font-size: 13px;
+  width: 98%;
+  padding-left: 5%;
+  border-radius: 10px;
+  height: 100%;
+  background-color: transparent;
+  color: #2B3674;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  align-self: center;
+  background-color: #F4F7FE;
+}
+
+.ba-em----s::placeholder{
+  color: #2B3674;
+  font-weight: bold;
+  border: none;
+}
+
+
+.asdfghjkl{
+  height: 40px;
+  width: 100px;
+  color: #fdfdfd;
+  font-weight: bold;
+  background-color: blue;
+  border: none;
+  border-radius: 10px;
+}

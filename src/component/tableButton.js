@@ -1,12 +1,10 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useFilters, useTable, usePagination } from "react-table";
 import { FaRegBell, FaSearch } from "react-icons/fa";
 import { MdOutlineLockClock } from "react-icons/md";
-import { TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TableFooter } from '@mui/material';
-const delay = ms => new Promise(
-  resolve => setTimeout(resolve, ms)
-);
-export default function Table({ columns, data ,Table_header_name}) {
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export default function   Table({ columns, data, Table_header_name }) {
   const [isTableReady, setIsTableReady] = useState(false);
   const {
     getTableProps,
@@ -36,6 +34,7 @@ export default function Table({ columns, data ,Table_header_name}) {
 
   const [filterInput, setFilterInput] = useState("");
   const [filterInput2, setFilterInput2] = useState("");
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setIsTableReady(true);
@@ -47,31 +46,39 @@ export default function Table({ columns, data ,Table_header_name}) {
   if (!isTableReady) {
     return <div></div>;
   }
-  const handleFilterChange = e => {
+
+  const handleFilterChange = (e) => {
     const value = e.target.value || undefined;
     setFilter("Activity_name", value);
     setFilterInput(value);
   };
 
-  const handleFilterChange2 = e => {
+  const handleFilterChange2 = (e) => {
     const value = e.target.value || undefined;
     setFilter("Activity_code", value);
     setFilterInput2(value);
   };
 
-  const handleFilterChange3 = e => {
+  const handleFilterChange3 = (e) => {
     setFilter("Activity_type", e.target.value);
   };
 
-  const handlePageSizeChange = e => {
+  const handlePageSizeChange = (e) => {
     setPageSize(Number(e.target.value));
   };
 
   return (
     <div className="main-body">
       <div className="scrollonly-em">
-        <div style={{ display: 'flex', width: '100%', height: '8%', alignItems: 'center' }}>
-          <div className="eventm-em" > {Table_header_name}</div>
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            height: "8%",
+            alignItems: "center",
+          }}
+        >
+          <div className="eventm-em"> {Table_header_name}</div>
 
           <div className="search-bar-em">
             <input
@@ -80,43 +87,72 @@ export default function Table({ columns, data ,Table_header_name}) {
               placeholder={"Activity Code"}
               className="ba-em"
             />
-            <div className="search-em" ><FaSearch /></div>
+            <div className="search-em">
+              <FaSearch />
+            </div>
           </div>
 
           <div className="search-bar-em">
-            <input value={filterInput} onChange={handleFilterChange} placeholder={"Acitivity Name"} className="ba-em" />
-            <div className="search-em" ><FaSearch /></div>
+            <input
+              value={filterInput}
+              onChange={handleFilterChange}
+              placeholder={"Activity Name"}
+              className="ba-em"
+            />
+            <div className="search-em">
+              <FaSearch />
+            </div>
           </div>
 
           <div className="search-bar-em1">
             <select onChange={handleFilterChange3} className="ba-em">
-              <option style={{ color: '#2B3674', fontWeight: '600' }} value="" selected disabled hidden>Sort By Category</option>
+              <option
+                style={{ color: "#2B3674", fontWeight: "600" }}
+                value=""
+                selected
+                disabled
+                hidden
+              >
+                Sort By Category
+              </option>
               <option value="Reward">Reward</option>
               <option value="Honour">Honour</option>
             </select>
           </div>
         </div>
-        <div className="sim-em" >
+        <div className="sim-em">
           <div className="table-em">
             <table {...getTableProps()}>
-
               <thead>
-                {headerGroups.map(headerGroup => (
+                {headerGroups.map((headerGroup) => (
                   <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map(column => (
-                      <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                    {headerGroup.headers.map((column) => (
+                      <th {...column.getHeaderProps()}>
+                        {column.render("Header")}
+                      </th>
                     ))}
                   </tr>
                 ))}
               </thead>
               {pageCount > 0 ? (
                 <tbody {...getTableBodyProps()}>
-                  {page.map(row => {
+                  {page.map((row) => {
                     prepareRow(row);
                     return (
                       <tr {...row.getRowProps()}>
-                        {row.cells.map(cell => {
-                          return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                        {row.cells.map((cell) => {
+                          return (
+                            <td
+                              {...cell.getCellProps()}
+                              className={
+                                cell.column.id === "Activity_name"
+                                  ? "event-name"
+                                  : ""
+                              }
+                            >
+                              {cell.render("Cell")}
+                            </td>
+                          );
                         })}
                       </tr>
                     );
@@ -125,37 +161,79 @@ export default function Table({ columns, data ,Table_header_name}) {
               ) : (
                 <tbody>
                   <tr>
-                    <td colSpan={columns.length} style={{ textAlign: 'center', padding: '20px',  justifyContent:'center'}}>
-                      <div style={{ height: '200px', justifyContent: 'center',display:'flex',justifyContent:'center',alignItems:'center' }}>
-                      <div> <div className="nodatafoundicon-em"><MdOutlineLockClock/></div>
-                        <div className="nodatafoundtext">No Data Found</div></div>
+                    <td
+                      colSpan={columns.length}
+                      style={{
+                        textAlign: "center",
+                        padding: "20px",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <div
+                        style={{
+                          height: "200px",
+                          justifyContent: "center",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div>
+                          {" "}
+                          <div className="nodatafoundicon-em">
+                            <MdOutlineLockClock />
+                          </div>
+                          <div className="nodatafoundtext">No Data Found</div>
+                        </div>
                       </div>
                     </td>
                   </tr>
                 </tbody>
               )}
-
             </table>
-            <div className="tablefoot-em" >
-              <div style={{ display: 'flex', width: '90%', justifyContent: 'space-between' }}>
-                <span className="page-em" >
-                  Page{' '}
+            <div className="tablefoot-em">
+              <div
+                style={{
+                  display: "flex",
+                  width: "90%",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span className="page-em">
+                  Page{" "}
                   <strong>
                     {pageIndex + 1} of {pageCount}
-                  </strong>{' '}
+                  </strong>{" "}
                 </span>
-                <div><span className="rowpage-em">Rows Per Page</span>&ensp;
-                  <select className="noofrow-em" onChange={handlePageSizeChange}>
-                    {[10, 20, 30, 40, 50].map(pageSize => (
+                <div>
+                  <span className="rowpage-em">Rows Per Page</span>&ensp;
+                  <select
+                    className="noofrow-em"
+                    onChange={handlePageSizeChange}
+                  >
+                    {[10, 20, 30, 40, 50].map((pageSize) => (
                       <option key={pageSize} value={pageSize}>
                         {pageSize}
                       </option>
                     ))}
-                  </select></div>
+                  </select>
+                </div>
               </div>
               <div className="tablebottem-em">
-                <button className="nextpagebut-em" onClick={() => previousPage()} disabled={!canPreviousPage}>{'<'}</button>
-                <button className="nextpagebut-em" onClick={() => nextPage()} disabled={!canNextPage}>{'>'}</button>
+                <button
+                  className="nextpagebut-em"
+                  onClick={() => previousPage()}
+                  disabled={!canPreviousPage}
+                >
+                  {"<"}
+                </button>
+                <button
+                  className="nextpagebut-em"
+                  onClick={() => nextPage()}
+                  disabled={!canNextPage}
+                >
+                  {">"}
+                </button>
               </div>
             </div>
           </div>

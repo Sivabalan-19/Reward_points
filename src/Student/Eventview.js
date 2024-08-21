@@ -7,7 +7,7 @@ import './Eventmasters.css';
         const [darkMode, setDarkMode] = useState(false);
         
         let row = props.detail.find(o => o.id == props.id);
-        console.log(row)
+   
         const toggleDarkMode = () => {
             setDarkMode(!darkMode); 
           };

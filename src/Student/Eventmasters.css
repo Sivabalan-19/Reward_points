@@ -41,9 +41,8 @@
 
  
  .scrollonly-em{
-    height: 96%; width: 96% ;
-    overflow-y: scroll;
-    scrollbar-width: none;
+    height: 94%;
+    width: 96% ;
  }
  
 
@@ -62,11 +61,15 @@
   .ba-em{
     border: none;
     font-size: 13px;
-    width: 90%;
+    width: 98%;
+    padding-left: 5%;
+    border-radius: 10px;
+    height: 90%;
     color: #2B3674;
     font-weight: bold;
     align-self: center;
     background-color: #F4F7FE;
+
   }
 
   .ba-em::placeholder{
@@ -144,7 +147,7 @@
     background-color: #4318FF;
     border: none;
     color: #FDFDFD;
-    padding: 5px 10px;
+    padding: 5px 12px;
     border-radius: 5px;
   }
 

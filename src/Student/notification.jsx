@@ -8,7 +8,6 @@ import { BsFillExclamationCircleFill, BsCheckCircle } from 'react-icons/bs'; // 
 export default function Notification() {
   const [filterText, setFilterText] = useState('');
   const [data1, setData] = useState([]);
-
   useEffect(() => {
     (async () => {
       try {

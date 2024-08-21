@@ -3,9 +3,8 @@ import { IoMdHome } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { TbLogin2 } from "react-icons/tb";
 import '../Student/Dashboard.css';
-import { MdOutlineEditCalendar } from "react-icons/md";
-import { MdOutlineBarChart } from "react-icons/md";
-import photo from '../assets/photo1.png'
+import { MdOutlineEditCalendar, MdOutlineBarChart } from "react-icons/md";
+import photo from '../assets/photo1.png';
 import { useAuth } from '../AuthContext';
 import axios from 'axios';
 const Sidebar = ({ darkMode }) => {
@@ -16,46 +15,56 @@ const Sidebar = ({ darkMode }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const itemRefs = useRef([]);
 
+  useEffect(() => {
+    const savedLinePosition = parseFloat(localStorage.getItem('linePosition'));
+    const savedActiveItem = localStorage.getItem('activeItem');
+    const savedDropdownVisible = localStorage.getItem('dropdownVisible') === 'true';
+
+    if (savedLinePosition && savedActiveItem) {
+      setLinePosition(savedLinePosition);
+      setActiveItem(savedActiveItem);
+    } else {
+      setLinePosition(itemRefs.current[0]?.offsetTop || 0);
+    }
+    
+    setDropdownVisible(savedDropdownVisible);
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem('activeItem');
     localStorage.removeItem('linePosition');
+    localStorage.removeItem('dropdownVisible');
     const fetchData = async () => {
       try {
         axios.defaults.withCredentials = true;
-        const response = await axios.get(process.env.REACT_APP_API_URL+"logout",{
-          headers:{
-                   withCredentials:true,
-                   'Authorization': localStorage.getItem("authToken")
-
-                  }
- });
-       
-       
-       
+        await axios.get(`${process.env.REACT_APP_API_URL}logout`, {
+          headers: { withCredentials: true }
+        });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData()
+    fetchData();
     logout();
   };
 
   const handleItemClick = (item, index) => {
     setActiveItem(item);
     const itemOffsetTop = itemRefs.current[index].offsetTop;
-    const dropdownOffset = dropdownVisible && (item === 'Event Masters' || item === 'My Events') ? itemRefs.current[2].offsetTop : 0;
-    setLinePosition(itemOffsetTop + dropdownOffset);
+    setLinePosition(itemOffsetTop);
 
     localStorage.setItem('activeItem', item);
-    localStorage.setItem('linePosition', itemOffsetTop + dropdownOffset);
+    localStorage.setItem('linePosition', itemOffsetTop);
 
     if (item === 'Event Register') {
-      setDropdownVisible(!dropdownVisible);
+      const newDropdownVisible = !dropdownVisible; 
+      setDropdownVisible(newDropdownVisible);
+      localStorage.setItem('dropdownVisible', newDropdownVisible);
     } else {
       setDropdownVisible(item === 'Event Masters' || item === 'My Events');
+      localStorage.setItem('dropdownVisible', item === 'Event Masters' || item === 'My Events');
     }
 
-    // Add navigation logic here
     switch (item) {
       case 'Dashboard':
         navigate('/dashboard');
@@ -80,18 +89,6 @@ const Sidebar = ({ darkMode }) => {
     }
   };
 
-  useEffect(() => {
-    const savedLinePosition = parseFloat(localStorage.getItem('linePosition'));
-    const savedActiveItem = localStorage.getItem('activeItem');
-
-    if (savedLinePosition && savedActiveItem) {
-      setLinePosition(savedLinePosition);
-      setActiveItem(savedActiveItem);
-    } else {
-      setLinePosition(itemRefs.current[0].offsetTop);
-    }
-  }, []);
-
   return (
     <div className={`Sidebar ${darkMode ? 'dark-mode' : ''}`}>
       <div className="Sidehead">
@@ -102,6 +99,7 @@ const Sidebar = ({ darkMode }) => {
       <div
         ref={el => itemRefs.current[0] = el}
         className={`Home ${activeItem === 'Dashboard' ? 'active' : ''}`}
+        style={{ marginTop: '15%' }}
         onClick={() => handleItemClick('Dashboard', 0)}
       >
         <IoMdHome className="icon" />&ensp;Dashboard
@@ -116,40 +114,34 @@ const Sidebar = ({ darkMode }) => {
       <div
         ref={el => itemRefs.current[2] = el}
         className={`Home ${activeItem === 'Event Register' ? 'active' : ''}`}
-        // className="Home"
         onClick={() => handleItemClick('Event Register', 2)}
       >
         <MdOutlineEditCalendar className="icon" />&ensp;Event Register
       </div>
+      
       {dropdownVisible && (
-        <div className="Dropdown">
+        <div className="dropdown-show">
           <div
             ref={el => itemRefs.current[3] = el}
-            className={`Home ${activeItem === 'Event Register' ? 'active' : ''}`}
-            onClick={() => handleItemClick('Event Register', 3)}
-          >
-            &ensp;
-          </div>
-          <div
-            ref={el => itemRefs.current[4] = el}
-            className={`DropdownItem ${activeItem === 'Event Masters' ? 'active' : ''}`}
-            onClick={() => handleItemClick('Event Masters', 4)}
+            className={`Home-drop ${activeItem === 'Event Masters' ? 'active' : ''}`}
+            onClick={() => handleItemClick('Event Masters', 3)}
           >
             Event Masters
           </div>
           <div
-            ref={el => itemRefs.current[6] = el}
-            className={`DropdownItem ${activeItem === 'My Events' ? 'active' : ''}`}
-            onClick={() => handleItemClick('My Events', 6)}
+            ref={el => itemRefs.current[4] = el}
+            className={`Home-drop ${activeItem === 'My Events' ? 'active' : ''}`}
+            onClick={() => handleItemClick('My Events', 4)}
           >
             My Events
           </div>
         </div>
       )}
+      
       <div className="photo1">
         <img src={photo} alt="photo1" style={{ maxWidth: '82.7%', maxHeight: '20.3%' }} />
       </div>
-      <div className="Signout" onClick={handleLogout}>
+      <div className="Home" style={{ marginTop: '20%' }} onClick={handleLogout}>
         <TbLogin2 className="icon" />&ensp;Sign-Out
       </div>
     </div>

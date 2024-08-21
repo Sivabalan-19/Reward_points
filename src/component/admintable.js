@@ -3,7 +3,21 @@ import { useTable, usePagination, useFilters, useGlobalFilter } from "react-tabl
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineLockClock } from "react-icons/md";
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+// Custom filter function
+const customFilter = (rows, id, filterValue) => {
+  // Check if filterValue is an array, otherwise wrap in array
+  console.log("customer filter")
+  const valuesArray = Array.isArray(filterValue) ? filterValue : [filterValue];
+  
+  return rows.filter(row => {
+    const cellValue = row.values[id];
+  
+    const cellValueArray = Array.isArray(cellValue) ? cellValue : [cellValue];
+
+    return valuesArray.some(val => cellValueArray.includes(val));
+  });
+};
+
 
 export default function AdminTable({ columns, data }) {
   const [selected, setSelected] = useState('Overall');
@@ -28,17 +42,16 @@ export default function AdminTable({ columns, data }) {
     state: { pageIndex, pageSize, globalFilter },
   } = useTable(
     {
-
       columns,
       data,
+      filterTypes: {
+        custom: customFilter // Register custom filter type
+      },
       initialState: { pageIndex: 0, pageSize: 10 },
-
     },
-
     useFilters,
     useGlobalFilter, 
     usePagination
-
   );
 
   useEffect(() => {
@@ -46,7 +59,22 @@ export default function AdminTable({ columns, data }) {
   }, []);
 
   useEffect(() => {
-    setFilter("status", selected === 'Pending' ? 0 : selected === 'Rejected' ? 7 : selected === 'Approved' ? 1 : '');
+    const statusMap = {
+      'Pending': 1,
+      'Rejected': 9,
+      'Approved': [2,3,4,5],
+      'Overall': [1,2,3,4,5,6,7,8,9,10]
+    };
+
+    const status = statusMap[selected] || 'overall';
+
+    if (status === 'overall') {
+      setFilter("status", '');
+    } else if (status === 2) {
+      setFilter("status", [2, 3, 4, 5, 6, 7, 8]);
+    } else {
+      setFilter("status", status);
+    }
   }, [selected, setFilter]);
 
   const handleButtonClick = (button) => {
@@ -54,7 +82,6 @@ export default function AdminTable({ columns, data }) {
   };
 
   const handleGlobalFilterChange = (e) => {
-
     const value = e.target.value || undefined;
     setGlobalFilterr(value);
     setGlobalFilter(value);
@@ -71,7 +98,7 @@ export default function AdminTable({ columns, data }) {
   return (
     <div className="main-body">
       <div className="scrollonly-em">
-        <div style={{ display: 'flex', width: '%', height: '6%', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', height: '6%', alignItems: 'center', justifyContent: 'space-between' }}>
           <div className='adminnavi'>
             <div className='adminnavbutcon'>
               <button className={`adminnavbut ${selected === 'Overall' ? 'selected' : ''}`} onClick={() => handleButtonClick('Overall')}>Overall</button>
@@ -94,16 +121,16 @@ export default function AdminTable({ columns, data }) {
             <div style={{ color: '#2B3674', fontSize: '12px', alignSelf: 'center' }}><FaSearch /></div>
             <input
               type="text"
+              style={{ backgroundColor: 'transparent' }}
               placeholder="Search"
               className="bar"
               value={globalFilterr || ""}
               onChange={handleGlobalFilterChange}
             />
           </div>
-
         </div>
 
-        <div className="sim-em" >
+        <div className="sim-em">
           <div className="table-em">
             <table {...getTableProps()}>
               <thead>
@@ -121,9 +148,9 @@ export default function AdminTable({ columns, data }) {
                     prepareRow(row);
                     return (
                       <tr {...row.getRowProps()}>
-                        {row.cells.map(cell => {
-                          return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-                        })}
+                        {row.cells.map(cell => (
+                          <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                        ))}
                       </tr>
                     );
                   })}
@@ -131,33 +158,36 @@ export default function AdminTable({ columns, data }) {
               ) : (
                 <tbody>
                   <tr>
-                    <td colSpan={columns.length} style={{ textAlign: 'center', padding: '20px', justifyContent: 'center' }}>
-                      <div style={{ height: '200px', justifyContent: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <div> <div className="nodatafoundicon-em"><MdOutlineLockClock /></div>
-                          <div className="nodatafoundtext">No Data Found</div></div>
+                    <td colSpan={columns.length} style={{ textAlign: 'center', padding: '20px' }}>
+                      <div style={{ height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <div>
+                          <div className="nodatafoundicon-em"><MdOutlineLockClock /></div>
+                          <div className="nodatafoundtext">No Data Found</div>
+                        </div>
                       </div>
                     </td>
                   </tr>
                 </tbody>
               )}
-
             </table>
-            <div className="tablefoot-em" >
+            <div className="tablefoot-em">
               <div style={{ display: 'flex', width: '90%', justifyContent: 'space-between' }}>
-                <span className="page-em" >
+                <span className="page-em">
                   Page{' '}
                   <strong>
                     {pageIndex + 1} of {pageCount}
                   </strong>{' '}
                 </span>
-                <div><span className="rowpage-em">Rows Per Page</span>&ensp;
+                <div>
+                  <span className="rowpage-em">Rows Per Page</span>&ensp;
                   <select className="noofrow-em" onChange={handlePageSizeChange}>
-                    {[10, 20, 30, 40, 50].map(pageSize => (
-                      <option key={pageSize} value={pageSize}>
-                        {pageSize}
+                    {[10, 20, 30, 40, 50].map(size => (
+                      <option key={size} value={size}>
+                        {size}
                       </option>
                     ))}
-                  </select></div>
+                  </select>
+                </div>
               </div>
               <div className="tablebottem-em">
                 <button className="nextpagebut-em" onClick={() => previousPage()} disabled={!canPreviousPage}>{'<'}</button>

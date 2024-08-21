@@ -15,19 +15,16 @@
     MdOutlineLightMode,
     MdDarkMode,
   } from "react-icons/md";
-  import { Divider, colors } from "@mui/material";
-  import { FaRegBell , FaSearch } from "react-icons/fa";
   import Eventview from "./Eventview";
-import Notification from "./notification";
-import { format } from 'date-fns';
-import Notipopup from "./Notipopup";
-    const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
+  import { format } from 'date-fns';
+  import Notipopup from "./Notipopup";
+    const  PointContainer2 = ({ darkMode, toggleDarkMode }) => {
       const [showEventRegister, setShowEventRegister] = useState(false);
       const [data, setData] = useState([]);
       const [eventData, setEventData] = useState(null);
       
       const showRegisterForm = (id,data) => {
-        console.log(data)
+
         setShowEventRegister(true);
         
         let row = data.find(o => o.id == id);
@@ -55,7 +52,7 @@ import Notipopup from "./Notipopup";
               accessor: "Date",
               
         Cell: ({ cell: { value } }) => (
-          <span>{format(new Date(value), 'yyyy-MM-dd')}</span>
+          <span>{format(new Date(value), 'dd-MM-yy')}</span>
         )
           
               // First group columns
@@ -97,9 +94,8 @@ import Notipopup from "./Notipopup";
               Header: "Status",
               accessor: "status", 
               Cell: ({ cell: { value } }) => (
-    
                 <div style={{display:'flex'}}>
-                <span >{value ==1 ?<div style={{color:'green'}}> NOT STARTED</div>:<div style={{color:'red'}}>{value==2} upcomming </div>}</span>
+                <span >{value ==8 ?<div className="COMPLEATED-REP">COMPLETED</div>:<div className="UPCOMING">ON GOING </div>}</span>
                 <span></span>
               </div>
               )
@@ -143,7 +139,7 @@ import Notipopup from "./Notipopup";
       
           fetchData();
         }, []);
-        console.log(data);
+       
         const handleDeleteRow = async(id) => {
           setshowregister(!showregister)
           axios.defaults.withCredentials = true;

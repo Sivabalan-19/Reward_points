@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
-function Deptchoose({setdAta}) {
+function Deptchoose({setdAta,h,selected,setSelected,saved,setsaved,handleClose}) {
   // Initial state for selected checkboxes
-  const [selected, setSelected] = useState({});
- 
+
+ const handleTrash=()=>{
+  setSelected({})
+ }
   // Handle checkbox change
   const handleCheckboxChange = (year, dept) => {
     setSelected(prevSelected => {
@@ -34,10 +36,10 @@ function Deptchoose({setdAta}) {
   // Submit handler
   const handleSubmit = () => {
     setdAta(prepareData())
-   
+    setsaved(1)
+    handleClose()
     const data = prepareData();
 
-    console.log("Data to send:", data);
     // Send the data to the backend using fetch or any other method
     // fetch('your-backend-endpoint', {
     //   method: 'POST',
@@ -53,9 +55,9 @@ function Deptchoose({setdAta}) {
       <div className="departmecont">
         <div className="headerdept">
           <div style={{ width: '94%', justifyContent: 'end', display: 'flex', padding: '0px 20px' }}>
-            <div style={{ padding: '0% 5%' }}>
+            {/* <div style={{ padding: '0% 5%' }}>
               <input className="deptconttool" placeholder="Search" />
-            </div>
+            </div> */}
           </div>
         </div>
         <div style={{ display: 'flex', width: '100%', height: '88%', justifyContent: 'center', alignItems: 'center' }}>
@@ -66,10 +68,10 @@ function Deptchoose({setdAta}) {
             </div>
             <div style={{ display: 'flex', height: '60%', flexDirection: 'column', backgroundColor: '#f4f4f4' }}>
               {[
-                { year: '01', departments: ['CSE', 'IT', 'ECE', 'EEE','MECH'] },
-                { year: '02', departments: ['CSE', 'IT', 'ECE', 'EEE','MECH'] },
-                { year: '03', departments: ['CSE', 'IT', 'ECE', 'EEE','MECH'] },
-                { year: '04', departments: ['CSE', 'IT', 'ECE', 'EEE','MECH'] },
+                { year: '01', departments: ['CSE', 'IT', 'ECE', 'EEE','MECH','FD','BM','CIVIL','CSD','EI','ISC','MTRS','AG','AIDS','AIML','BT','FT','TT'] },
+                { year: '02', departments: ['CSE', 'IT', 'ECE', 'EEE','MECH','FD','BM','CIVIL','CSD','EI','ISC','MTRS','AG','AIDS','AIML','BT','FT','TT'] },
+                { year: '03', departments: ['CSE', 'IT', 'ECE', 'EEE','MECH','FD','BM','CIVIL','CSD','EI','ISC','MTRS','AG','AIDS','AIML','BT','FT','TT'] },
+                { year: '04', departments: ['CSE', 'IT', 'ECE', 'EEE','MECH','FD','BM','CIVIL','CSD','EI','ISC','MTRS','AG','AIDS','AIML','BT','FT','TT'] },
               ].map(({ year, departments }) => (
                 <div className="deptrow" key={year}>
                   <div className="checkboxcont">
@@ -95,7 +97,7 @@ function Deptchoose({setdAta}) {
               </div>
             </div>
             <div className="derptbuton">
-              <div><button className="derptbutontrash">Trash</button></div>
+              <div><button className="derptbutontrash" onClick={handleTrash} >Trash</button></div>
               <div><button className="derptbutonsave" onClick={handleSubmit}>Save</button></div>
             </div>
           </div>

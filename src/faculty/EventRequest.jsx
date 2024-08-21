@@ -3,14 +3,16 @@ import Faculti1 from './EventOne';
 import Faculti2 from './Eventtwo';
 import axios from 'axios';
 import '../Student/Dashboard.css'
-function EventRequest() {
+function EventRequest({darkMode,toggleDarkMode}) {
   const [currentPage, setCurrentPage] = useState(1);
   const [file,setfile]=useState()
+  const [selected, setSelected] = useState({});
   const [dAta, setdAta] = useState([]);
+  const [saved,setsaved]=useState(0);
   const [rows, setRows] = useState([
     { id: 1, name: 'Abcd', maxMarks: 20 },
     { id: 2, name: 'Abcd', maxMarks: 20 },
-    { id: 2, name: 'Abcd', maxMarks: 20 },
+    { id: 3, name: 'Abcd', maxMarks: 20 },
   ]);
 
   let currentTime = new Date();
@@ -64,11 +66,11 @@ function EventRequest() {
       alert('Please select a file first!');
       return;
     }
-
+    
     const formDatA = new FormData();
     formDatA.append('pdf', filE);
     formDatA.append('eventId', formData.eventName);
-    console.log(formDatA)
+    
    
     Response=await axios.post("http://localhost:5000/upload", 
     formDatA
@@ -78,9 +80,9 @@ function EventRequest() {
     }
   const handleDelete=()=>{
     
-    // setFormData(initialFormData);
-    // setCurrentPage(1);
-  console.log(formData)
+    setFormData(initialFormData);
+    setCurrentPage(1);
+ 
   
     
   }
@@ -103,6 +105,7 @@ function EventRequest() {
   const handleSubmit = async(event) => {
  
     axios.defaults.withCredentials = true;
+    console.log(rows)
     const response=await axios.post(process.env.REACT_APP_API_URL+'addevents', {
       eventdata: formData,
     departmentdata:dAta,
@@ -119,7 +122,10 @@ function EventRequest() {
   }
 
   return (
-    <div style={{height:'100%'}} className='eventrequesteve'>
+
+    
+    
+    <div style={{height:'100%'}} className={`eventrequesteve ${darkMode ? 'dark-mode' : ''}`}>
       {currentPage === 1 && (
         <Faculti1
           goToNextPage={goToNextPage}
@@ -127,8 +133,14 @@ function EventRequest() {
           handleFormDataChange={handleFormDataChange}
           handDelete={handleDelete}
           rows={rows}
+          darkMode={darkMode} 
+          toggleDarkMode={toggleDarkMode}
           setRows={setRows}
           setdAta={setdAta}
+          setSelected={setSelected}
+          selected={selected}
+          setsaved={setsaved}
+          saved={saved}
         />
       )}
       {currentPage === 2 && (
@@ -140,6 +152,8 @@ function EventRequest() {
           handDelete={handleDelete}
           filE={filE}
           handlefile={handlefile}
+          darkMode={darkMode} 
+          toggleDarkMode={toggleDarkMode}
           handleUpload={handleUpload}
         />
       )}

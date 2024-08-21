@@ -3,17 +3,19 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Slide from "@mui/material/Slide";
-import Trash from "./trash";
 import "./trash.css";
+import Rubics from "../component/Rubics";
+import RubricsMarkSheet from "./Rubics-fal";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Popup(props) {
+export default function Rpadding(props) {
   const [open, setOpen] = React.useState(true);
-
+  console.log(props.status);
   const handleClose = () => {
+    props.setShowNotifications1(false);
     setOpen(false);
   };
 
@@ -38,16 +40,20 @@ export default function Popup(props) {
           },
           "& .MuiPaper-root": {
             width: "600px", // Set custom width if needed
-            height: "290px", // Set custom height if needed
+            height: "300px", // Set custom height if needed
           },
         }}
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogContent>
-          <Trash
+          <RubricsMarkSheet
             h={handleClose}
-            handDelete={props.handDelete}
-            darkMode={props.darkMode}
+            student_id={props.student_id}
+            rows={props.row}
+            setTask={props.setTask}
+            Task={props.Task}
+            setShowNotifications1={props.setShowNotifications1}
+            setRows={props.setRows}
           />
         </DialogContent>
       </Dialog>

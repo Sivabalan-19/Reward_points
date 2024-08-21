@@ -1,112 +1,379 @@
-
-import React, { useState,setState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
-import { RiAccountCircleLine } from "react-icons/ri";
-import { MdLightMode, MdOutlineAccountTree } from "react-icons/md";
-import { useMemo, useEffect } from "react";
-import {store, useGlobalState} from 'state-pool';
-import Table from "../component/table";
-
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  LabelList,
-  Cell,
-} from "recharts";
+import Attendence from "./Attendence";
+import Rpadding from "./Rpadding";
+import logo1 from "../assets/image1.png";
+import logo2 from "../assets/image2.png";
+import logo3 from "../assets/image3.png";
+import logo4 from "../assets/image4.png";
+import {  MdLightMode, MdNotificationsNone } from "react-icons/md";
+import Verticalstepper from "./Verticalstepper";
 import { IoMoon } from "react-icons/io5";
-import {
-  MdOutlineAddAlert,
-  MdBarChart,
-  MdSummarize,
-  MdNotificationsNone,
-  MdOutlineLightMode,
-  MdDarkMode,
-} from "react-icons/md";
-import Notipopup from "../Student/Notipopup";
-import { FaSearch } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
+function Falcultyfirstpage({ darkMode, toggleDarkMode, nextPage, eventId,status,Activity_type,Activity_name,setstatus}) {
+  const [Data, setData] = useState([]); // Initialize Data as an empty array
+  const [Task, setTask] = useState([]);
+  const [acti_n,setacti_n]=useState()
+  const [acti_t,setacti_t]=useState()
+  console.log(status)
+  console.log(eventId)
+  const [student_id, setStudentId] = useState(0);
+  const [showNotifications1, setShowNotifications1] = useState(false);
+  const [isTableReady, setIsTableReady] = useState(false);
+  useEffect(() => {
+    const E_i = async () => {
+      try {
+        axios.defaults.withCredentials = true;
+        const response = await axios.post(
+          process.env.REACT_APP_API_URL + "Event_id",
+          { id: eventId },
+          {
+            headers: {
+              withCredentials: true,
+              Authorization: localStorage.getItem("authToken"),
+            },
+          }
+        );
+        console.log(response.data.message[0])
+        setacti_n(response.data.message[0].Activity_name);
+        setacti_t(response.data.message[0].Activity_type)
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
+    E_i();
+  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        axios.defaults.withCredentials = true;
+        const response = await axios.post(
+          process.env.REACT_APP_API_URL + "attendence",
+          { id: eventId },
+          {
+            headers: {
+              withCredentials: true,
+              Authorization: localStorage.getItem("authToken"),
+            },
+          }
+        );
+        const reversedData = response.data.message
+          .reverse()
+          .map((row, index) => ({ ...row, sno: index + 1 }));
+        setData(reversedData);
+        
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-
-function Falcultyfirstpage(props) {
-    const [showNotifications, setShowNotifications] = useState(false);
-    const [isTableReady, setIsTableReady] = useState(false);
-    useEffect(() => {
-      const timeoutId = setTimeout(() => {
-        setIsTableReady(true);
-      }, 100); // 1 second delay
+    fetchData();
+  }, []);
+  useEffect(() => {
+   
+    const taskData = async () => {
+      try {
+        axios.defaults.withCredentials = true;
+        const response = await axios.post(
+          process.env.REACT_APP_API_URL + "task",
+          { id: eventId },
+          {
+            headers: {
+              Authorization: localStorage.getItem("authToken"),
+            },
+          }
+        );
+        let task = response.data.message.map((row, index) => ({
+          ...row,
+          sno: index + 1,
+        }));
+        task = task.map((row) => ({ ...row, obtained_mark: 0 }));
+        setTask(task);
+        console.log(task)
+      } catch (error) {
+        console.error("Error fetching task data:", error);
+      }
+    };
   
-      return () => clearTimeout(timeoutId);
-    }, []);
-  
-    if (!isTableReady) {
-      return <div></div>;
+    taskData();
+  }, []);
+
+  const taskSumbit = async (points_text) => {
+    try {
+      axios.defaults.withCredentials = true;
+      await axios.post(
+        process.env.REACT_APP_API_URL + "sumbittask",
+        { text: points_text,id: eventId },
+        {
+          headers: {
+            withCredentials: true,
+            Authorization: localStorage.getItem("authToken"),
+          },
+        }
+      );
+      setstatus(7)
+    } catch (error) {
+      console.error("Error submitting task:", error);
     }
+  };
+  const attendence_sumbit = async (attend) => {
+    try {
+      axios.defaults.withCredentials = true;
+      await axios.post(
+        process.env.REACT_APP_API_URL + "present",
+        { text: attend, id: eventId },
+        {
+          headers: {
+            withCredentials: true,
+            Authorization: localStorage.getItem("authToken"),
+          },
+        }
+      );
+      setstatus(5)
+    } catch (error) {
+      console.error("Error submitting task:", error);
+    }
+  };
+  const sumbit_task = () => {
+    let points_text = "";
+    console.log(Task)
+    Task.forEach((item) => {
+      points_text += `(${item.user_id},${item.obtained_mark},${item.task_id}),`;
+    });
+    points_text = points_text.slice(0, -1);
+    console.log(points_text);
+    taskSumbit(points_text);
+  };
+const Sumbit_attendence=()=>{
+  let attendence = "";
+  console.log(Data)
+  Data.forEach((item) => {
+    if (item.present == 1) {
+      attendence += item.user_id;
+    }
+  });
+  console.log(attendence)
+  attendence_sumbit(attendence);
+}
+  const handlePresent = (sno) => {
+    setData((prevData) => {
+      return prevData.map((d) => {
+        if (d.sno === sno) {
+          return { ...d, present: d.present ? 0 : 1 };
+        }
+        return d; // Return the original object if no update is needed
+      });
+    });
+  };
+
+  const columns = useMemo(
+    () => [
+      { Header: "SNO", accessor: "sno" },
+      { Header: "Reg No", accessor: "rollno" },
+      { Header: "Student Name", accessor: "username" },
+      { Header: "department", accessor: "department_name" },
+      { Header: "year", accessor: "year" },
+      {
+        Header: "Attendance",
+        accessor: "present",
+        Cell: ({ cell: { row } }) => (
+          <button
+            className="view-em"
+            onClick={() => handlePresent(row.original.sno)}
+          >
+            {row.original.present ? "present" : "absent"}
+          </button>
+        ),
+      },
+      {
+        Header: "view",
+        accessor: "user_id",
+        Cell: ({ cell: { value } }) => (
+          <div
+            onClick={() => {
+           
+           
+              setStudentId(value);
+              setShowNotifications1(true);
+            }}
+          >
+            <FaEye />
+          </div>
+        ),
+      },
+    ],
+    [nextPage]
+  );
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsTableReady(true);
+    }, 100);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  if (!isTableReady) {
+    return <div>Loading...</div>;
+  }
+  const Student_regestration = async () => {
+    try {
+      axios.defaults.withCredentials = true;
+      const response = await axios.post(
+        process.env.REACT_APP_API_URL + "openregistration",
+        {
+          id: eventId,
+        },
+        {
+          headers: {
+            withCredentials: true,
+            Authorization: localStorage.getItem("authToken"),
+          },
+        }
+      );
+      setstatus(3)
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const Event_completion = async () => {
+    try {
+      axios.defaults.withCredentials = true;
+      const response = await axios.post(
+        process.env.REACT_APP_API_URL + "close_event",
+        {
+          id: eventId,
+        },
+        {
+          headers: {
+            withCredentials: true,
+            Authorization: localStorage.getItem("authToken"),
+          },
+        }
+      );
+      setstatus(8)
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const Student_close = async () => {
+    try {
+      axios.defaults.withCredentials = true;
+      const response = await axios.post(
+        process.env.REACT_APP_API_URL + "closeregistration",
+        {
+          id: eventId,
+        },
+        {
+          headers: {
+            withCredentials: true,
+            Authorization: localStorage.getItem("authToken"),
+          },
+        }
+      );
+      setstatus(4)
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   return (
-    <div className="con ">
+    <div className="con">
       <div className="header1">
-        <div className="Dash"> Event Details </div>
+        <div className="Dash">Event Details</div>
         <div className="theme">
-          <div className="noti" onClick={() => {setShowNotifications(!showNotifications)}} >
+          <div
+            className="noti"
+            onClick={() => setShowNotifications1(!showNotifications1)}
+          >
             <MdNotificationsNone />
           </div>
-          <div className="light" >
-             <MdLightMode />
+          <div className="light" onClick={toggleDarkMode}>
+          {darkMode ? <IoMoon /> : <MdLightMode />}
           </div>
         </div>
       </div>
-      
-      <div className="allbody-rep" >
+
+      <div className="allbody-rep">
         <div className="fal-11-rep">
-            <div style={{height:'98%',width:'70%'
-                ,backgroundColor:'white'
-                ,borderRadius:'10px'
-                }}>
+          <div className="fac-att-pag">
+            <div className="heade">
+              <div className="Reward">
+                Attendance
+              </div>
+            </div>
+            <div className="heade2">
+              <Attendence
+                columns={columns}
+                data={Data}
+                Task={Task}
+                Table_header_name="Attendance table"
+                handlePresent={handlePresent}
+              ></Attendence>
+            </div>
 
-            <div className="heade"> 
-
-                <div className="Reward" style={{marginLeft:'2%'}}>Attendance</div> 
+            
+            <div style={{height:'10%',width:'100%',display:'flex',justifyContent:'end',alignItems:'center',gap:'2%'}}>
+              {status==2?<button className="previouseventbut1-cre" onClick={Student_regestration}>Open Registration</button>:""}
+              {status==4? <button className="previouseventbut1-cresu" onClick={Sumbit_attendence}>Submit Attendence</button>:""}
+              {status==5? <button className="previouseventbut1-cresu" onClick={sumbit_task}>Submit Points</button>:""}
+            {status==3?  <button className="previouseventbut1-cretrtr" onClick={Student_close}>Close Registration</button>:""}
+            {status==7?  <button className="previouseventbut1-cretrtr" onClick={Event_completion}>Set Event_completed</button>:""}
             </div>
-            <div className="heade1">
-            <div className="Dash-pt" style={{display:'flex',justifyContent:'space-between',width:'50%'}}> 
-        <div className="search-bar-fal-rep">
-        <div style={{color: '#2B3674',fontSize:'12px',alignSelf:'center'}}><FaSearch /></div>
-        <input
-          type="text"
-          placeholder="Search"
-          className="bar"
-        />
-        </div>
-        <div className="search-bar-em1-rep1">
-            <select className="ba-em">
-              <option style={{ color: '#2B3674', fontWeight: '600' }} value="" selected disabled hidden>Academic year</option>
-              <option value="First">First Year</option>
-              <option value="Second">Second Event</option>
-              <option value="Third">Third Year</option>
-              <option value="Fourth">Fourth Event</option>
-            </select>
-        </div>
-        </div>
+            
+          </div>
+          <div className="fac-ver-stepp"> 
+            <div style={{height:'37%' , display:'flex',flexDirection:'column' }}>
+              <div style={{height:'65%' , borderRadius:'10px'}}>
+               
+                {acti_t == "external-technical" ? (
+          <img
+            src={logo1}
+            style={{ height: "100%", width: "100%" ,borderRadius:'10px' }}
+          />
+        ) : acti_t == "technical-society" ? (
+          <img
+            src={logo2}
+            style={{ height: "100%", width: "100%" ,borderRadius:'10px'}}
+          />
+        ) : acti_t == "extra-curricular" ? (
+          <img
+            src={logo3}
+            style={{ height: "100%", width: "100%",borderRadius:'10px' }}
+          />
+        ) : (
+          <img
+            src={logo4}
+            style={{ height: "100%", width: "100%" ,borderRadius:'10px'}}
+          />
+        )}
+              </div>
+              <div style={{fontSize:'20px',textTransform:'uppercase' , paddingLeft:'20px' , margin:'15px 0' , fontWeight:'600' ,color:'#2b3674'}}>
+              {acti_n}
+              </div>
             </div>
-            <div className="heade2"> </div>
-                
+            <div className="line-rep"></div>
+            <div style={{height:'58%' , width:'90%',padding:'0 5%'}}>
+              <div className="Reward" style={{paddingBottom:'15px'}}>Progress Status :</div>
+            {status && <Verticalstepper status={status}/>}
             </div>
-            <div style={{height:'98%',width:'28%'
-                ,backgroundColor:'white'
-                ,borderRadius:'10px'
-                }}>
-                
-            </div>
+            
+          </div>
         </div>
       </div>
 
-
-
-      {showNotifications && (<Notipopup></Notipopup>)}
+      {showNotifications1 && (
+        <Rpadding
+          setShowNotifications1={setShowNotifications1}
+          Task={Task}
+          status={status}
+          student_id={student_id}
+          setTask={setTask}
+        />
+      )}
     </div>
-  )
+  );
 }
 
-export default Falcultyfirstpage
+export default Falcultyfirstpage;

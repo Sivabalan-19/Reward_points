@@ -10,7 +10,7 @@
     display: flex;
     height:100vh;
     width:100vw;
-    background-color: red;
+    /* background-color: red; */
     overflow: hidden;
   }
   .rightside{
@@ -28,131 +28,134 @@
 
   
     
-    .allbody{
-    padding: 0px 20px;
+.allbody{
+    padding: 0px 2%;
     overflow-y: scroll;
     height: 90%;
-    -ms-overflow-style: none;  
+    width: 96%;
     scrollbar-width: none;
   }
 
   .allbody-rep{
-    padding: 0px 20px;
+    padding: 0px 2%;
     overflow-y: scroll;
     height: 90%;
     -ms-overflow-style: none;  
     scrollbar-width: none;
+    width: 96%;
   }
 
   .allbody::-webkit-scrollbar {
     display: none;
   }
-  
   /* Aside starts */
-
 .Sidebar {
-    padding-left: 12%;
-    padding-top: 18%;
-    height: 100%;
-  }
-  
-  .Sidehead {
-    display: flex;
-    margin-bottom: 40%;
-    margin-left: 2%;
-  }
-  
-  .Reward {
-    font-size: 20px;
-    font-weight: 600;
-    color: #2B3674;
-  }
-  
-  .points {
-    font-size: 20px;
-    font-weight: 600;
-    color: #2B3674;
-    font-style: italic;
-  }
-  
-  .line {
-    position: absolute;
-    left: 14.9%;
-    width: 0.2%;
-    height: 3.5%; 
-    background-color: #4318FF; 
-    transition: top 0.4s ease-in-out;
-  }
-  
-  
-  .Home {
-    font-size: 16px;
-    color: #A3AED0;
-    margin-bottom: 10%;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    /* position: relative; */
-    transition: color 1s;
-  }
-  
-  .Home .icon {
-    color: #A3AED0;
-    transition: color 1s;
-  }
-  
-  .Home.active {
-    color: #2B3674; 
-  }
-  
-  .Home.active .icon {
-    color: #4318FF; 
-  }
-  
-  .Dropdown {
+  height: 100%;
+  width: 100%;
+  /* background-color: #007bff; */
+}
 
-    position: fixed;
-    padding-left: 1.6%;
-    top: 245px;
-  }
-  
-  .DropdownItem {
-    font-size: 14px;
-    color: #A3AED0;
-    margin-bottom: 20%;
-    font-weight: 500;
-    cursor: pointer;
-    position: relative;
-    transition: color 0.3s;
-    
-  }
-  
-  .DropdownItem.active {
-    color: #2B3674; 
-  }
-  
-  .photo1 {
-    margin-top: 65% ;
-    margin-bottom: 85% ;
-  }
-  
-  .Signout{
-    font-size: 16px;
-    color: #A3AED0;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    position: relative;
-    transition: color 0.3s;
-    margin-bottom:1px;
-  }
-  
-  .Signout.active {
-    color: #2B3674; 
-  }
-  
+.Sidehead {
+  display: flex;
+  /* background-color: #01B574; */
+  width: 100%;
+  height: 10%;
+  justify-content: center;
+  align-items: center;
+}
+
+.Reward {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2B3674;
+}
+
+.points {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2B3674;
+  font-style: italic;
+}
+
+.line {
+  position: absolute;
+  left: 14.7%;
+  width: 0.2%;
+  height: 3.5%; 
+  background-color: #4318FF; 
+  transition: top 0.4s ease-in-out;
+}
+
+.Home {
+  font-size: 16px;
+  color: #A3AED0;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: start;
+  height: 5%;
+  width: 90%;
+  padding-left: 10%;
+  /* background-color: aqua; */
+  justify-content: left;
+  transition: color 1s;
+}
+
+.Home-drop {
+  font-size: 16px;
+  color: #A3AED0;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: start;
+  height: 60%;
+  width: 90%;
+  padding-left: 10%;
+  /* background-color: aqua; */
+  justify-content: left;
+  transition: color 1s;
+}
+
+.dropdown-show {
+  width: 90%;
+  height: 10%;
+  display: flex;
+  /* background-color: #4318FF; */
+  flex-direction: column;
+  padding-left: 10%;
+}
+
+ .icon {
+  color: #A3AED0;
+  transition: color 1s;
+  margin-top: 3px;
+}
+
+.Home.active {
+  color: #2B3674; 
+}
+
+.Home.active .icon {
+  color: #4318FF; 
+}
+
+.Home-drop.active {
+  color: #2B3674; 
+}
+
+.photo3 {
+  padding: 70% 0;
+  padding-left: 10%;
+}
+
+.photo1 {
+  padding: 50% 0;
+  padding-left: 10%;
+}
+
+.dark-mode .Home-drop.active{
+  color: white;
+}
   .theme{
     display: flex;
     padding: 0.3% 0%;
@@ -230,18 +233,17 @@
   }
   /* add the following styles to your existing styles */
 
-.dark-mode {
-  background-color: #1A1D26;
-  color: #FEFCF8;
-}
 
-.dark-mode .Sidebar {
+
+.dark-mode .Sidebar, .dark-mode .col-body    {
   background-color: #1A1D26;
 }
 
-.dark-mode .con {
-  background-color: #1A1D26;
+.dark-mode .con ,.dark-mode .inp-fal-rep,.dark-mode .search-bar-em1-rep1-ad{
+  background-color: #20242e;
 }
+
+
   
   
   .graph2icon
@@ -523,7 +525,7 @@
     display: block;
     justify-content: center;
     text-align: space-between;
-    padding: 25px 30px; 
+    padding: 25px 10px; 
     align-items: space-between;
   }
 
@@ -533,7 +535,6 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    border-radius: 500px;
     height: 90%;
   }
 
@@ -560,9 +561,51 @@
     color: #FEFCF8   ;
   }
 
-  
+  .dark-mode .text-input--rep-1,.dark-mode .multiline-input-1,
+  .dark-mode .text-input--rep,.dark-mode .text-input-11 ,.dark-mode .text-input-1 {
+    color: #DEE6FF ;
+  }
 
-  .dark-mode .header1,.dark-mode .header11, .dark-mode .allbody ,.dark-mode .header101,.dark-mode .below-header
+  .dark-mode .search-bar-fal-rep-1 {
+    background-color: #20242e ;
+    color: white;
+    border: 1px solid #8e8e8e ;
+  }
+  .dark-mode .adminnavbut{
+    background-color: #20242e;
+    color: white;
+  }
+  .dark-mode .adminnavi{
+    border: 1px solid #727272 ;
+    background-color: #20242e;
+  }
+
+  .dark-mode .selected , .dark-mode .adminline{
+    background-color: white;
+    color: #20242e;
+  }
+
+  .dark-mode .text-input--rep-111 
+  {
+    color: #007bff;
+  }
+  .UPCOMING{
+    color: RED;
+  }
+
+  .COMPLEATED-REP{
+    color: rgb(25, 131, 25);
+  }
+
+  .dark-mode .COMPLEATED-REP{
+    color: #82FF75;
+  }
+
+  .dark-mode .UPCOMING{
+    color:#FF7474;
+  }
+
+  .dark-mode .header1,.dark-mode .header11,.dark-mode .header101,.dark-mode .below-header
   ,.dark-mode .eventrequesteve
   {
     /* background-color: #181c26; */
@@ -571,7 +614,7 @@
 
  
 
-  .dark-mode .Dash
+  .dark-mode .Dash,.dark-mode .dropdown-label-rep,.dark-mode .card .status
   {
     color: #FEFCF8;
   }
@@ -609,7 +652,7 @@
   
   .detailedpointhead
   {
-    padding: 20px 0px;
+    margin-top: 10px;
     display: flex;
     gap: 2%; 
     font-size: 20px;
@@ -622,6 +665,10 @@
     color: #2B3674;
     font-weight: 500;
     margin-bottom: 10px;
+  }
+
+  .reason-rep{
+    color: #2B3674;
   }
 
   .pointdetailicon
@@ -642,10 +689,17 @@
     color: #4318FF;
     font-weight: 500;
   }
+
+  .rejectetextar
+  {
+    background-color: transparent;
+    font-size: 16px;
+    color: #2B3674;  
+  }
   
   .pointdetbutton
   {
-    height: 48px;
+    height: 45px;
     margin-top: 20px;
     border-left: none;
     justify-content: center;
@@ -676,6 +730,8 @@
     margin-top: 6px;
   }
 
+  
+
   .dark-mode .rightside
   {
     background-color: #0B1437;
@@ -687,28 +743,40 @@
     margin-top: 10px;
   }
 
-  .dark-mode .dashboardgra, .dark-mode .rpcardcontainer, .dark-mode .table1, .dark-mode .search-bar-em,.dark-mode th,
-  .dark-mode .table2, .dark-mode .head, .dark-mode .logs-popup ,.dark-mode .main-body,.dark-mode .ba-em,.dark-mode .ba-em1
+  .dark-mode .dashboardgra, .dark-mode .rpcardcontainer, .dark-mode .table1, .dark-mode .search-bar-em,.dark-mode th,.dark-mode .fac-ver-stepp, 
+  .dark-mode .table2, .dark-mode .head, .dark-mode .logs-popup ,.dark-mode .main-body,.dark-mode .ba-em,.dark-mode .ba-em1, .dark-mode .fac-att-pag
   ,.dark-mode .event-details, .dark-mode .inside-below,.dark-mode .multiline-input, .dark-mode .dropdown-select1, .dark-mode .dropdown-select
   {
     background-color: #1A1D26;
     color: #FEFCF8;
   }
-/* it need to chenged */
-  .dark-mode tr:nth-child(even) {
-    background-color: #1A1D26;
-  }
-/* it need to chenged */
-  .dark-mode .points-table table tr:nth-child(even) {
-    background-color: #1A1D26;
-  }
-.dark-mode .theme , .dark-mode .con, .dark-mode .search-bar,.dark-mode .bar, .dark-mode .notiitems, .dark-mode .search-bar-em1
- {
+
+
+.dark-mode .theme , .dark-mode .search-bar,.dark-mode .bar, .dark-mode .notiitems, .dark-mode .search-bar-em1,.dark-mode .search-bar-fal-rep,
+.dark-mode .search-bar-em1-rep1, .dark-mode .dropdown-select1-ry
+{
   background-color: #181C26;
 }
 
+.dark-mode .ba-em----s
+{
+  background: transparent;
+  color: #FDFDfd;
+}
+.dark-mode td
+{
+  color: #FDFDFD;
+}
 
-
+ .ba-em----s option
+ {
+  color: #2B3674;
+ }
+.dark-mode .ba-em----s option
+{
+  background-color: #181C26;
+  color: #FDFDFD;
+}
 
   .dark-mode .secondyearcolor, .dark-mode .pointdetailcolor, .dark-mode .pointdetail,
   .dark-mode .pointdetailicon, .dark-mode .rpcardcontainerpointtit, .dark-mode .search-em ,
@@ -717,24 +785,29 @@
   .dark-mode .rpinternaldistributon, .dark-mode .Reward, .dark-mode .noti, .dark-mode .points,.dark-mode .Dash-em ,
   .dark-mode .eventm-em, .dark-mode .ba-em,.dark-mode .ba-em1, .dark-mode .nodatafoundtext, .dark-mode .nodatafoundicon-em,
   .dark-mode .Home.active, .dark-mode .Dash-pt ,.dark-mode .DropdownItem.active , .dark-mode .note, .dark-mode .dropdown-label,
-  .dark-mode .notesin, .dark-mode .form-label, .dark-mode .form-row
+  .dark-mode .notesin, .dark-mode .form-label, .dark-mode .form-row, .dark-mode .redepttit,.dark-mode .inp-fal-rep,.dark-mode .search-bar-em1-rep1-ad
   
   {
-    color: white;
+    color: #FDFDFD;
   }
   .dark-mode .light ,.dark-mode .Home.active .icon
   {
     color: #3314be;
   }
-  .dark-mode .r Table th  , .dark-mode .table1 Table th ,.dark-mode .table2 Table th, .dark-mode .table-em th
+  .dark-mode .r Table th  , .dark-mode .table1 Table th ,.dark-mode .table2 Table th, .dark-mode .table-em th 
   {
     color: #FEFCF8;
     /* background-color: rgb(56, 56, 56); */
-    background-color: rgb(65, 64, 64);
+    background-color: #20242e;
     border-top: 1px solid  rgb(56, 56, 56);
     border-bottom: 1px solid  rgb(56, 56, 56);
-    border-left: 1px solid rgb(65, 64, 64);
-    border-right: 1px solid rgb(65, 64, 64);
+    border-left: 1px solid #20242e;
+    border-right: 1px solid #20242e;
+  }
+  
+  .dark-mode .tablefoot-em ,  .dark-mode .nextpagebut-em , .dark-mode .noofrow-em,.dark-mode .search-bar-fal,.dark-mode .search-bar-em1-rep{
+    color: #FEFCF8;
+    background-color: #20242e;
   }
   .dark-mode .r Table td, .dark-mode .table1 td, .dark-mode .table2 td 
   {
@@ -752,15 +825,15 @@
   {
     border: 1px solid  rgb(56, 56, 56);
   }
-
  
 
-  .dark-mode .ba-em::placeholder
+  .dark-mode .ba-em::placeholder ,.dark-mode .reason-rep ,.dark-mode .bar,.dark-mode .eventstat,.dark-mode .multi-rej,
+  .dark-mode .rejectetextar , .dark-mode .label-rep , .dark-mode .text-input , .dark-mode .text-input-1515
   {
     color: #FEFCF8;
   }
 
-  .dark-mode .tablefoot-em , .dark-mode .nextpagebut-em,.dark-mode .noofrow-em
+   .dark-mode .main-body--1,.dark-mode .popupmainbox,.dark-mode .card , .dark-mode .inside-below-fal
   {
     background-color: #1A1D26;
     color: #FEFCF8 ;
@@ -1402,7 +1475,39 @@
   width: 100%;
 }
 
-
-.points-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+.title{
+  font-size: 18px;
+  color: #2B3674;
+  font-weight: 600;
 }
+
+.dark-mode .title{
+  color: #FDFDFD;
+}
+
+
+
+
+
+
+@media screen and (max-width: 700px) {
+   .leftside
+   {
+    display: none;
+   }
+
+   .rightside
+   {
+    width: 100%;
+   }
+   .main-container
+   {
+    justify-content: center;
+   }
+ /* .class="search-bar-em1-rep */
+   .card
+   {
+    width: 100%;
+   }
+}
+

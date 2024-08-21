@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Divider } from 'antd';
-import { FiSun, FiMoon } from "react-icons/fi"; // Import FiMoon icon for dark mode
+import { FiSun, FiMoon } from "react-icons/fi";
 import logo from '../assets/logo.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -49,7 +49,7 @@ function Login() {
         var fakeToken = response.data.accessToken;
         login(fakeToken);
       
-        navigate('/admin/layout');
+        navigate('/admin/dashboard');
    
       } else {
         alert('Invalid username');
@@ -93,10 +93,10 @@ function Login() {
         var fakeToken = response.data.accessToken;
         login(fakeToken);
     
-        navigate('/admin/report');
+        navigate('/admin/dashboard');
    
       } else {
-        alert('Invalid username');
+        alert('Invalid username');  
       }
     } catch (error) {
       console.error("Error during form submission:", error);
@@ -134,7 +134,7 @@ const handleKeyDown = (event) => {
           <div className='signin'>Sign In</div>
           <div style={{ color: '#A3AED0' }}>Enter your email and password to sign in!</div>
           <div className='loginfield'>Email*</div>
-          <div>
+          <div style={{ width:'91%',height:'7%' , paddingBottom:'2%'}}>
             <input type="text" placeholder='mail@simmmple.com' required className='logininput' name='username'
               value={inputs.username || ""}
               onChange={handleChange} />
@@ -152,28 +152,30 @@ const handleKeyDown = (event) => {
               onChange={handleChange}
             />
             <span className='toggle-password' onClick={togglePasswordVisibility}>
-              <i className={`fas ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`} style={{ color: '#A3AED0' }}></i>
+              <i className={` fas ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}} style={{ color: '#A3AED0' }`}></i>
             </span>
           </div>
 
           <div className='keeploggedin'>
+            <div style={{display:"flex"}}>
             <div><input type="checkbox" className='checkbox' /></div>
             <div className='keepmelogged'>Keep me logged in</div>
+            </div>  
             <div className='forgot'>Forgot Password?</div>
           </div>
 
-          <div><button className='signinbutton' onClick={handleSubmit}>Sign In</button></div>
+          <div style={{width:"92%",height:'7%',padding:"5% 0% 0% 0%"}}><button className='signinbutton' onClick={handleSubmit}>Sign In</button></div>
 
-          <div style={{ display: 'flex', padding: '20px 0px' }}>
-            <div className='notregisteredyeat'>Not registered yet?</div>
+          <div style={{ display: 'flex', padding: '20px 0px',width:'100%'}}>
+            <div className='notregisteredyeat'>Not registered yet? </div>
             <div className='createaccountlog'>Create an Account</div>
           </div>
 
-          <div style={{ marginRight: '170px' }}>
+          <div style={{ width:'92%' }}>
             <Divider style={{ borderTopWidth: '3px', fontWeight: '700', borderColor: '#A3AED0' }}>or</Divider>
           </div>
 
-          <div style={{ width:'75%', justifyContent:'center',display:'flex'}}>
+          <div style={{ width:'92%',padding:'30px 0px', justifyContent:'center',display:'flex'}}>
           <GoogleLogin 
            className="googlebutton"
            onSuccess={credentialResponse => {
@@ -195,16 +197,34 @@ const handleKeyDown = (event) => {
 
         <div className='bg'>
           <div className='background'>
-            <img src={logo} alt="" height={"300px"} width={'330px'} className='logo' />
-            <div style={{ display: 'flex', justifyContent: 'center', justifySelf: 'center', justifyItems: 'center', justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
+
+          <div style={{ display: 'flex',flexDirection:'column', justifyContent: 'center', alignItems: 'center',width:'100%',height:'90%' }}>
+            <img src={logo} alt="" className='logo' />
               <div className='learnmorelogin'>
                 <div style={{ color: '#ffffff' }}>Learn more</div>
-                <div><a href="https://www.bitsathy.ac.in/" target="_blank" rel="noopener noreferrer">bitsathy.ac.in</a></div>
+                <div><a className='linked-bit' href="https://www.bitsathy.ac.in/" target="_blank" rel="noopener noreferrer">bitsathy.ac.in</a></div>
               </div>
-            </div>
+              <div className='mediaquierygogo'><GoogleLogin 
+           className="googlebutton"
+           onSuccess={credentialResponse => {
+             const details = jwtDecode(credentialResponse.credential);
+             const userData = {
+               picture: details.picture,
+               name: details.name,
+               email: details.email
+             };
+             setUserData(userData);
+        
+             handleSubmit2(userData)
+           }}
+           onError={() => {
+             console.log('Login Failed');
+           }}/></div>
+          </div>
+
             <div className='loginmodecontainer'>
               <button className='loginmode' onClick={toggleDarkMode}>{darkMode ? <FiMoon /> : <FiSun />}</button>
-            </div>
+            </div> 
           </div>
         </div>
       </div>

@@ -52,7 +52,7 @@ function App() {
               path="/admin/*" 
               element={
                 <ProtectedRoute>
-                  <Admin_layout darkMode={darkMode} toggleDarkMode={toggleDarkMode}></Admin_layout>
+                  <Admin_layout darkMode={darkMode} toggleDarkMode={toggleDarkMode}/>
                 </ProtectedRoute>
               } 
             /> 

@@ -201,7 +201,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
            
                 }
 });
-      console.log(result.data.message[0].TotalRP);
+   
       
       setaverage(result.data.message[0].AverageRP);
       setRP(result.data.message[0].TotalRP);
@@ -225,7 +225,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
                   'Authorization': localStorage.getItem("authToken")
                 }
 });
-      console.log(result.data.message)
+     
       settabledata(result.data.message)
      
     })();

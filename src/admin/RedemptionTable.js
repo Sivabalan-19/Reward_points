@@ -1,11 +1,21 @@
-import { useFilters,usePagination, useGlobalFilter }from "react-table";
-import React,{useState} from "react";
-import { FaSearch } from "react-icons/fa";
-import { useTable } from "react-table";
+import React, { useState, useEffect } from "react";
+import { useFilters, useTable, usePagination } from "react-table";
+import { FaRegBell, FaSearch } from "react-icons/fa";
 import { MdOutlineLockClock } from "react-icons/md";
-export default function Attendence({ columns, data,Task,handlePresent}) {
- 
-  // Use the useTable Hook to send the columns and data to build the table
+import {
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TableFooter,
+} from "@mui/material";
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export default function RedemptionTable({ columns, data }) {
+  const [isTableReady, setIsTableReady] = useState(false);
   const {
     getTableProps,
     getTableBodyProps,
@@ -13,85 +23,75 @@ export default function Attendence({ columns, data,Task,handlePresent}) {
     rows,
     prepareRow,
     setFilter,
-    setGlobalFilter,
     nextPage,
     previousPage,
     canPreviousPage,
     canNextPage,
     setPageSize,
     pageCount,
+    gotoPage,
     page,
-    state: { pageIndex, pageSize, globalFilter },
+    state: { pageIndex, pageSize },
   } = useTable(
     {
-
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 10 },
-
+      initialState: { pageIndex: 0, pageSize: 10 }, // Set initial page index and page size
     },
-
     useFilters,
-    useGlobalFilter, 
     usePagination
-
   );
+
   const [filterInput, setFilterInput] = useState("");
   const [filterInput2, setFilterInput2] = useState("");
-  
-  const handleGlobalFilterChange = (e) => {
 
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsTableReady(true);
+    }, 100); // 1 second delay
+
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  if (!isTableReady) {
+    return <div></div>;
+  }
+
+  const handleFilterChange = (e) => {
     const value = e.target.value || undefined;
-    setGlobalFilter(value);
-    setGlobalFilter(value);
+    setFilter("Activity_name", value);
+    setFilterInput(value);
   };
-const handleFilter=(e)=>{
-  setFilterInput2(e.target.value)
-  setFilter("year",e.target.value == 'First' ? 1 : e.target.value == 'Second' ? 2 : e.target.value == 'Third' ? 3 : 4)
-}
 
-const handlePageSizeChange = (e) => {
-  setPageSize(Number(e.target.value));
-};
+  const handleFilterChange2 = (e) => {
+    const value = e.target.value || undefined;
+    setFilter("Activity_code", value);
+    setFilterInput2(value);
+  };
+
+  const handleFilterChange3 = (e) => {
+    setFilter("Activity_type", e.target.value);
+  };
+
+  const handlePageSizeChange = (e) => {
+    setPageSize(Number(e.target.value));
+  };
+
   return (
-    <div className="head-rep-table">
-      <div className="heade1">
-        <div className="Dash-pt--rep" style={{display:'flex',justifyContent:'space-between',width:'60%'}}> 
-        <div className="search-bar-fal-rep">
-        <div style={{color: '#2B3674',fontSize:'12px',alignSelf:'center'}}><FaSearch /></div>
-        <input
-          type="text"
-          placeholder="Search"
-          className="bar"
-          value={globalFilter || ""}
-          onChange={handleGlobalFilterChange}
-        />
-        </div>
-        <div className="search-bar-em1-rep1">
-            <select className="ba-em" value={filterInput2} onChange={handleFilter}>
-              <option style={{ color: '#2B3674', fontWeight: '600' }} value="" selected disabled hidden>Academic year</option>
-              <option value="First">First Year</option>
-              <option value="Second">Second Event</option>
-              <option value="Third">Third Year</option>
-              <option value="Fourth">Fourth Event</option>
-            </select>
-        </div>
-        </div>
-        </div>
-        <div className="table-em">
-   
-    <table {...getTableProps()}>
-      
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th  {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      {pageCount > 0 ? (
+          <div className="table-em">
+            <table {...getTableProps()}>
+              <thead>
+                {headerGroups.map((headerGroup) => (
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column) => (
+                      <th {...column.getHeaderProps()}>
+                        {column.render("Header")}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              {pageCount > 0 ? (
                 <tbody {...getTableBodyProps()}>
                   {page.map((row) => {
                     prepareRow(row);
@@ -99,7 +99,14 @@ const handlePageSizeChange = (e) => {
                       <tr {...row.getRowProps()}>
                         {row.cells.map((cell) => {
                           return (
-                            <td {...cell.getCellProps()}>
+                            <td
+                              {...cell.getCellProps()}
+                              className={
+                                cell.column.id === "Activity_name"
+                                  ? "event-name"
+                                  : ""
+                              }
+                            >
                               {cell.render("Cell")}
                             </td>
                           );
@@ -186,8 +193,6 @@ const handlePageSizeChange = (e) => {
                 </button>
               </div>
             </div>
-            </div>
-          </div>
-    
+          </div>    
   );
 }
