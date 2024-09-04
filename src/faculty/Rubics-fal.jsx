@@ -27,19 +27,22 @@ const RubricsMarkSheet = (props) => {
       <div className="Reward" style={{ margin: "10px 0px" }}>
         Rubrics Mark Sheet
       </div>
-      <table className="in-tab">
+      <div className='table-layout'>
+      <table className="rubictable">
         <thead>
           <tr>
-            <th>S.No</th>
-            <th>Name</th>
-            <th>Max marks</th>
+            <th className="thofrubic">S.No</th>
+            <th className="thofrubic">Name</th>
+            <th className="thofrubic">Max marks</th>
           </tr>
         </thead>
         <tbody>
           {studentTasks.map((mark, index) => (
             <tr key={mark.sno}>
-              <td>{index+1}</td>
-              <td>{mark.point_Name}</td>
+              <td
+               className='ru-inp-so'
+              >{index+1}</td>
+              <td className='ru-inp-inp'>{mark.point_Name}</td>
               <td>
                 <input
                   type="number"
@@ -52,25 +55,26 @@ const RubricsMarkSheet = (props) => {
             </tr>
           ))}
         </tbody>
-        <tfoot>
+        <tfoot  className='total-ru'>
           <tr>
-            <td colSpan="2" className="totalPoints">
+            <td colSpan="2" >
               Total points
             </td>
             <td>{totalPoints}</td>
           </tr>
         </tfoot>
       </table>
-      <div className="ru-but">
+      </div>
+      <div className="button-group-bot">
         <button
-          className="ru-trashBut"
+          className="trash-button-bot"
           onClick={() => {
             setShowNotifications1(false);
           }}
         >
           Trash
         </button>
-        <button className="ru-saveBut" onClick={()=>{
+        <button className="save-button-bot" onClick={()=>{
           props.setShowNotifications1(false)
         }}>Save</button>
       </div>

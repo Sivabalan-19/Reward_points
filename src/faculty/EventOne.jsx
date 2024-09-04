@@ -17,8 +17,7 @@ function Faculti1({
   toggleDarkMode,
   setSelected,
   selected,
-  saved,
-  setsaved,
+  saved,setsaved
 }) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showNotifications3, setShowNotifications3] = useState(false);
@@ -169,22 +168,21 @@ function Faculti1({
                     </option>
                     <option value="online-courses">ONLINE COURSES</option>
                     <option value="language-training">LANGUAGE TRAINING</option>
-                    <option value="training-and-placement">
-                      TRAINING AND PLACEMENT
-                    </option>
+                    <option value="TRAINING AND PLACEMENT">TRAINING AND PLACEMENT</option>
                     <option value="internal-conference">
                       INTERNAL CONFERENCE
                     </option>
                     <option value="sports">SPORTS</option>
-                    <option value="external-technical-event">
-                      EXTERNAL TECHNICAL EVENT
+
+                    <option value="online-courses">EXTERNAL TECHNICAL EVENT</option>
+                    <option value="internal-conference">
+                      INTERNAL COMPITISION
                     </option>
-                    <option value="internal-competition">
-                      INTERNAL COMPETITION
+                    <option value="sports">YOGA</option>
+                    <option value="internal-conference">
+                      CLUBS
                     </option>
-                    <option value="yoga">YOGA</option>
-                    <option value="clubs">CLUBS</option>
-                    <option value="bit-telecast">BIT TELECAST</option>
+                    <option value="sports">BIT TELECAST</option>
                   </select>
                   <p className="notesin">
                     If any of the club names are not available in the list,
@@ -297,9 +295,10 @@ function Faculti1({
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
-                    width: "90%",
+                    width: "100%",
                   }}
                 >
+                  <div style={{width:'48%'}}>
                   <div className="dropdown-container">
                     <label htmlFor="max-points" className="dropdown-label">
                       Maximum Reward Points <span className="required">*</span>
@@ -316,7 +315,8 @@ function Faculti1({
                       required
                     />
                   </div>
-
+                  </div>
+                  <div style={{width:'48%'}}>
                   <div className="dropdown-container">
                     <label htmlFor="max-points" className="dropdown-label">
                       Rubics Sheet <span className="required">*</span>
@@ -330,15 +330,37 @@ function Faculti1({
                       view sheet
                     </div>
                   </div>
+                  </div>
                 </div>
 
-                <div className="dropdown-container">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                  }}
+                >
+                  <div style={{width:'48%'}}>
+                  <div className="dropdown-container">
+                    <label htmlFor="max-points" className="dropdown-label">
+                     Number of Rounds <span className="required">*</span>
+                    </label>
+                    <input
+                      className="dropdown-select1-ry"
+                      type="number"
+                      placeholder="Type here..."
+                      required
+                    />
+                  </div>
+                  </div>
+                  <div style={{width:'48%'}}>
+                  <div className="dropdown-container">
                   <label htmlFor="department-year" className="dropdown-label">
-                    Departments and Years (e.g., CSE 2nd Year){" "}
+                    Departments {" "}
                     <span className="required">*</span>
                   </label>
                   <div
-                    className="dropdown-select1"
+                    className="dropdown-select1-ry"
                     style={{ cursor: "pointer" }}
                     onClick={() => {
                       setShowNotifications3(!showNotifications3);
@@ -352,6 +374,8 @@ function Faculti1({
                     <div style={{ color: "red" }}> Not saved</div>
                   )}
                 </div>
+                </div>
+                </div> 
               </div>
             </div>
             <div className="threebuttonintwopage1">
@@ -379,15 +403,10 @@ function Faculti1({
         </div>
       </div>
       {showNotifications && <Notipopup></Notipopup>}
-      {showNotifications3 && (
-        <Deptpopup
-          setdAta={setdAta}
-          setSelected={setSelected}
+      {showNotifications3 && <Deptpopup setdAta={setdAta}  setSelected={setSelected}
           selected={selected}
           setsaved={setsaved}
-          saved={saved}
-        />
-      )}
+          saved={saved} />}
       {showNotifications1 && (
         <Popup handDelete={handDelete} darkMode={darkMode} />
       )}

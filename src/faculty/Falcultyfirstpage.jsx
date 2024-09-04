@@ -14,9 +14,9 @@ function Falcultyfirstpage({ darkMode, toggleDarkMode, nextPage, eventId,status,
   const [Data, setData] = useState([]); // Initialize Data as an empty array
   const [Task, setTask] = useState([]);
   const [acti_n,setacti_n]=useState()
+  const [acti_c,setacti_c]=useState()
   const [acti_t,setacti_t]=useState()
-  console.log(status)
-  console.log(eventId)
+
   const [student_id, setStudentId] = useState(0);
   const [showNotifications1, setShowNotifications1] = useState(false);
   const [isTableReady, setIsTableReady] = useState(false);
@@ -33,10 +33,11 @@ function Falcultyfirstpage({ darkMode, toggleDarkMode, nextPage, eventId,status,
               Authorization: localStorage.getItem("authToken"),
             },
           }
-        );
-        console.log(response.data.message[0])
+        )
         setacti_n(response.data.message[0].Activity_name);
         setacti_t(response.data.message[0].Activity_type)
+        
+        setacti_c(response.data.message[0].Activity_code)
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -90,7 +91,7 @@ function Falcultyfirstpage({ darkMode, toggleDarkMode, nextPage, eventId,status,
         }));
         task = task.map((row) => ({ ...row, obtained_mark: 0 }));
         setTask(task);
-        console.log(task)
+     
       } catch (error) {
         console.error("Error fetching task data:", error);
       }
@@ -112,7 +113,7 @@ function Falcultyfirstpage({ darkMode, toggleDarkMode, nextPage, eventId,status,
           },
         }
       );
-      setstatus(7)
+      setstatus(6)
     } catch (error) {
       console.error("Error submitting task:", error);
     }
@@ -137,23 +138,23 @@ function Falcultyfirstpage({ darkMode, toggleDarkMode, nextPage, eventId,status,
   };
   const sumbit_task = () => {
     let points_text = "";
-    console.log(Task)
+
     Task.forEach((item) => {
       points_text += `(${item.user_id},${item.obtained_mark},${item.task_id}),`;
     });
     points_text = points_text.slice(0, -1);
-    console.log(points_text);
+   
     taskSumbit(points_text);
   };
 const Sumbit_attendence=()=>{
   let attendence = "";
-  console.log(Data)
+ 
   Data.forEach((item) => {
     if (item.present == 1) {
       attendence += item.user_id;
     }
   });
-  console.log(attendence)
+ 
   attendence_sumbit(attendence);
 }
   const handlePresent = (sno) => {
@@ -349,8 +350,11 @@ const Sumbit_attendence=()=>{
           />
         )}
               </div>
-              <div style={{fontSize:'20px',textTransform:'uppercase' , paddingLeft:'20px' , margin:'15px 0' , fontWeight:'600' ,color:'#2b3674'}}>
-              {acti_n}
+              <div className="eventnamefac">
+              {acti_n}              
+              </div>
+              <div className="eventidfacatt">
+              Event Code : {acti_c}             
               </div>
             </div>
             <div className="line-rep"></div>

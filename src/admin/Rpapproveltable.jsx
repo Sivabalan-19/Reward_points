@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Rpapproveltable() {
+function Rpapproveltable({darkMode,toggleDarkMode}) {
   return (
-    <div className="main-body">
+    <div  className={`main-body ${darkMode ? "dark-mode" : ""}`}>
       <div className="scrollonly-em">
         
       </div>

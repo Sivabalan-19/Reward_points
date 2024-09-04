@@ -3,21 +3,22 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Slide from "@mui/material/Slide";
-import "./trash.css";
-import Rubics from "../component/Rubics";
-import RubricsMarkSheet from "./Rubics-fal";
+
+import AdminRubricsMarkSheet from "./AdminRubricsMarkSheet";
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Rpadding(props) {
+export default function AdminRpadding(props) {
   const [open, setOpen] = React.useState(true);
  
   const handleClose = () => {
     props.setShowNotifications1(false);
     setOpen(false);
   };
+ 
 
   return (
     <React.Fragment>
@@ -26,8 +27,8 @@ export default function Rpadding(props) {
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
-        maxWidth="md" // Set the maximum width of the dialog
-        fullWidth // Make the dialog take up the full width
+        maxWidth="md" 
+        fullWidth 
         sx={{
           "& .MuiDialogContent-root": {
             padding: 0,
@@ -46,14 +47,14 @@ export default function Rpadding(props) {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogContent>
-          <RubricsMarkSheet
+            
+          <AdminRubricsMarkSheet
             h={handleClose}
             student_id={props.student_id}
-            rows={props.row}
-            setTask={props.setTask}
-            Task={props.Task}
+            Event_id={props.Event_id}
             setShowNotifications1={props.setShowNotifications1}
-            setRows={props.setRows}
+          setuse={props.setuse}
+            
           />
         </DialogContent>
       </Dialog>

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useFilters, useTable, usePagination } from "react-table";
-import { FaRegBell, FaSearch } from "react-icons/fa";
+import { useFilters,usePagination, useGlobalFilter }from "react-table";
+import React,{useState} from "react";
+import { FaSearch } from "react-icons/fa";
+import { useTable } from "react-table";
 import { MdOutlineLockClock } from "react-icons/md";
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-export default function   Table({ columns, data, Table_header_name }) {
-  const [isTableReady, setIsTableReady] = useState(false);
+export default function ReportAttendence({ columns, data}) {
+ 
+  // Use the useTable Hook to send the columns and data to build the table
   const {
     getTableProps,
     getTableBodyProps,
@@ -13,64 +13,37 @@ export default function   Table({ columns, data, Table_header_name }) {
     rows,
     prepareRow,
     setFilter,
+    setGlobalFilter,
     nextPage,
     previousPage,
     canPreviousPage,
     canNextPage,
     setPageSize,
     pageCount,
-    gotoPage,
     page,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize, globalFilter },
   } = useTable(
     {
+
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 10 }, // Set initial page index and page size
+      initialState: { pageIndex: 0, pageSize: 10 },
+
     },
+
     useFilters,
+    useGlobalFilter, 
     usePagination
+
   );
 
-  const [filterInput, setFilterInput] = useState("");
-  const [filterInput2, setFilterInput2] = useState("");
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsTableReady(true);
-    }, 100); // 1 second delay
-
-    return () => clearTimeout(timeoutId);
-  }, []);
-
-  if (!isTableReady) {
-    return <div></div>;
-  }
-
-  const handleFilterChange = (e) => {
-    const value = e.target.value || undefined;
-    setFilter("Activity_name", value);
-    setFilterInput(value);
-  };
-
-  const handleFilterChange2 = (e) => {
-    const value = e.target.value || undefined;
-    setFilter("Activity_code", value);
-    setFilterInput2(value);
-  };
-
-  const handleFilterChange3 = (e) => {
-    setFilter("Activity_category", e.target.value);
-  };
-
-  const handlePageSizeChange = (e) => {
-    setPageSize(Number(e.target.value));
-  };
-
+const handlePageSizeChange = (e) => {
+  setPageSize(Number(e.target.value));
+};
   return (
-    <div className="main-body">
-      <div className="scrollonly-em">
-        <div
+    <div className="head-rep-table--e">
+    <div
           style={{
             display: "flex",
             width: "100%",
@@ -78,13 +51,13 @@ export default function   Table({ columns, data, Table_header_name }) {
             alignItems: "center",
           }}
         >
-          <div className="eventm-em"> {Table_header_name}</div>
+          <div className="Reward"> Reward Points </div>
 
           <div className="search-bar-em">
             <input
-              value={filterInput2}
-              onChange={handleFilterChange2}
-              placeholder={"Activity Code"}
+              // value={filterInput2}
+              // onChange={handleFilterChange2}
+              placeholder={"Reg No"}
               className="ba-em"
             />
             <div className="search-em">
@@ -94,9 +67,9 @@ export default function   Table({ columns, data, Table_header_name }) {
 
           <div className="search-bar-em">
             <input
-              value={filterInput}
-              onChange={handleFilterChange}
-              placeholder={"Activity Name"}
+              // value={filterInput}
+              // onChange={handleFilterChange}
+              placeholder={"Department"}
               className="ba-em"
             />
             <div className="search-em">
@@ -105,7 +78,9 @@ export default function   Table({ columns, data, Table_header_name }) {
           </div>
 
           <div className="search-bar-em1">
-            <select onChange={handleFilterChange3} className="ba-em">
+            <select 
+            // onChange={handleFilterChange3}
+             className="ba-em">
               <option
                 style={{ color: "#2B3674", fontWeight: "600" }}
                 value=""
@@ -113,28 +88,26 @@ export default function   Table({ columns, data, Table_header_name }) {
                 disabled
                 hidden
               >
-                Sort By Category
+                Sort By Points
               </option>
-              <option value="Reward">Reward</option>
-              <option value="Honour">Honour</option>
+              <option value="Reward">High To Low</option>
+              <option value="Honour">Low To High</option>
             </select>
           </div>
         </div>
-        <div className="sim-em">
-          <div className="table-em">
-            <table {...getTableProps()}>
-              <thead>
-                {headerGroups.map((headerGroup) => (
-                  <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column) => (
-                      <th {...column.getHeaderProps()}>
-                        {column.render("Header")}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              {pageCount > 0 ? (
+    <div className="table-em">
+    <table {...getTableProps()}>
+      
+      <thead>
+        {headerGroups.map(headerGroup => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map(column => (
+              <th  {...column.getHeaderProps()}>{column.render("Header")}</th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      {pageCount > 0 ? (
                 <tbody {...getTableBodyProps()}>
                   {page.map((row) => {
                     prepareRow(row);
@@ -142,14 +115,7 @@ export default function   Table({ columns, data, Table_header_name }) {
                       <tr {...row.getRowProps()}>
                         {row.cells.map((cell) => {
                           return (
-                            <td
-                              {...cell.getCellProps()}
-                              className={
-                                cell.column.id === "Activity_name"
-                                  ? "event-name"
-                                  : ""
-                              }
-                            >
+                            <td {...cell.getCellProps()}>
                               {cell.render("Cell")}
                             </td>
                           );
@@ -165,7 +131,7 @@ export default function   Table({ columns, data, Table_header_name }) {
                       colSpan={columns.length}
                       style={{
                         textAlign: "center",
-                        padding: "40px",
+                        padding: "20px",
                         justifyContent: "center",
                       }}
                     >
@@ -236,9 +202,8 @@ export default function   Table({ columns, data, Table_header_name }) {
                 </button>
               </div>
             </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
+    
   );
 }

@@ -43,7 +43,7 @@ function Redemption({darkMode,toggleDarkMode}) {
       );
       const [data, setData] = useState([]);
       const handlesumbit=()=>{
-        console.log("HI")
+  
         const fetchData = async () => {
             try {
               axios.defaults.withCredentials = true;
@@ -67,7 +67,7 @@ function Redemption({darkMode,toggleDarkMode}) {
             } catch (error) {
               console.error("Error fetching data:", error);
             }
-            console.log(data);
+       
           };
           fetchData()
       }
@@ -103,7 +103,7 @@ function Redemption({darkMode,toggleDarkMode}) {
         </div>
             </div>
 
-            <div style={{height:'60%',display:'flex',flexDirection:'column',justifyContent:'space-between',width:'22%'}}>
+            {/* <div style={{height:'60%',display:'flex',flexDirection:'column',justifyContent:'space-between',width:'22%'}}>
                 <div className='label-rep'>Department <span className="required">*</span></div>    
                 <div className="search-bar-em1-rep1-ad">
             <select className="ba-em----s" onChange={handleyearchange}>
@@ -128,14 +128,14 @@ function Redemption({darkMode,toggleDarkMode}) {
               <option style={{  fontWeight: '600' }} value="Fourth">FT</option>
             </select>
         </div>
-            </div>
+            </div> */}
 
 
-                {/* <div style={{height:'60%',display:'flex',flexDirection:'column',justifyContent:'space-between',width:'22%'}}>
+                <div style={{height:'60%',display:'flex',flexDirection:'column',justifyContent:'space-between',width:'22%'}}>
                 <div className='redepttit' >Department <span className="required">*</span></div>                
                 <input  className='inp-fal-rep' value={dept} onChange={
                     handledeptchange} ></input>
-                </div> */}
+                </div>
                 <div style={{height:'60%',display:'flex',flexDirection:'column',justifyContent:'space-between',width:'22%'}}>
                 <div className='label-rep' >Redemption Ratio <span className="required">*</span></div>                
                 <input 

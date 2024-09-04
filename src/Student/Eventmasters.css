@@ -4,10 +4,12 @@
     align-items: center;
     width: 98%;
   }
+  
 .close-button{
   border: none;
   background-color: transparent;
 }
+
   .Dash-em{
     margin-left: 2%;
     font-size: 28px;
@@ -128,6 +130,15 @@
   .sim-em{
     margin-top: 10px; 
     height: 92%;
+    width: 100%;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  
+    scrollbar-width: none;
+  }
+
+  .sim-em---ev{
+    margin-top: 10px; 
+    height: 85%;
     width: 100%;
     overflow-y: scroll;
     -ms-overflow-style: none;  

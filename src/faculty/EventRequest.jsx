@@ -35,6 +35,7 @@ function EventRequest({darkMode,toggleDarkMode}) {
     schedulingEndDateTime: '',
     duration: '',
     noOfStudents: '',
+    setps:"cpl1"
   };
   const [formData, setFormData] = useState(initialFormData);
   const[filE,setfilE]=useState()
@@ -80,8 +81,8 @@ function EventRequest({darkMode,toggleDarkMode}) {
     }
   const handleDelete=()=>{
     
-    setFormData(initialFormData);
-    setCurrentPage(1);
+    // setFormData(initialFormData);
+    // setCurrentPage(1);
  
   
     
@@ -105,7 +106,7 @@ function EventRequest({darkMode,toggleDarkMode}) {
   const handleSubmit = async(event) => {
  
     axios.defaults.withCredentials = true;
-    console.log(rows)
+  
     const response=await axios.post(process.env.REACT_APP_API_URL+'addevents', {
       eventdata: formData,
     departmentdata:dAta,

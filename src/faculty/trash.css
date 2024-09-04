@@ -170,6 +170,14 @@
   scrollbar-width: none;
 }
 
+.head-rep-table--e{
+  height: 95%;
+  width: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+
 .view-button {
   background-color: transparent;
   border: none;

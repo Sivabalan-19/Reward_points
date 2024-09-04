@@ -307,6 +307,18 @@
   box-shadow: none !important;   
 } */
 
+.eventnamefac
+{
+font-weight: 600;
+font-size: 20px;
+text-transform: uppercase;
+padding-left: 20px;
+margin: 15px 0px;
+color: #2B3674;
+}
+
+
+
 .dark-mode .imageandform {
   background-color: #0B1437;
 }
@@ -343,6 +355,21 @@
   height: 7%;
   gap: 4%;
   justify-content: flex-end;
+}
+
+.dropdown-select1:focus {
+  outline: none;
+  border-color: #4a90e2; 
+}
+
+.dropdown-select1-ry:focus {
+  outline: none;
+  border-color: #4a90e2; 
+}
+
+.multiline-input:focus {
+  outline: none;
+  border-color: #4a90e2; 
 }
 
 
@@ -705,13 +732,6 @@
   height: 100%;
 }
 
-.dropdown-select-1 {
-  width: 100%;
-  font-size: 16px;
-  border: 1px solid gray;
-  border-radius: 4px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-}
 
 .multiline-input-1 {
   color: #0B1437;
@@ -804,58 +824,48 @@
 
 
   .rupop {
-    width: 95%;
+    width: 96%;
     padding: 0 2%;
     height: 100%;
-    overflow-y: scroll;
-    scrollbar-width: none;
-  }
-  
-  .in-tab {
-    width: 100%;
     /* background-color: #0B1437; */
-    height: 120px;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    margin-bottom: 20px;
+    background-color: #fdfdfd;
+    display: flex;
+    flex-direction: column;
+
   }
   
-   
   .ru-inp {
     width: 50px;
     padding: 5px;
     text-align: center;
     margin-right: 5px;
   }
-  
-  .totalPoints {
-    text-align: right;
-    font-weight: bold;
+
+  .ru-inp-so {
+    width: 130px;
+    padding: 5px 0;
+    text-align: center;
+  }
+
+  .ru-inp-inp {
+    width: 200px;
+    padding: 5px;
+    text-align: center;
+    /* margin-right: 5px; */
   }
   
-  .ru-but {
+  .total-ru {
     display: flex;
-    justify-content: end;
-    gap: 10px;
-    margin-bottom: 20px;
+    justify-content: center;
+    /* background-color: #33ff57; */
+    font-weight: 600;
+    color: #2B3674;
+    font-size: 16px;
   }
-  
-  .ru-trashBut {
-    padding: 10px 20px;
-    background-color: red;
-    color: white;
+
+  .total-ru td{
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .ru-saveBut {
-    padding: 10px 20px;
-    background-color: blue;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+
   }
   
   .fal-rat{
@@ -869,5 +879,5 @@
     padding: 2%;
     background-color: #FDFDFD;
     border-radius: 10px;
-    height: 60%;
+    height: 92%;
   }

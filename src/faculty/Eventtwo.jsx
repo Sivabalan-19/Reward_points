@@ -198,6 +198,46 @@ function Faculti2({
                     accept="application/pdf"
                   />
                 </div>
+
+                <div className="dropdown-container">
+                  <label htmlFor="pslevel" className="dropdown-label">
+                    PS - Level Cleared <span className="required">*</span>
+                  </label>
+                  <select
+                    id="pslevel"
+                    className="dropdown-select"
+                    required
+                    onChange={(e) =>
+                      handleFormDataChange({ setps: e.target.value })
+                    }
+                   
+                  >
+                    <option
+                      style={{ color: "#2B3674", fontWeight: "600" }}
+                      value=""
+                      selected
+                      disabled
+                      hidden
+                    >
+                      Select options
+                    </option>
+                    <option value="c programming 1">
+                      C - Programming Level 1
+                    </option>
+                    <option value="c programming 2">
+                      C - Programming Level 2
+                    </option>
+                    <option value="c programming 3">
+                      C - Programming Level 3
+                    </option>
+                    <option value="c programming 4">
+                      C - Programming Level 4
+                    </option>
+                    <option value="c programming 5">
+                      C - Programming Level 5
+                    </option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -234,14 +274,12 @@ function Faculti2({
         <Popup
           handDelete={handDelete}
           darkMode={darkMode}
-          toggleDarkMode={toggleDarkMode}
         />
       )}
       <Created
         open={showCreated}
         onClose={() => setShowCreated(false)}
         darkMode={darkMode}
-        toggleDarkMode={toggleDarkMode}
       />
     </form>
   );

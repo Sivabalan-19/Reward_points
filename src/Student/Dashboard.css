@@ -20,6 +20,20 @@
     /* background-color: blue; */
     overflow: hidden;
   }
+  .dark-mode .eventnamefac, .dark-mode .eventidfacatt
+  {
+    color:#FDFDFD
+  }
+
+  .eventidfacatt
+  {
+    font-size: 16px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+    color: #2B3674;
+  }
+
 
   .con{
     width: 100%;
@@ -315,7 +329,7 @@
     /* this margin top is needed to be filled with improvement 
     after adding that we can remove this margin top 
     dont forgot */
-    margin-top: 30px;
+    margin-top: 10px;
     cursor: pointer;
     border: 1px solid #4318ff;
   }
@@ -757,7 +771,10 @@
 {
   background-color: #181C26;
 }
-
+.dark-mode .dropdown-select1-ry,.dark-mode .dropdown-select1dept
+{
+  color: white;
+}
 .dark-mode .ba-em----s
 {
   background: transparent;
@@ -904,7 +921,7 @@
     margin-top: 20px;
     width: 100%;
     /* background-color: red; */
-    height: 58%;
+    height: 60%;
     display: flex;
     justify-content: space-between;
   }
@@ -913,7 +930,18 @@
     padding:  9px 0;
     font-family: Arial, sans-serif;
     color: #2B3674;
+    width: 100%;
   }
+  
+
+  .dropdown-containerdept {
+    padding:  9px 0;
+    font-family: Arial, sans-serif;
+    color: #2B3674;
+    width: 40%;
+  }
+
+  
   
   .dropdown-label {
     display: block;
@@ -940,22 +968,19 @@
     border-radius: 4px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   }
+
+  
   
   .dropdown-select1 {
     width: 96%;
-    padding: 10px;
+    padding: 1.9%;
     font-size: 16px;
     border: 1px solid gray;
     border-radius: 4px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   }
-  
-  .notesin{
-    color: #0B1437;
-    font-size: 13px;
-  }
 
-  .dropdown-select1-ry{
+  .dropdown-selectdept {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -963,6 +988,23 @@
     border-radius: 4px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   }
+  
+  
+  .notesin{
+    color: #0B1437;
+    font-size: 13px;
+  }
+
+  .dropdown-select1-ry{
+    width: 96%;
+    padding: 10px 1.8%;
+    font-size: 16px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  
 
   .rubics-main{
     /* background-color: #007bff; */
@@ -1032,38 +1074,7 @@
   }
   
 
-  /* Dark mode styles
-.dark-mode {
-  background-color: #121212;
-  color: #ffffff;
-}
 
-.dark-mode .header101,
-.dark-mode .below-header {
-  background-color: #1e1e1e;
-}
-
-.dark-mode .dropdown-container .dropdown-select,
-.dark-mode .dropdown-container .dropdown-select1,
-.dark-mode .multiline-input {
-  background-color: #2a2a2a;
-  color: #ffffff;
-}
-
-.dark-mode .form-options .form-row label {
-  color: #ffffff;
-}
-
-.dark-mode .previouseventbut1,
-.dark-mode .createeventbut1 {
-  background-color: #333333;
-  color: #ffffff;
-}
-
-.light-mode {
-  background-color: #ffffff;
-  color: #000000;
-} */
 
 /* Additional light mode styles, if any */
 
@@ -1167,14 +1178,7 @@
     color: red;
   }
   
-  .dropdown-select {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid gray;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
+  
   
   
   
@@ -1253,11 +1257,7 @@
   
   
   
-  
-  .dropdown-container {
-    padding:  13px 0;
-    color: #2B3674;
-  }
+ 
   
   
   .upload-container {

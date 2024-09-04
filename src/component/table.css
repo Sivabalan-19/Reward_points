@@ -25,7 +25,7 @@ th {
 
 /* rubics.css */
 .rubicsheet {
-  background-color: white;
+  background-color: #fdfdfd;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -65,6 +65,16 @@ tfoot {
   background-color: transparent;
   width: 100%;
   border: none;
+  font-size: 14px;
+  text-align: center;
+}
+
+.name-rubic:focus{
+  border: none;
+  outline: none;
+}
+
+.table-layout table td{
   text-align: center;
 }
 

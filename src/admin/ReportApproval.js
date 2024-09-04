@@ -4,8 +4,9 @@ import { IoMoon } from "react-icons/io5";
 import { MdLightMode, MdNotificationsNone } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
 import { format } from 'date-fns';
-import AdminTable from "../component/admintable";
-const AdmintableCaller = ({ nextPage, darkMode, toggleDarkMode }) => {
+import AdminReportTable from "./AdminReportTable";
+
+const ReportApproval= ({ nextPage, darkMode, toggleDarkMode }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showEventRegister, setShowEventRegister] = useState(false);
   const [data, setData] = useState([]);
@@ -23,15 +24,10 @@ const AdmintableCaller = ({ nextPage, darkMode, toggleDarkMode }) => {
   const columns = useMemo(
     () => [
       { Header: "SNO", accessor: "sno" },
-      { Header: "EventName", accessor: "Activity_name",
-        
-      },
-
-      { Header: "Eventtype", accessor: "Activity_type",
-        
-         },
-      { Header: "Event Category", accessor: "Activity_category" },
+      { Header: "EventName", accessor: "Activity_name",},
       { Header: "Event_code", accessor: "Activity_code" },
+      { Header: "Eventtype", accessor: "Activity_type",},
+      { Header: "Event Category", accessor: "Activity_category" },
       { Header: "start date", accessor: "StartDate",
         Cell: ({ cell: { value } }) => (
             <span>{format(new Date(value), 'dd-MM-yy')}</span>
@@ -42,12 +38,13 @@ const AdmintableCaller = ({ nextPage, darkMode, toggleDarkMode }) => {
             <span>{format(new Date(value), 'dd-MM-yy')}</span>
           )
        },
-      { Header: "action", accessor: "status" ,filter: 'custom',Cell: ({ cell: { value } }) => {
+      { Header: "", accessor: "status" ,filter: 'custom',Cell: ({ cell: { value } }) => {
     
           
         return (
         
-            <span >{value ==1 ?<div style={{color:'orange'}}>PENDING</div>:value==9?<div style={{color:'red'}}>REJECTED</div>:value>1  &&value<9 ?<div style={{color:'green'}}>APPROVED</div>:""}</span>
+            <span >
+            </span>
            
         );
       } },
@@ -56,7 +53,7 @@ const AdmintableCaller = ({ nextPage, darkMode, toggleDarkMode }) => {
         accessor: "Event_id",
         Cell: ({ cell: { row } }) => (
           <div>
-            <button className="view-em" onClick={() =>{nextPage(row.original.Event_id,row.original.status)
+            <button className="view-em" onClick={() =>{nextPage(row.original.Event_id)
            
             }}>
               view
@@ -72,7 +69,7 @@ const AdmintableCaller = ({ nextPage, darkMode, toggleDarkMode }) => {
     const fetchData = async () => {
       try {
         axios.defaults.withCredentials = true;
-        const response = await axios.get(process.env.REACT_APP_API_URL+"approve",{
+        const response = await axios.get(process.env.REACT_APP_API_URL+"report",{
           headers:{
                    withCredentials:true,
                    'Authorization': localStorage.getItem("authToken")
@@ -94,25 +91,9 @@ const AdmintableCaller = ({ nextPage, darkMode, toggleDarkMode }) => {
 
 
   return (
-    <div className={`con ${darkMode ? 'dark-mode' : ''}`}>
-      <div className="header11">
-        <div style={{ display: 'flex', width: '100%', alignItems: 'center', height: '100%' }}>
-          <div className="Dash-em">Dashboard</div>
-        </div>
-        <div className="theme">
-          <div className="noti" onClick={() => setShowNotifications(!showNotifications)}>
-            <MdNotificationsNone />
-          </div>
-          <div className="light" onClick={toggleDarkMode}>
-            {darkMode ? <IoMoon /> : <MdLightMode />}
-          </div>
-        </div>
-      </div>
-      <div className="allbody">
- 
-        <AdminTable columns={columns} data={data} Table_header_name="admin"></AdminTable>
-      </div>
+    <div className= "con ">
+        <AdminReportTable columns={columns} data={data} Table_header_name="admin"></AdminReportTable>
     </div>
   );
 };
-export default AdmintableCaller;
+export default ReportApproval;

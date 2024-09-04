@@ -29,7 +29,8 @@ function Rubics({h,rows,setRows}) {
   return (
     <div className="rubicsheet">
       <div className='button-out'><button className="add-button" onClick={handleAddRow}>Add +</button></div>
-        <div className='table-layout'><table className='rubictable'>
+        <div className='table-layout'>
+          <table className='rubictable'>
           <thead>
             <tr>
               <th className="thofrubic">S.No </th>
@@ -60,7 +61,7 @@ function Rubics({h,rows,setRows}) {
               </tr>
             ))}
           </tbody>
-          <tfoot>
+          <tfoot  className='total-ru'>
             <tr>
               <td colSpan="2">Total points</td>
               <td>{totalPoints}</td>

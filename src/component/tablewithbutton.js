@@ -43,24 +43,24 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
       { Header: "Activity Category", accessor: "Activity_type" },
       { Header: "Points", accessor: "points" },
       { Header: "Organiser", accessor: "Organier" },
-      {
-        Header: "seat",
-        accessor: "seat",
-        Cell: ({ cell: { value } }) => {
-          return (
-            <div style={{ display: "flex" }}>
-              <span>
-                {value < 10 ? (
-                  <div style={{ color: "red" }}>{value} Seats</div>
-                ) : (
-                  <div>{value} Seats</div>
-                )}
-              </span>
-              <span></span>
-            </div>
-          );
-        },
-      },
+      // {
+      //   Header: "seat",
+      //   accessor: "seat",
+      //   Cell: ({ cell: { value } }) => {
+      //     return (
+      //       <div style={{ display: "flex" }}>
+      //         <span>
+      //           {value < 10 ? (
+      //             <div style={{ color: "red" }}>{value} Seats</div>
+      //           ) : (
+      //             <div>{value} Seats</div>
+      //           )}
+      //         </span>
+      //         <span></span>
+      //       </div>
+      //     );
+      //   },
+      // },
       {
         Header: "Action",
         accessor: "id",
