@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 const AdminRubricsMarkSheet = (props) => {
   const [tAsk, settAsk] = useState([]);
- 
+  console.log(tAsk)
   
   const handleSubmit = async () => {
     let maRk = "UPDATE points_students SET point = CASE";
@@ -17,12 +17,12 @@ const AdminRubricsMarkSheet = (props) => {
     task = task.slice(0, -1) + ")";
     maRk += ` END WHERE student_id = ${props.student_id} AND task_id IN ${task};`;
 
-    console.log("Generated Query:", maRk);
+  
 
     try {
       axios.defaults.withCredentials = true;
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}adminRubricUpdate`,
+        `${process.env.REACT_APP_API_URL}admin/adminRubricUpdate`,
         { Text: maRk },
         {
           headers: {
@@ -44,7 +44,7 @@ const AdminRubricsMarkSheet = (props) => {
       try {
         axios.defaults.withCredentials = true;
         const response = await axios.post(
-          `${process.env.REACT_APP_API_URL}adminRubricApprove`,
+          `${process.env.REACT_APP_API_URL}admin/adminRubricApprove`,
           {
             student_id: props.student_id,
             Event_id: props.Event_id,
@@ -97,6 +97,7 @@ const AdminRubricsMarkSheet = (props) => {
             <th className="thofrubic">S.No</th>
             <th className="thofrubic">Name</th>
             <th className="thofrubic">Max marks</th>
+            <th className="thofrubic">Level</th>
           </tr>
         </thead>
         <tbody>
@@ -113,6 +114,7 @@ const AdminRubricsMarkSheet = (props) => {
                 />{" "}
                 / {mark.max_point}
               </td>
+              <td className='ru-inp-inp'>{mark.level}</td>
             </tr>
           ))}
         </tbody>

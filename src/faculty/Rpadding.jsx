@@ -13,7 +13,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function Rpadding(props) {
   const [open, setOpen] = React.useState(true);
- 
+
   const handleClose = () => {
     props.setShowNotifications1(false);
     setOpen(false);
@@ -54,6 +54,7 @@ export default function Rpadding(props) {
             Task={props.Task}
             setShowNotifications1={props.setShowNotifications1}
             setRows={props.setRows}
+            filterInput2={props.filterInput2}
           />
         </DialogContent>
       </Dialog>

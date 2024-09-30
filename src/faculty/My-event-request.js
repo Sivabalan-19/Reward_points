@@ -9,11 +9,15 @@ const Myeventrequest = ({ darkMode, toggleDarkMode }) => {
   const [Activity_name, setActivity_name] = useState(0);
   const [Activity_type, setActivity_type] = useState(0);
   const [status, setstatus] = useState(null);
- 
+  const [teamsize,setteamsize]=useState(-1)
+
   const [selectedEventId, setSelectedEventId] = useState(null);
-  const nextPage = (id,status) => {
+  const nextPage = (id,status,teamsize) => {
     setSelectedEventId(id);
     setstatus(status)
+    
+    setteamsize(teamsize)
+  
     setCurrentPage(1);
   };
   const prevPage = () => {
@@ -41,6 +45,7 @@ const Myeventrequest = ({ darkMode, toggleDarkMode }) => {
           nextPage={nextPage}
           prevPage={prevPage}
           setstatus={setstatus}
+          teamsize={teamsize}
           status={status}
           eventId={selectedEventId}
           Activity_code={Activity_code}

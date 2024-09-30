@@ -771,7 +771,7 @@
 {
   background-color: #181C26;
 }
-.dark-mode .dropdown-select1-ry,.dark-mode .dropdown-select1dept
+.dark-mode .dropdown-select1-ry,.dark-mode .dropdown-select1dept,.dark-mode .evenrewqti
 {
   color: white;
 }
@@ -850,7 +850,7 @@
     color: #FEFCF8;
   }
 
-   .dark-mode .main-body--1,.dark-mode .popupmainbox,.dark-mode .card , .dark-mode .inside-below-fal
+   .dark-mode .main-body--1,.dark-mode .popupmainbox,.dark-mode .card , .dark-mode .inside-below-fal,.dark-mode .popfac .dark-mode .container ,.dark-mode .eventinfobox
   {
     background-color: #1A1D26;
     color: #FEFCF8 ;
@@ -915,20 +915,22 @@
     width: 49%;
     /* background-color: #0B1437; */
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   
   .row-imo{
     margin-top: 20px;
     width: 100%;
     /* background-color: red; */
-    height: 60%;
+    height: 57%;
     display: flex;
     justify-content: space-between;
   }
   
   .dropdown-container {
-    padding:  9px 0;
-    font-family: Arial, sans-serif;
+    /* padding:  9px 0; */
     color: #2B3674;
     width: 100%;
   }
@@ -936,7 +938,6 @@
 
   .dropdown-containerdept {
     padding:  9px 0;
-    font-family: Arial, sans-serif;
     color: #2B3674;
     width: 40%;
   }
@@ -1091,6 +1092,8 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    font-size: 16px;
+    height: 36px;
   }
   
   input[type="checkbox"] {
@@ -1100,7 +1103,7 @@
   .multiline-input {
     color: #0B1437;
     width: 96%; 
-    height: 30px;
+    height: 50px;
     padding: 10px;
     font-size: 16px;
     border: 1px solid gray;
@@ -1182,56 +1185,15 @@
   
   
   
-  .event-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    font-family: Arial, sans-serif;
-    height: 40%;
-  }
-  
+
   .form-group {
     width: 100%;
     padding-bottom: 19px;
   }
   
-  .form-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .form-options {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .form-row{
-    width: 45%;
-    height: 30px;
-    border: 1px solid grey;
-    border-radius: 5px;
-  }
-  
-  .click--box{
-    height: 100%;
-    width: 12%;
-    border-right: 1px solid gray;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .form-options label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  input[type="checkbox"] {
-    accent-color: #007bff;
-  }
+ 
+ 
+
   
   
   
@@ -1486,6 +1448,34 @@
 }
 
 
+.createeventbutin{
+  display: flex;
+  height: 90%;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+  width: 100%;
+  border: none;
+  background-color: #007bff;
+  color: #FDFDfd;
+  font-size: 100%;
+  border-radius: 5px;
+}
+
+.createeventbutin-team{
+  display: flex;
+  height: 60%;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+  width: 15%;
+  border: none;
+  background-color: #007bff;
+  color: #FDFDfd;
+  font-size: 15px;
+  border-radius: 5px;
+}
+
 
 
 
@@ -1511,3 +1501,57 @@
    }
 }
 
+
+
+.eventregidetail
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 25%;
+}
+
+.teamleaddeta
+{
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.activteamdet
+{
+  /* background-color:yellow; */
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+
+.eventregdet
+{
+  height:75%;
+  width: 50%;
+  padding-left: 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.evenrewqti
+{
+  font-size: 17px;
+  width: 100%;
+  color: #0522a7;
+  text-align: start;
+}
+
+.geotagcer
+{
+  height: auto;
+  width: 100%;
+  /* background-color: pink; */
+}

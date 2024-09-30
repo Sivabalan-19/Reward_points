@@ -1,8 +1,6 @@
-import {React , useState}from 'react'
-import { RxCross1 } from "react-icons/rx";
+import {React }from 'react'
 import './trash.css'
 import { TbTrashXFilled } from "react-icons/tb";
-import { FaCheck } from "react-icons/fa6";
 function Trash({ darkMode, handDelete, h }) {
 
   
@@ -30,7 +28,7 @@ function Trash({ darkMode, handDelete, h }) {
             <div className='trashbuttondiv'>
               <div className='poptrashdivstyle'><button className='nocontiuebut' onClick={h}>NO Continue </button></div>
               <div className='poptrashdivstyle'><button className='trashreqbut'onClick={dele}> YES Trash Request</button></div>
-          </div>
+            </div>
       </div>
     </div>
   )

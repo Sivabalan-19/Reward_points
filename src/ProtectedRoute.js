@@ -10,7 +10,7 @@ const ProtectedRoute = ({ children }) => {
     return <div>Loading...</div>; // Show a loading indicator while determining auth state
   }
 
-  if (!isAuthenticated) {
+  if (isAuthenticated) {
     return <Navigate to="/" />;
   }
 

@@ -3,20 +3,29 @@ import axios from "axios";
 import ReportAttendence from "./ReportAttendence";
 import AdminRpadding from "./AdminRpadding";
 import { IoEyeSharp } from "react-icons/io5";
+import TeamAttendence from "../faculty/TeamAttendence";
 
 const AdminAttendenceTableCaller = ({
   darkMode,
   toggleDarkMode,
   nextPage,
   selectedEventId,
+  teamsize
 }) => {
+  
   const [uSe,  setuse] = useState(0);
+  const [teamid,  setteamid] = useState(-1);
   const [Data, setData] = useState([]);
+  const [Data3, setData3] = useState([]);
+  const [Data2, setData2] = useState([]);
+  const teampage=(id)=>{
+    setteamid(id)
+  }
   const Approve = async () => {
     try {
       axios.defaults.withCredentials = true;
       const response = await axios.post(
-        process.env.REACT_APP_API_URL + "PointsApproved",
+        process.env.REACT_APP_API_URL + "admin/PointsApproved",
         {
           id: selectedEventId,
         },
@@ -35,13 +44,86 @@ const AdminAttendenceTableCaller = ({
   const [student_id, setstudent_id] = useState(0);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showNotifications1, setShowNotifications1] = useState(false);
+  const columns2 = useMemo(
+    () => [
+      { Header: "SNO", accessor: "sno" },
+      { Header: "teamName", accessor: "teamname" },
+      { Header: "projectName", accessor: "project_namel" },
+      { Header: "teamSize", accessor: "team_size" },
+      { Header: "projectDesc", accessor: "project_desc" },
+      { Header: "viewteamnumbers", accessor: "teamid", 
+        Cell:({cell:{value}})=>(<button onClick={()=>{
+            teampage(value)
+        }} className="view-em"> view</button>),       }
+       
+    ],
+    []
+  );
+  useEffect(() => {
 
+    const fetchData = async () => {
+   
+      try {
+        axios.defaults.withCredentials = true;
+        const response = await axios.post(
+          process.env.REACT_APP_API_URL + "faculty/teamapproveattendence",
+          { id: selectedEventId },
+          {
+            headers: {
+              withCredentials: true,
+              Authorization: localStorage.getItem("authToken"),
+            },
+          }
+        );
+        const reversedData = response.data.message
+       
+          .reverse()
+          .map((row, index) => ({ ...row, sno: index + 1 }));
+        setData2(reversedData);
+        
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    teamsize>1?fetchData():console.log();
+  }, [teamsize]);
+  useEffect(() => {
+
+    const fetchData = async () => {
+   
+      try {
+        axios.defaults.withCredentials = true;
+        const response = await axios.post(
+          process.env.REACT_APP_API_URL + "admin/pointreportforteam",
+          { teamid: teamid,eventid:selectedEventId },
+          {
+            headers: {
+              withCredentials: true,
+              Authorization: localStorage.getItem("authToken"),
+            },
+          }
+        );
+        const reversedData = response.data.message
+       
+          .reverse()
+          .map((row, index) => ({ ...row, sno: index + 1 }));
+        setData3(reversedData);
+       
+        
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    teamid!=-1?fetchData():console.log();
+  }, [teamid,uSe]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         axios.defaults.withCredentials = true;
         const response = await axios.post(
-          process.env.REACT_APP_API_URL + "pointreport",
+          process.env.REACT_APP_API_URL + "admin/pointreport",
           {
             id: selectedEventId,
           },
@@ -61,14 +143,15 @@ const AdminAttendenceTableCaller = ({
       }
     };
 
-    fetchData();
+    teamsize==1?fetchData():console.log();
   }, [uSe]);
+
   useEffect(() => {
     const taskData = async () => {
       try {
         axios.defaults.withCredentials = true;
         const response = await axios.post(
-          process.env.REACT_APP_API_URL + "task",
+          process.env.REACT_APP_API_URL + "faculty/task",
           {
             id: selectedEventId,
           },
@@ -92,70 +175,70 @@ const AdminAttendenceTableCaller = ({
 
     taskData();
   }, []);
-  const taskSumbit = async (points_text) => {
-    try {
-      axios.defaults.withCredentials = true;
-      const response = await axios.post(
-        process.env.REACT_APP_API_URL + "sumbittask",
-        {
-          text: points_text,
-        },
-        {
-          headers: {
-            withCredentials: true,
-            Authorization: localStorage.getItem("authToken"),
-          },
-        }
-      );
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-  const sumbit_task = () => {
-    var points_text = "";
-    const result = Task.map((item) => {
-      points_text +=
-        "(" +
-        item.user_id +
-        "," +
-        item.obtained_mark +
-        "," +
-        item.task_id +
-        "),";
-    });
-    points_text = points_text.slice(0, points_text.length - 1);
+  // const taskSumbit = async (points_text) => {
+  //   try {
+  //     axios.defaults.withCredentials = true;
+  //     const response = await axios.post(
+  //       process.env.REACT_APP_API_URL + "faculty/sumbittask",
+  //       {
+  //         text: points_text,
+  //       },
+  //       {
+  //         headers: {
+  //           withCredentials: true,
+  //           Authorization: localStorage.getItem("authToken"),
+  //         },
+  //       }
+  //     );
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+  // const sumbit_task = () => {
+  //   var points_text = "";
+  //   const result = Task.map((item) => {
+  //     points_text +=
+  //       "(" +
+  //       item.user_id +
+  //       "," +
+  //       item.obtained_mark +
+  //       "," +
+  //       item.task_id +
+  //       "),";
+  //   });
+  //   points_text = points_text.slice(0, points_text.length - 1);
 
-    taskSumbit(points_text);
-  };
+  //   taskSumbit(points_text);
+  // };
 
-  const [showEventRegister, setShowEventRegister] = useState(false);
-  const [eventData, setEventData] = useState(null);
+  // const [showEventRegister, setShowEventRegister] = useState(false);
+  // const [eventData, setEventData] = useState(null);
 
-  const showRegisterForm = (id, data) => {
-    setShowEventRegister(true);
+  // const showRegisterForm = (id, data) => {
+  //   setShowEventRegister(true);
 
-    let row = data.find((o) => o.id == id);
-    setEventData(id);
-  };
-  const Student_regestration = async () => {
-    try {
-      axios.defaults.withCredentials = true;
-      const response = await axios.post(
-        process.env.REACT_APP_API_URL + "openregistration",
-        {
-          id: selectedEventId,
-        },
-        {
-          headers: {
-            withCredentials: true,
-            Authorization: localStorage.getItem("authToken"),
-          },
-        }
-      );
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  //   let row = data.find((o) => o.id == id);
+  //   setEventData(id);
+  // };
+  // const Student_regestration = async () => {
+  //   try {
+  //     axios.defaults.withCredentials = true;
+  //     const response = await axios.post(
+  //       process.env.REACT_APP_API_URL + "faculty/openregistration",
+  //       {
+  //         id: selectedEventId,
+  //       },
+  //       {
+  //         headers: {
+  //           withCredentials: true,
+  //           Authorization: localStorage.getItem("authToken"),
+  //         },
+  //       }
+  //     );
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
   const columns = useMemo(
     () => [
       { Header: "SNO", accessor: "sno" },
@@ -189,12 +272,28 @@ const AdminAttendenceTableCaller = ({
   return (
     <div className="main-body">
       <div className="scrollonly-em">
-        <ReportAttendence
+        { teamsize==1 && <ReportAttendence
           columns={columns}
           data={Data}
           Task={Task}
           Table_header_name="Attendence table"
-        ></ReportAttendence>
+        ></ReportAttendence>}
+          { teamsize>1 && teamid!=-1 && <ReportAttendence
+          columns={columns}
+          data={Data3}
+          Task={Task}
+          Table_header_name="Attendence table"
+        ></ReportAttendence>}
+          { teamsize>1 && teamid==-1 && <TeamAttendence
+              columns={columns2}
+              data={Data2}
+              />}
+        {/* <ReportAttendence
+          columns={columns}
+          data={Data}
+          Task={Task}
+          Table_header_name="Attendence table"
+        ></ReportAttendence> */}
         <button
           onClick={() => {
             Approve();

@@ -10,11 +10,11 @@ function Created({ open, onClose, darkMode }) {
     <Dialog
       open={open}
       onClose={onClose}
-      maxWidth="sm" // Set maxWidth to small to further control the width
+      maxWidth="sm" 
       fullWidth
       sx={{
         "& .MuiPaper-root": {
-          width: "600px", // Set custom width here
+          width: "600px", 
         },
       }}
     >

@@ -251,6 +251,10 @@ function Faculti1({
                     </label>
                   </div>
                 </div>
+
+
+
+                
               </div>
               <div className="col-imo">
                 <div className="dropdown-container">
@@ -270,14 +274,11 @@ function Faculti1({
                   />
                 </div>
 
-                <div className="notesin">
-                  Kindly mention the Name of the clubs / Technical Societies /
-                  Department associations along with the event name.
-                </div>
+                
 
                 <div className="dropdown-container">
                   <label htmlFor="event-details" className="dropdown-label">
-                    Details About the Event
+                    Details About the Event <span className="required">*</span>
                   </label>
                   <textarea
                     id="event-details"
@@ -349,6 +350,10 @@ function Faculti1({
                       className="dropdown-select1-ry"
                       type="number"
                       placeholder="Type here..."
+                      value={formData.round}
+                      onChange={(e) =>
+                        handleFormDataChange({ round: e.target.value })
+                      }
                       required
                     />
                   </div>
@@ -366,7 +371,7 @@ function Faculti1({
                       setShowNotifications3(!showNotifications3);
                     }}
                   >
-                    choose file
+                    choose Departments
                   </div>
                   {saved ? (
                     <div style={{ color: "green" }}>saved</div>

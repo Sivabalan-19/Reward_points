@@ -73,7 +73,7 @@ export default function Strudentapprove({ columns, data }) {
     const approvedStudents = studentsToApprove.map(row => row.original);
 
     // Your approval logic here
-    console.log("Approved Students:", approvedStudents);
+    
     
     // You can replace this console log with the actual logic to mark the students as approved
   };

@@ -44,7 +44,7 @@ function Myevents({
     const fetchData = async () => {
       try {
         axios.defaults.withCredentials = true;
-        const response = await axios.get(process.env.REACT_APP_API_URL + "r", {
+        const response = await axios.get(process.env.REACT_APP_API_URL + "faculty/r", {
           headers: {
             withCredentials: true,
             Authorization: localStorage.getItem("authToken"),
@@ -67,9 +67,9 @@ function Myevents({
 
     fetchData();
   }, []);
-  const Card = ({ title, status, Activity_type, id, nextPage }) => (
+  const Card = ({ title, status, Activity_type, id, nextPage,teamsize }) => (
     <div className="card">
-      <div className="image" style={{ backgroundColor: "pink" }}>
+      <div className="image" >
         {Activity_type == "external-technical" ? (
           <img
             src={logo1}
@@ -95,7 +95,7 @@ function Myevents({
       <div className="details">
         <div className="title">{title}</div>
         <div className="view">
-          <div style={{textDecoration:'underline',color:'#007bff' , cursor:'pointer'}} onClick={() => nextPage(id,status)}>view</div>
+          <div style={{textDecoration:'underline',color:'#007bff' , cursor:'pointer'}} onClick={() => nextPage(id,status,teamsize)}>view</div>
         </div>
       </div>
      <div className="steppper">
@@ -201,6 +201,7 @@ function Myevents({
               Activity_type={card.Activity_type}
               id={card.Event_id}
               nextPage={nextPage}
+              teamsize={card.team_size}
             />
           ))
         )}

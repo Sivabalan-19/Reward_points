@@ -10,12 +10,13 @@ import AdminAttendenceTableCaller from './AdminAttendenceTableCaller';
 function AdminThird({darkMode,toggleDarkMode}) {
 
   const [currentPage, setCurrentPage] = useState(0);
-  
+  const [team_size,setteam_size]=useState(-1)
  
   const [selectedEventId, setSelectedEventId] = useState(null);
-  const nextPage = (id) => {
+  const nextPage = (id,teamsize) => {
     setSelectedEventId(id);
-   
+    setteam_size(teamsize)
+    console.log(teamsize)
 
     setCurrentPage(1);
   };
@@ -44,7 +45,7 @@ function AdminThird({darkMode,toggleDarkMode}) {
       <ReportApproval nextPage={nextPage}/>
       )}
       {currentPage === 1 && (      
-      <AdminAttendenceTableCaller prevPage={prevPage} selectedEventId={selectedEventId}></AdminAttendenceTableCaller>
+      <AdminAttendenceTableCaller prevPage={prevPage} selectedEventId={selectedEventId} teamsize={team_size}></AdminAttendenceTableCaller>
       )}
       </div>
     </div>

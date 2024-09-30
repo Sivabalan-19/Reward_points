@@ -37,6 +37,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
   const [RP, setRP] = useState([]);
   const [position, setposition] = useState([]);
   const [count, setcount] = useState([]);
+  
   const [showNotifications, setShowNotifications] = useState(false);
   const [balance, setbalance] = useState([]);
   const [redeemed, setredeemed] = useState([]);
@@ -49,7 +50,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
     { name: "Overall Points", value: RP, fill: "#4318FF" },
   ];
 
-  const CustomLabel = ({ x, y, width, value }) => (
+  const CustomLabel = ({ x = 0, y = 0, width = 0, value = '' }) => (
     <text
       x={x + width / 2}
       y={y + 35}
@@ -62,9 +63,12 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
       {value}
     </text>
   );
+  
 
-  const CustomBarChart = () => (
-    <BarChart width={360} height={300} data={data}>
+
+  
+  const CustomBarChart = ({ width = 360, height = 300 }) => (
+    <BarChart width={width} height={height} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
@@ -76,7 +80,8 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
       </Bar>
     </BarChart>
   );
-
+  
+  
   const PenaltyCard = ({ bgColor, points, name }) => {
     const cardStyle = {
       width: "22%",
@@ -194,14 +199,14 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
   useEffect(() => {
     (async () => {
       axios.defaults.withCredentials = true;
-      const result = await axios.get(process.env.REACT_APP_API_URL+"bar",{
+      const result = await axios.get(process.env.REACT_APP_API_URL+"student/bar",{
         headers:{
                  withCredentials:true,
                  'Authorization': localStorage.getItem("authToken")
            
                 }
 });
-   
+ 
       
       setaverage(result.data.message[0].AverageRP);
       setRP(result.data.message[0].TotalRP);
@@ -218,7 +223,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
   useEffect(() => {
     (async () => {
       axios.defaults.withCredentials = true;
-      const result = await axios.get(process.env.REACT_APP_API_URL+"rewardtable",{
+      const result = await axios.get(process.env.REACT_APP_API_URL+"student/rewardtable",{
         headers:{
                  withCredentials:true,
            
@@ -233,7 +238,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
   useEffect(() => {
     (async () => {
       axios.defaults.withCredentials = true;
-      const result=await axios.get(process.env.REACT_APP_API_URL+"rewarddistributed",{
+      const result=await axios.get(process.env.REACT_APP_API_URL+"student/rewarddistributed",{
         headers:{
                  withCredentials:true,
                  'Authorization': localStorage.getItem("authToken")
@@ -246,9 +251,10 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
   useEffect(() => {
     (async () => {
       axios.defaults.withCredentials = true;
-      const result=await axios.get(process.env.REACT_APP_API_URL+"rewardinternal",{
+      const result=await axios.get(process.env.REACT_APP_API_URL+"student/rewardinternal",{
         headers:{
                  withCredentials:true,
+
                  'Authorization': localStorage.getItem("authToken")
 
                 }
@@ -259,7 +265,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
 
 
   
-
+console.log(count);
 
 
   return (
@@ -340,6 +346,8 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
               </div>
               <p></p>
               <button className="position">Position#{position}/{count}</button>
+              
+              
             </div>
           </div>
           
@@ -365,7 +373,7 @@ const Dashboard = ({ darkMode, toggleDarkMode }) => {
             />
             <PenaltyCard
               bgColor="#01B574"
-              points={balance}
+              points={balance-redeemed-penalty}
               name="Balance Points"
             />
             <PenaltyCard

@@ -42,7 +42,7 @@ const Asidefalculti = ({ darkMode, toggleDarkMode }) => {
 
       // Fetch data (if needed)
       axios.defaults.withCredentials = true;
-      await axios.get(`${process.env.REACT_APP_API_URL}r`, {
+      await axios.get(`${process.env.REACT_APP_API_URL}faculty/r`, {
         headers: { withCredentials: true },
       });
     } catch (error) {
@@ -89,7 +89,7 @@ const Asidefalculti = ({ darkMode, toggleDarkMode }) => {
         className={`Home ${activeItem1 === "Points Container" ? "active" : ""}`}
         onClick={() => {
           handleItemClick("Points Container", 1);
-          navigate("event-enter");
+          navigate("facultyeventcreate");
         }}
       >
         <MdOutlineBarChart className="icon" />

@@ -238,34 +238,63 @@
 
   .container {
     width: 100%;
-    min-width: 100%;
-    display: flex;
     height: 100%;
-  }
+    overflow-y: scroll;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #4318FF transparent; /* For Firefox */
+}
+
+/* Scrollbar styling for Webkit-based browsers (Chrome, Edge, Safari) */
+.container::-webkit-scrollbar {
+    width: 8px; /* Set a slightly larger scrollbar width for visible border-radius */
+}
+
+.container::-webkit-scrollbar-thumb {
+    background-color: #4318FF; /* Scrollbar thumb color */
+    border-radius: 80px; /* Rounded corners for scrollbar */
+}
+
+.container::-webkit-scrollbar-track {
+    background-color: transparent; /* Scrollbar track color */
+}
+
+.container-er {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+
   
   .eventinfobox {
-    width: 600px;
-    padding-bottom: 20px;
+    /* background-color: #ff1818; */
+    width: 96%;
+    height: 96%;
+    /* overflow: hidden; */
+    padding: 1% 2%;
   }
   
   .myeventtitle {
+    height: 10%;
+    /* background-color: brown; */
+    align-items: center;
     display: flex;
-    padding: 2.5% 3.75%; /* Use percentages for padding */
     justify-content: space-between;
   }
   
   .myeventtit {
     text-decoration: underline;
-    font-size: 2.0vw; /* Responsive font size */
+    font-size: 25px; 
     font-weight: 700;
   }
   
   .cross {
-    font-size: 1.2vw; /* Responsive font size */
+    font-size: 1.2vw; 
     border: none;
     padding: 0;
     background: transparent;
-    margin-top: 0.5vw; /* Responsive margin */
   }
   
   .dark-mode .cross i 
@@ -276,13 +305,16 @@
   
   .activity-info {
     color: #2d3651;
-    padding: 1% 6%;
+    height: 90%;
+    width: 100%;
+    /* background-color: #1A1D26; */
   }
   
   .info-row {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    height: 40%;
 
   }
   
@@ -298,11 +330,12 @@
   }
   
   .info-column {
-    height: 160px;
+    height: 100%;
     display: flex;
+    /* background-color: #4318FF; */
     flex-direction: column;
-    justify-content: space-evenly;
-    width: 48%;
+    justify-content: space-between;
+    width: 49%;
   }
   
     
@@ -325,6 +358,11 @@
   .value1 { 
     width: 73%; 
   }
+
+  .dark-mode .value1
+  {
+    color: #DEE6FF;
+  }
   .valuee{
     font-weight: 500;
     font-size: 0.9375vw; 
@@ -332,25 +370,27 @@
   
   .myeventdesctit {
     text-decoration: underline;
-    font-size: 1.041667vw; /* Responsive font size */
+    font-size: 1.041667vw;
     font-weight: 500;
-    padding: 1.041667% 0; /* Responsive padding */
+    padding: 1% 0;
   }
   
   .myeventdescription {
-    padding: 0 4.305556%; /* Responsive padding */
-    max-width: 92.638037%; /* 755px/815 */
     text-align: justify;
+    height: 40%;
+    width: 100%;
+    /* background-color: #f9f9f9; */
   }
   
   .myeventtexdescr {
     font-weight: 400;
-    min-height: 19.53125vw; 
-    max-height: 19.53125vw;
     overflow: scroll;
     font-size: 0.9375vw;
-    padding: 1.041667% 1.388889%;
-    -ms-overflow-style: none;  
+    height: 80%;
+    width: 98%;
+    display: flex;
+    padding:  0 1%;
+    /* background-color: #4318FF; */
     scrollbar-width: none; 
   }
 
@@ -365,6 +405,11 @@
   }
   
   .myeventregis {
+    height: 18%;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    /* background-color: #a19eae; */
     text-align: center;
   }
   
@@ -373,7 +418,6 @@
     color: #FDFDFD;
     font-weight: 700;
     border: none;
-    margin-top: 5.083333%; /* Responsive margin */
     border-radius: 10px; /* Responsive border-radius */
     padding: 2.641667% 20.680556%; 
     cursor: pointer;  /* Responsive padding */
@@ -422,3 +466,49 @@
     background-color: white;
     border-radius: 10px;
   }
+
+
+
+  /* Styling the select dropdown */
+.geotagcer select {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+
+
+
+
+/* Styling for file input */
+.geotagcer input[type="file"] {
+  display: none;
+}
+
+/* Custom label for the file input */
+.geotagcer label {
+  display: inline-block;
+  padding: 10px 0px;
+  color: white;
+  background-color: #4318FF;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 30%;
+  font-size: 16px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+
+
+/* File input field text */
+.geotagcer .file-selected {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #333;
+}

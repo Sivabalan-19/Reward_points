@@ -53,7 +53,7 @@ const ReportApproval= ({ nextPage, darkMode, toggleDarkMode }) => {
         accessor: "Event_id",
         Cell: ({ cell: { row } }) => (
           <div>
-            <button className="view-em" onClick={() =>{nextPage(row.original.Event_id)
+            <button className="view-em" onClick={() =>{nextPage(row.original.Event_id,row.original.team_size)
            
             }}>
               view
@@ -69,7 +69,7 @@ const ReportApproval= ({ nextPage, darkMode, toggleDarkMode }) => {
     const fetchData = async () => {
       try {
         axios.defaults.withCredentials = true;
-        const response = await axios.get(process.env.REACT_APP_API_URL+"report",{
+        const response = await axios.get(process.env.REACT_APP_API_URL+"admin/report",{
           headers:{
                    withCredentials:true,
                    'Authorization': localStorage.getItem("authToken")

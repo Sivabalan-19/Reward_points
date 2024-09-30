@@ -22,6 +22,54 @@ function Faculti2({
   const [showNotifications11, setShowNotifications11] = useState(false);
   const [showCreated, setShowCreated] = useState(false);
 
+  const getCurrentDateTime = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    const hours = String(today.getHours()).padStart(2, "0");
+    const minutes = String(today.getMinutes()).padStart(2, "0");
+
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+  const handleStartDateChange = (value) => {
+    handleFormDataChange({ startDateTime: value });
+
+    if (
+      formData.endDateTime &&
+      new Date(value) >= new Date(formData.endDateTime)
+    ) {
+      handleFormDataChange({ endDateTime: "" });
+    }
+  };
+
+  const handleEndDateChange = (value) => {
+    if (new Date(value) > new Date(formData.startDateTime)) {
+      handleFormDataChange({ endDateTime: value });
+    } else {
+      alert("End date must be greater than the start date");
+    }
+  };
+
+  const handleSchedulingStartDateChange = (value) => {
+    handleFormDataChange({ schedulingStartDateTime: value });
+
+    if (
+      formData.schedulingEndDateTime &&
+      new Date(value) >= new Date(formData.schedulingEndDateTime)
+    ) {
+      handleFormDataChange({ schedulingEndDateTime: "" });
+    }
+  };
+
+  const handleSchedulingEndDateChange = (value) => {
+    if (new Date(value) > new Date(formData.schedulingStartDateTime)) {
+      handleFormDataChange({ schedulingEndDateTime: value });
+    } else {
+      alert("Scheduling End Date must be greater than Scheduling Start Date");
+    }
+  };
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -37,6 +85,7 @@ function Faculti2({
       handleSubmit();
       handleUpload();
       await delay(1000);
+      setShowCreated(false);
       handDelete();
     } else {
       alert("Please fill in all required fields.");
@@ -106,65 +155,129 @@ function Faculti2({
             <div className="row-imo">
               <div className="col-imo">
                 <div className="dropdown-container">
-                  <div className="dropdown-label">Start Date and Time</div>
-                  <input
-                    className="dropdown-select1"
-                    type="datetime-local"
-                    value={formData.startDateTime}
-                    onChange={(e) =>
-                      handleFormDataChange({ startDateTime: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-                <div className="dropdown-container">
-                  <div className="dropdown-label">End Date and Time</div>
-                  <input
-                    className="dropdown-select1"
-                    type="datetime-local"
-                    value={formData.endDateTime}
-                    onChange={(e) =>
-                      handleFormDataChange({ endDateTime: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-                <div className="dropdown-container">
                   <div className="dropdown-label">
-                    Scheduling Start Date and Time
+                    Team Size<span className="required">*</span>
                   </div>
                   <input
                     className="dropdown-select1"
-                    type="datetime-local"
-                    value={formData.schedulingStartDateTime}
+                    type="number"
+                    value={formData.teamsize}
                     onChange={(e) =>
-                      handleFormDataChange({
-                        schedulingStartDateTime: e.target.value,
-                      })
+                      handleFormDataChange({ teamsize: e.target.value })
                     }
+                    placeholder="Type here..."
                     required
                   />
                 </div>
+
                 <div className="dropdown-container">
-                  <div className="dropdown-label">
-                    Scheduling End Date and Time
-                  </div>
+                  <div className="dropdown-label">Web Site Link</div>
                   <input
                     className="dropdown-select1"
-                    type="datetime-local"
-                    value={formData.schedulingEndDateTime}
-                    onChange={(e) =>
-                      handleFormDataChange({
-                        schedulingEndDateTime: e.target.value,
-                      })
-                    }
-                    required
+                    type="url"
+                    placeholder="Type here..."
                   />
                 </div>
+
+                <div className="notesin">
+                  Kindly mention if There is Link ( Leave empty if there is no
+                  link )
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                  }}
+                >
+                  <div style={{ width: "48%" }}>
+                    <div className="dropdown-container">
+                      <div className="dropdown-label">
+                        Start Date and Time<span className="required">*</span>
+                      </div>
+                      <input
+                        className="dropdown-select1"
+                        style={{ padding: "7px 5px" }}
+                        type="datetime-local"
+                        value={formData.startDateTime}
+                        min={getCurrentDateTime()}
+                        onChange={(e) => handleStartDateChange(e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div style={{ width: "48%" }}>
+                    <div className="dropdown-container">
+                      <div className="dropdown-label">
+                        End Date and Time<span className="required">*</span>
+                      </div>
+                      <input
+                        className="dropdown-select1"
+                        style={{ padding: "7px 5px" }}
+                        type="datetime-local"
+                        value={formData.endDateTime}
+                        min={getCurrentDateTime()}
+                        onChange={(e) => handleEndDateChange(e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                  }}
+                >
+                  <div style={{ width: "48%" }}>
+                    <div className="dropdown-container">
+                      <div className="dropdown-label">
+                        Scheduling Start Date and Time
+                        <span className="required">*</span>
+                      </div>
+                      <input
+                        className="dropdown-select1"
+                        style={{ padding: "7px 5px" }}
+                        type="datetime-local"
+                        value={formData.schedulingStartDateTime}
+                        min={getCurrentDateTime()}
+                        onChange={(e) =>
+                          handleSchedulingStartDateChange(e.target.value)
+                        }
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div style={{ width: "48%" }}>
+                    <div className="dropdown-container">
+                      <div className="dropdown-label">
+                        Scheduling End Date and Time
+                        <span className="required">*</span>
+                      </div>
+                      <input
+                        className="dropdown-select1"
+                        style={{ padding: "7px 5px" }}
+                        type="datetime-local"
+                        value={formData.schedulingEndDateTime}
+                        min={getCurrentDateTime()}
+                        onChange={(e) =>
+                          handleSchedulingEndDateChange(e.target.value)
+                        }
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+                
               </div>
               <div className="col-imo">
                 <div className="dropdown-container">
-                  <div className="dropdown-label">Duration (in hours)</div>
+                  <div className="dropdown-label">
+                    Duration (in hours) <span className="required">*</span>{" "}
+                  </div>
                   <input
                     className="dropdown-select1"
                     type="number"
@@ -177,7 +290,9 @@ function Faculti2({
                   />
                 </div>
                 <div className="dropdown-container">
-                  <div className="dropdown-label">Number of Students</div>
+                  <div className="dropdown-label">
+                    Number of Students <span className="required">*</span>{" "}
+                  </div>
                   <input
                     className="dropdown-select1"
                     type="number"
@@ -190,7 +305,9 @@ function Faculti2({
                   />
                 </div>
                 <div className="dropdown-container">
-                  <div className="dropdown-label">Upload Document</div>
+                  <div className="dropdown-label">
+                    Upload Document <span className="required">*</span>{" "}
+                  </div>
                   <input
                     className="dropdown-select1"
                     type="file"
@@ -210,7 +327,6 @@ function Faculti2({
                     onChange={(e) =>
                       handleFormDataChange({ setps: e.target.value })
                     }
-                   
                   >
                     <option
                       style={{ color: "#2B3674", fontWeight: "600" }}
@@ -271,10 +387,7 @@ function Faculti2({
       </div>
       {showNotifications && <Notipopup></Notipopup>}
       {showNotifications11 && (
-        <Popup
-          handDelete={handDelete}
-          darkMode={darkMode}
-        />
+        <Popup handDelete={handDelete} darkMode={darkMode} />
       )}
       <Created
         open={showCreated}

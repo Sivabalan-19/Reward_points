@@ -73,12 +73,12 @@ const RevieW = ({ goToPreviousPage, darkMode, toggleDarkMode }) => {
       {
         Header: "Action",
         accessor: "Event_id",
-        Cell: ({ cell: { value } }) => (
+        Cell: ({ row }) => (
           <div>
             <button
               className="view-em"
               onClick={() => {
-                goToPreviousPage(value);
+                goToPreviousPage(row.original.Event_id,row.original.team_size);
               }}
             >
               view
@@ -96,7 +96,7 @@ const RevieW = ({ goToPreviousPage, darkMode, toggleDarkMode }) => {
     const fetchData = async () => {
       try {
         axios.defaults.withCredentials = true;
-        const response = await axios.get(process.env.REACT_APP_API_URL + "r", {
+        const response = await axios.get(process.env.REACT_APP_API_URL + "faculty/r", {
           headers: {
             withCredentials: true,
             Authorization: localStorage.getItem("authToken"),
@@ -120,7 +120,7 @@ const RevieW = ({ goToPreviousPage, darkMode, toggleDarkMode }) => {
     setshowregister(!showregister);
     axios.defaults.withCredentials = true;
     await axios.post(
-      process.env.REACT_APP_API_URL + "changeregister",
+      process.env.REACT_APP_API_URL + "student/changeregister",
       { id },
       {
         headers: {

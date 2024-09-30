@@ -109,29 +109,19 @@ export default function AdminReportTable({ columns, data  }) {
         >
           <div className="Reward"> Reward Points </div>
 
-          <div className="search-bar-em">
-            <input
-              value={filterInput2}
-              // onChange={handleFilterChange2}
-              placeholder={"Activity Code"}
-              className="ba-em"
-            />
-            <div className="search-em">
-              <FaSearch />
-            </div>
-          </div>
+          <input
+  value={filterInput2}
+  onChange={(e) => setFilterInput2(e.target.value)}  // Add this handler
+  placeholder={"Activity Code"}
+  className="ba-em"
+/>
 
-          <div className="search-bar-em">
-            <input
-              value={filterInput}
-              // onChange={handleFilterChange}
-              placeholder={"Activity Name"}
-              className="ba-em"
-            />
-            <div className="search-em">
-              <FaSearch />
-            </div>
-          </div>
+<input
+  value={filterInput}
+  onChange={(e) => setFilterInput(e.target.value)}  // Add this handler
+  placeholder={"Activity Name"}
+  className="ba-em"
+/>
 
           <div className="search-bar-em1">
             <select 

@@ -68,7 +68,7 @@ function Reportstatus({ detail, id, darkMode, toggleDarkMode }) {
       try {
         axios.defaults.withCredentials = true;
         const response = await axios.post(
-          process.env.REACT_APP_API_URL + "attendenceapprove",
+          process.env.REACT_APP_API_URL + "faculty/attendenceapprove",
           { id: id },
           {
             headers: {
@@ -78,6 +78,7 @@ function Reportstatus({ detail, id, darkMode, toggleDarkMode }) {
           }
         );
         const reversedData = response.data.message
+       
           .reverse()
           .map((row, index) => ({ ...row, sno: index + 1 }));
         setData(reversedData);
@@ -131,7 +132,7 @@ function Reportstatus({ detail, id, darkMode, toggleDarkMode }) {
                 try {
                   axios.defaults.withCredentials = true;
                   const response = await axios.post(
-                    process.env.REACT_APP_API_URL + "studentapprove",
+                    process.env.REACT_APP_API_URL + "faculty/studentapprove",
                     { studentid: value,Event_id:id },
                     {
                       headers: {

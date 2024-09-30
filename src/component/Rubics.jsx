@@ -22,8 +22,8 @@ function Rubics({h,rows,setRows}) {
     setRows(rows.slice(0, -1));
   };
 
-  const handleEditRow = (id, newName, newMarks) => {
-    setRows(rows.map(row => row.id === id ? { ...row, name: newName, maxMarks: newMarks } : row));
+  const handleEditRow = (id, newName, newMarks,level) => {
+    setRows(rows.map(row => row.id === id ? { ...row, name: newName, maxMarks: newMarks ,level:level} : row));
   };
 
   return (
@@ -36,6 +36,7 @@ function Rubics({h,rows,setRows}) {
               <th className="thofrubic">S.No </th>
               <th className="thofrubic">Name</th>
               <th className="thofrubic">Max marks</th>
+              <th className="thofrubic">Level</th>
             </tr>
           </thead>
           <tbody>
@@ -47,7 +48,7 @@ function Rubics({h,rows,setRows}) {
                     className='name-rubic'
                     type="text"
                     value={row.name}
-                    onChange={(e) => handleEditRow(row.id, e.target.value, row.maxMarks)}
+                    onChange={(e) => handleEditRow(row.id, e.target.value, row.maxMarks,row.level)}
                   />
                 </td>
                 <td>
@@ -55,7 +56,15 @@ function Rubics({h,rows,setRows}) {
                     className='name-rubic'
                     type="number"
                     value={row.maxMarks}
-                    onChange={(e) => handleEditRow(row.id, row.name, Number(e.target.value))}
+                    onChange={(e) => handleEditRow(row.id, row.name, Number(e.target.value),row.level)}
+                  />
+                </td>
+                <td>
+                  <input
+                    className='name-rubic'
+                    type="number"
+                    value={row.level}
+                    onChange={(e) => handleEditRow(row.id, row.name, row.maxMarks,Number(e.target.value))}
                   />
                 </td>
               </tr>

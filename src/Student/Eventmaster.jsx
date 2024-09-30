@@ -8,24 +8,18 @@
   import { MdLightMode, MdOutlineAccountTree } from "react-icons/md";
   import { IoIosArrowForward } from "react-icons/io";
   import {
-    MdOutlineAddAlert,
-    MdBarChart,
-    MdSummarize,
     MdNotificationsNone,
-    MdOutlineLightMode,
-    MdDarkMode,
   } from "react-icons/md";
   import Eventview from "./Eventview";
   import { format } from 'date-fns';
   import Notipopup from "./Notipopup";
-    const  PointContainer2 = ({ darkMode, toggleDarkMode }) => {
+    const  PointContainer2 = ({ darkMode, toggleDarkMode,nextPage }) => {
       const [showEventRegister, setShowEventRegister] = useState(false);
       const [data, setData] = useState([]);
       const [eventData, setEventData] = useState(null);
       
-      const showRegisterForm = (id,data) => {
-
-        setShowEventRegister(true);
+      const showRegisterForm = (id,data,team_size) => {
+        team_size==1?setShowEventRegister(true):nextPage(id);
         
         let row = data.find(o => o.id == id);
         setEventData(id);
@@ -59,13 +53,13 @@
             },
             {
               // Second group - Details
-              Header: "Activity_name",
+              Header: "Activity name",
               accessor: "Activity_name",
       
             },
             {
               // Second group - Details
-              Header: "Activity_code",
+              Header: "Activity code",
               accessor: "Activity_code",
       
             },
@@ -78,7 +72,7 @@
             },
             {
               // Second group - Details
-              Header: "Points",
+              Header: "Max Points",
               accessor: "points",
       
             },
@@ -107,9 +101,9 @@
             {
               Header: "Action",
               accessor: "id",
-              Cell: ({ cell: { value } }) => (
+              Cell: ({row}) => (
                 <div>
-                  <button className="view-em" onClick={() => showRegisterForm(value,data)}>
+                  <button className="view-em" onClick={() => showRegisterForm(row.original.id,data, row.original.team_size)}>
                     view
                   </button>
                 </div>
@@ -123,7 +117,7 @@
           const fetchData = async () => {
             try {
               axios.defaults.withCredentials = true;
-              const response = await axios.get(process.env.REACT_APP_API_URL+"register",{
+              const response = await axios.get(process.env.REACT_APP_API_URL+"student/register",{
                 headers:{
                          withCredentials:true,
                          'Authorization': localStorage.getItem("authToken")
@@ -143,7 +137,7 @@
         const handleDeleteRow = async(id) => {
           setshowregister(!showregister)
           axios.defaults.withCredentials = true;
-          const response=await axios.post(process.env.REACT_APP_API_URL+"changeregister", {
+          const response=await axios.post(process.env.REACT_APP_API_URL+"student/changeregister", {
             id: id,
       
           },{

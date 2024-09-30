@@ -1,90 +1,222 @@
-import React, { useState } from 'react';
-import './Eventmasters.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import Slide from "@mui/material/Slide";
+import { RxCross2 } from "react-icons/rx";
+import axios from "axios";
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
+export default function Eventview(props) {
+  const [open, setOpen] = React.useState(true);
+  const [documenttype, setdocumenttype] = useState(""); // Added state for document type
+  const [file, setFile] = useState(null); // Added state for file upload
+  const [document_list, setDocumentList] = useState([]); // Added state for document list
 
-    function Eventview(props) {
+  const navigate = useNavigate();
+  const { detail, id, onDeleteRow, onc, darkMode, teamSize } = props;
+console.log(file)
+  // Check if the row exists, and provide a fallback
+  let row = detail.find((o) => o.id === id) || {};
+  console.log(row);
 
-        const [darkMode, setDarkMode] = useState(false);
-        
-        let row = props.detail.find(o => o.id == props.id);
-   
-        const toggleDarkMode = () => {
-            setDarkMode(!darkMode); 
-          };
-        
-          if (!row) {
-            return null;
-          }
-          else{
-        return (
-       <div className={`myeventsumma ${darkMode ? 'dark-mode' : ''}`}>
-         <div className='container'>
-             <div className='eventinfobox'>
-             
-             <div className='myeventtitle'>
-                <div className='myeventtit'>Event Details :</div>
-                <div><button className='cross close-button' onClick={props.onc}><i className="fa-solid fa-xmark"></i></button></div>
-        </div>
-                 <div className="activity-info">
-                     <div className="info-row"> 
-                         <div className="info-column">
-                         <div className="info-item">
-                             <span className="labelee">Activity Name</span>
-                             <span className="value">: {row.Activity_name}</span>
-                         </div>
-                         <div className="info-item">
-                             <span className="labelee">Activity Category</span>
-                             <span className="value">: {row.
-Activity_type}</span>
-                         </div>
-                         <div className="info-item">
-                             <span className="labelee">Available</span>
-                             <span className="value">: {row.seat}</span>
-                         </div>
-                         <div className="info-item">
-                             <span className="labe">Date</span>
-                             <span className="value">: {row.Date}</span>
-                         </div>
-                         </div>
-                         <div className="info-column">
-                         <div className="info-item">
-                             <span className="labele">Activity Type</span>
-                            <span className="value">: {row.
-Tpye
-}</span>
-                         </div>
-                         <div className="info-item">
-                             <span className="labele">Points(Max)</span>
-                             <span className="value">: {row.points}</span>
-                         </div>
-                         <div className="info-item">
-                             <span className="labele">Organizer</span>
-                             <span className="value">: {row.Organier
-                             }</span>
-                         </div>
-                         <div className="info-item">
-                             <span className="labele">Duration</span>
-                             <span className="value">: 3 hours</span>
-                         </div>
-                         </div>
-                     </div>
-                 </div>
-        
-        
-             <div className='myeventdescription'>
-                     <div className='myeventdesctit'>About Event :</div>
-                     <div className='myeventtexdescr'>{row.descr}</div>
-             
-                     
-             </div>
-        
-             <div className='myeventregis'>
-             </div>
-             </div>
-         </div>
-         
-       </div>
-        );
-    }
-    }
-    export default Eventview
+  const handleClose = async() => {
+    
+    setOpen(false);
+    onc(); // Ensure to call the close function passed as prop
+  };
+
+  // onChange function for file input
+  const onChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  // handleupload function to handle file uploads
+  const handleupload = async() => {
+    const formDatA = new FormData();
+    formDatA.append("pdf", file);
+    formDatA.append("title", documenttype);
+    formDatA.append("event_id", id);
+    Response = await axios.post(
+      "http://localhost:5000/upload2/studentinsert",
+      formDatA,
+      {
+        headers: {
+          withCredentials: true,
+          Authorization: localStorage.getItem("authToken"),
+        },
+      }
+    )
+  };
+
+  return (
+    <React.Fragment>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        maxWidth="md"
+        fullWidth
+        sx={{
+          "& .MuiDialogContent-root": {
+            padding: 0,
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+          },
+          "& .MuiDialogActions-root": {
+            padding: 0,
+          },
+          "& .MuiPaper-root": {
+            width: "850px",
+            height: "650px",
+          },
+        }}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogContent>
+          <div className={`container ${darkMode ? "dark-mode" : ""}`}>
+            <div className="eventinfobox">
+              <div className="myeventtitle">
+                <div className="myeventtit">Event Details :</div>
+                <button className="cross" onClick={handleClose}>
+                  <RxCross2 />
+                </button>
+              </div>
+              <div className="activity-info">
+                <div className="info-row">
+                  <div className="info-column">
+                    <div className="info-item">
+                      <div className="labele">Activity Name</div>
+                      <div className="valuee"> :</div>
+                      <div className="value">{row.Activity_name}</div>
+                    </div>
+                    <div className="info-item">
+                      <div className="labele">Activity Category</div>
+                      <div className="valuee"> :</div>
+                      <div className="value">{row.Activity_type}</div>
+                    </div>
+                    <div className="info-item">
+                      <div className="labele">Available</div>
+                      <div className="valuee"> :</div>
+                      <div className="value">{row.seat}</div>
+                    </div>
+                    <div className="info-item1">
+                      <div className="labe">Date &ensp; : &ensp;</div>
+                      <div className="value1">{row.Date} to {row.endDate}</div>
+                    </div>
+                    <div className="info-item">
+                      <div className="labele">Ps Level Cleared</div>
+                      <div className="valuee"> :</div>
+                      {console.log(row)}
+                      <div className="value">{row.psSkillName} : {row.psSkilllevel}</div>
+                    </div>
+                  </div>
+                  <div className="info-column">
+                    <div className="info-item">
+                      <div className="labele">Activity Type</div>
+                      <div className="valuee"> :</div>
+                      <div className="value">{row.Activity_type}</div>
+                    </div>
+                    <div className="info-item">
+                      <div className="labele">Points(Max)</div>
+                      <div className="valuee"> :</div>
+                      <div className="value">{row.points}</div>
+                    </div>
+                    <div className="info-item">
+                      <div className="labele">Organizer</div>
+                      <div className="valuee"> :</div>
+                      <div className="value">{row.Organier}</div>
+                    </div>
+                    <div className="info-item">
+                      <div className="labele">Duration</div>
+                      <div className="valuee"> :</div>
+                      <div className="value">{row.duration}</div>
+                    </div>
+                    <div className="info-item">
+                      <div className="labele">Team Size</div>
+                      <div className="valuee"> :</div>
+                      <div className="value">1</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="myeventdescription">
+                  <div className="myeventdesctit">About Event :</div>
+                  <div className="myeventtexdescr">{row.descr}</div>
+                </div>
+                <div className="geotagcer">
+                  <div className="Reward" style={{ fontSize: "24px" }}>
+                    Certificate Upload
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <h3>Add Geo Tag Image:</h3>
+                    <div className="dropdown-container">
+                  <select
+                    className="dropdown-select"
+                    value={documenttype}
+                    
+                    onChange={(e) => setdocumenttype(e.target.value)}
+                  >
+                    <option
+                      style={{ color: "#2B3674", fontWeight: "600" }}
+                      value=""
+                      selected
+                      disabled
+                      hidden
+                    >
+                      Select Geo Tag
+                    </option>
+                    <option value="geoTag">Geo Tag</option>
+                      <option value="document">Document</option>
+                      <option value="certificate">Certificate</option>
+                  </select>
+                </div>
+                    <label htmlFor="file-upload">Choose File</label>
+                    <input id="file-upload" type="file" onChange={onChange} />
+                    <div
+                      style={{
+                        backgroundColor: "red",
+                        width: "100%",
+                        height: "50%",
+                        justifyContent: "center",
+                        display: "flex",
+                      }}
+                    >
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      onClick={handleupload}
+                      className="view-em"
+                      style={{ padding: "1.2%  4%", marginBottom: "50px" }}
+                    >
+                      Submit
+                    </button>
+                    <div>
+                      {document_list.map((item, index) => (
+                        <div key={index}>
+                          {item.file && (
+                            <a
+                              href={item.file}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              View Uploaded File
+                            </a>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </React.Fragment>
+  );
+}

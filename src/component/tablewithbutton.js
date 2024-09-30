@@ -6,8 +6,6 @@ import Table from "./tableButton";
 import { IoMoon } from "react-icons/io5";
 import { MdLightMode, MdNotificationsNone } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
-import { FaRegBell, FaSearch } from "react-icons/fa";
-import Notification from "../Student/notification";
 import { format } from "date-fns";
 import Notipopup from "../Student/Notipopup";
 const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
@@ -15,11 +13,11 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
   const [showEventRegister, setShowEventRegister] = useState(false);
   const [data, setData] = useState([]);
   const [eventData, setEventData] = useState(null);
-
-  const showRegisterForm = (id, data) => {
+  const [teamSize,setteamSize]=useState(-1)
+  const showRegisterForm = (id, data,team_size) => {
     setShowEventRegister(true);
-
-    let row = data.find((o) => o.id == id);
+    setteamSize(team_size)
+  
     setEventData(id);
   };
 
@@ -38,10 +36,10 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
           <span>{format(new Date(value), "dd-MM-yy")}</span>
         ),
       },
-      { Header: "Activity_name", accessor: "Activity_name" },
-      { Header: "Activity_code", accessor: "Activity_code" },
+      { Header: "Activity name", accessor: "Activity_name" },
+      { Header: "Activity code", accessor: "Activity_code" },
       { Header: "Activity Category", accessor: "Activity_type" },
-      { Header: "Points", accessor: "points" },
+      { Header: "Max Points", accessor: "points" },
       { Header: "Organiser", accessor: "Organier" },
       // {
       //   Header: "seat",
@@ -64,11 +62,11 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
       {
         Header: "Action",
         accessor: "id",
-        Cell: ({ cell: { value } }) => (
+        Cell: ({row}) => (
           <div>
             <button
               className="view-em"
-              onClick={() => showRegisterForm(value, data)}
+              onClick={() => showRegisterForm(row.original.id, data,row.original.team_size)}
             >
               view
             </button>
@@ -84,7 +82,7 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
       try {
         axios.defaults.withCredentials = true;
         const response = await axios.get(
-          process.env.REACT_APP_API_URL + "pointtable",
+          process.env.REACT_APP_API_URL + "student/pointtable",
           {
             headers: {
               withCredentials: true,
@@ -105,20 +103,26 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
   }, []);
 
   const handleDeleteRow = async (id) => {
-    axios.defaults.withCredentials = true;
-    const response = await axios.post(
-      process.env.REACT_APP_API_URL + "changeregister",
-      { id },
-      {
-        headers: {
-          withCredentials: true,
-          Authorization: localStorage.getItem("authToken"),
-        },
-      }
-    );
-    setData((prevData) => prevData.filter((row) => row.id !== id));
     setShowEventRegister(false);
     setEventData(null);
+   // Set default configuration for Axios
+axios.defaults.withCredentials = true;
+
+// Check the token and request body
+const token = localStorage.getItem("authToken");
+setData((d)=>{
+  return d.filter(item=>item.id!==id)
+})
+await axios.post(
+  `${process.env.REACT_APP_API_URL}student/changeregister`,
+  { event_id: id },
+  {
+    headers: {
+      Authorization: `${token}`, // Add a scheme if required
+    },
+  }
+);
+
   };
 
   return (
@@ -167,6 +171,8 @@ const PointContainer2 = ({ darkMode, toggleDarkMode }) => {
           id={eventData}
           onDeleteRow={(id) => handleDeleteRow(id)}
           onc={formClose}
+          darkMode={darkMode}
+          teamSize={teamSize}
         />
       </Dialog>
     </div>

@@ -28,7 +28,7 @@ const AttendencetableCaller = ({
       try {
         axios.defaults.withCredentials = true;
         const response = await axios.post(
-          process.env.REACT_APP_API_URL + "attendence",
+          process.env.REACT_APP_API_URL + "faculty/attendence",
           {
             id: eventId,
           },
@@ -55,7 +55,7 @@ const AttendencetableCaller = ({
       try {
         axios.defaults.withCredentials = true;
         const response = await axios.post(
-          process.env.REACT_APP_API_URL + "task",
+          process.env.REACT_APP_API_URL + "faculty/task",
           {
             id: eventId,
           },
@@ -83,7 +83,7 @@ const AttendencetableCaller = ({
     try {
       axios.defaults.withCredentials = true;
       const response = await axios.post(
-        process.env.REACT_APP_API_URL + "sumbittask",
+        process.env.REACT_APP_API_URL + "faculty/sumbittask",
         {
           text: points_text,
         },
@@ -128,7 +128,7 @@ const AttendencetableCaller = ({
     try {
       axios.defaults.withCredentials = true;
       const response = await axios.post(
-        process.env.REACT_APP_API_URL + "openregistration",
+        process.env.REACT_APP_API_URL + "faculty/openregistration",
         {
           id: eventId,
         },

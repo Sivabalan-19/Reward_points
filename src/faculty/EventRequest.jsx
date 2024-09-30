@@ -10,9 +10,9 @@ function EventRequest({darkMode,toggleDarkMode}) {
   const [dAta, setdAta] = useState([]);
   const [saved,setsaved]=useState(0);
   const [rows, setRows] = useState([
-    { id: 1, name: 'Abcd', maxMarks: 20 },
-    { id: 2, name: 'Abcd', maxMarks: 20 },
-    { id: 3, name: 'Abcd', maxMarks: 20 },
+    { id: 1, name: 'Abcd', maxMarks: 20,level:1 },
+    { id: 2, name: 'Abcd', maxMarks: 20,level:1 },
+    { id: 3, name: 'Abcd', maxMarks: 20,level:1 },
   ]);
 
   let currentTime = new Date();
@@ -35,6 +35,8 @@ function EventRequest({darkMode,toggleDarkMode}) {
     schedulingEndDateTime: '',
     duration: '',
     noOfStudents: '',
+    teamsize:'0',
+    round:'0',
     setps:"cpl1"
   };
   const [formData, setFormData] = useState(initialFormData);
@@ -81,8 +83,8 @@ function EventRequest({darkMode,toggleDarkMode}) {
     }
   const handleDelete=()=>{
     
-    // setFormData(initialFormData);
-    // setCurrentPage(1);
+    setFormData(initialFormData);
+    setCurrentPage(1);
  
   
     

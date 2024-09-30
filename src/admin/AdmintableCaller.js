@@ -72,7 +72,7 @@ const AdmintableCaller = ({ nextPage, darkMode, toggleDarkMode }) => {
     const fetchData = async () => {
       try {
         axios.defaults.withCredentials = true;
-        const response = await axios.get(process.env.REACT_APP_API_URL+"approve",{
+        const response = await axios.get(process.env.REACT_APP_API_URL+"admin/approve",{
           headers:{
                    withCredentials:true,
                    'Authorization': localStorage.getItem("authToken")

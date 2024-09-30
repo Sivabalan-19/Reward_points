@@ -9,6 +9,9 @@ import Table2 from './Eventmaster';
 import Eventinfo from './Eventregister';
 import EventRequest from '../faculty/EventRequest';
 import Asidefalculti from '../faculty/FacultyLogin';
+import Stuapp from './Stuapp';
+import StudentFormPage from './StudentFormPage';
+import EventShow from './EventShow';
 
 const DashboardLayout = ({ darkMode, toggleDarkMode }) => (
   <div className={`main ${darkMode ? 'dark-mode' : ''}`}>
@@ -19,8 +22,10 @@ const DashboardLayout = ({ darkMode, toggleDarkMode }) => (
       <Routes>
         <Route path="/" element={<Dashboard   darkMode={darkMode} toggleDarkMode={toggleDarkMode}/>} />
         <Route path="points-container" element={<PointContainer darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
-        <Route path="my-events" element={<Table2 darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+        <Route path="my-events" element={<EventShow darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
         <Route path="event-masters" element={<PointContainer2 darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+        <Route path="student-team" element={<Stuapp darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+        <Route path="team-members" element={<StudentFormPage darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
       </Routes>
     </div>
   </div>

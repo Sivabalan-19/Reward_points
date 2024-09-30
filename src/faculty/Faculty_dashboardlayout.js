@@ -4,11 +4,12 @@ import Sidebar from "../component/Aside";
 
 import Asidefalculti from "../faculty/FacultyLogin";
 import EventRequest from "./EventRequest";
-
+import EventreqInt from "./EventreqInt";
 import ReviewRequest from "./Reviewrequest";
 import Myevents from "./myevents";
 import Falcultyfirstpage from "./Falcultyfirstpage";
 import Myeventrequest from "./My-event-request";
+import Certificateteam from "./Certificateteam";
 const Faculty_DashboardLayout = ({ darkMode, toggleDarkMode }) => (
   <div className={`main ${darkMode ? "dark-mode" : ""}`}>
     <div className="leftside">
@@ -25,10 +26,28 @@ const Faculty_DashboardLayout = ({ darkMode, toggleDarkMode }) => (
             />
           }
         />
+
+<Route
+          path="Certificationteam"
+          element={
+            <Certificateteam
+              darkMode={darkMode}
+              toggleDarkMode={toggleDarkMode}
+            />
+          }
+        />
+
+
         <Route
           path="event-enter"
           element={
             <EventRequest darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+          }
+        />
+        <Route
+          path="facultyeventcreate"
+          element={
+            <EventreqInt darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
           }
         />
           <Route

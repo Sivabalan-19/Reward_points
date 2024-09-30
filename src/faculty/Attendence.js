@@ -1,11 +1,35 @@
-import { useFilters,usePagination, useGlobalFilter }from "react-table";
-import React,{useState} from "react";
+
+import React, { useState, useEffect } from "react";
+import { useTable, usePagination, useFilters, useGlobalFilter } from "react-table";
 import { FaSearch } from "react-icons/fa";
-import { useTable } from "react-table";
 import { MdOutlineLockClock } from "react-icons/md";
-export default function Attendence({ columns, data,Task,handlePresent}) {
- 
-  // Use the useTable Hook to send the columns and data to build the table
+
+// Custom filter function
+const customFilter = (rows, id, filterValue) => {
+  // Ensure filterValue is a valid number
+  if (typeof filterValue !== 'number') {
+    return rows;
+  }
+
+  return rows.filter(row => {
+    const cellValue = row.values[id];
+
+    // If the cell value is not a number, skip this row
+    if (typeof cellValue !== 'number') {
+      return false;
+    }
+
+    // Return rows where the cell value is greater than the filter value
+    return cellValue >= filterValue;
+  });
+};
+
+
+export default function Attendence({ columns, data,filterInput2}) {
+  const [selected, setSelected] = useState('Overall');
+  const [globalFilterr, setGlobalFilterr] = useState("");
+  const [isTableReady, setIsTableReady] = useState(false);
+  const [filterInput3, setFilterInput3] = useState("");
   const {
     getTableProps,
     getTableBodyProps,
@@ -24,115 +48,119 @@ export default function Attendence({ columns, data,Task,handlePresent}) {
     state: { pageIndex, pageSize, globalFilter },
   } = useTable(
     {
-
       columns,
       data,
+      filterTypes: {
+        custom: customFilter // Register custom filter type
+      },
       initialState: { pageIndex: 0, pageSize: 10 },
-
     },
-
     useFilters,
     useGlobalFilter, 
     usePagination
-
   );
-  const [filterInput, setFilterInput] = useState("");
-  const [filterInput2, setFilterInput2] = useState("");
-  
-  const handleGlobalFilterChange = (e) => {
 
+  useEffect(() => {
+    setIsTableReady(true);
+  }, []);
+
+  useEffect(() => {
+    console.log(data)
+    const statusMap = {
+      '1':0,
+      '2': 1,
+      '3':2, 
+      '4':3
+    };
+
+    const status = statusMap[filterInput2] ;
+    console.log(status)
+    setFilter("present", status);
+  
+  }, [filterInput2]);
+
+  const handleButtonClick = (button) => {
+    setSelected(button);
+  };
+  const handleFilter=(e)=>{
+    setFilterInput3(e.target.value)
+    setFilter("year",e.target.value == 'First' ? 1 : e.target.value == 'Second' ? 2 : e.target.value == 'Third' ? 3 : 4)
+  }
+  const handleGlobalFilterChange = (e) => {
     const value = e.target.value || undefined;
-    setGlobalFilter(value);
+    setGlobalFilterr(value);
     setGlobalFilter(value);
   };
-const handleFilter=(e)=>{
-  setFilterInput2(e.target.value)
-  setFilter("year",e.target.value == 'First' ? 1 : e.target.value == 'Second' ? 2 : e.target.value == 'Third' ? 3 : 4)
-}
 
-const handlePageSizeChange = (e) => {
-  setPageSize(Number(e.target.value));
-};
+  const handlePageSizeChange = e => {
+    setPageSize(Number(e.target.value));
+  };
+
+  if (!isTableReady) {
+    return <div></div>;
+  }
+
   return (
-    <div className="head-rep-table">
-      <div className="heade1">
-        <div className="Dash-pt--rep" style={{display:'flex',justifyContent:'space-between',width:'60%'}}> 
-        <div className="search-bar-fal-rep">
-        <div style={{color: '#2B3674',fontSize:'12px',alignSelf:'center'}}><FaSearch /></div>
-        <input
-          type="text"
-          placeholder="Search"
-          className="bar"
-          value={globalFilter || ""}
-          onChange={handleGlobalFilterChange}
-        />
-        </div>
-        <div className="search-bar-em1-rep1">
-            <select className="ba-em" value={filterInput2} onChange={handleFilter}>
+    <div className="main-body">
+      <div className="scrollonly-em">
+        <div style={{ display: 'flex', height: '6%', alignItems: 'center', justifyContent: 'space-between' }}>
+          
+
+          <div className="search-bar-fal-rep-1">
+            <div style={{ color: '#2B3674', fontSize: '12px', alignSelf: 'center' }}><FaSearch /></div>
+            <input
+              type="text"
+              style={{ backgroundColor: 'transparent' }}
+              placeholder="Search"
+              className="bar"
+              value={globalFilterr || ""}
+              onChange={handleGlobalFilterChange}
+            />
+          </div>
+          <div className="search-bar-em1-rep1">
+            <select className="ba-em" value={filterInput3} onChange={handleFilter}>
               <option style={{ color: '#2B3674', fontWeight: '600' }} value="" selected disabled hidden>Academic year</option>
               <option value="First">First Year</option>
-              <option value="Second">Second Event</option>
+              <option value="Second">Second Year</option>
               <option value="Third">Third Year</option>
-              <option value="Fourth">Fourth Event</option>
+              <option value="Fourth">Fourth Year</option>
             </select>
         </div>
         </div>
-        </div>
-        <div className="table-em">
-   
-    <table {...getTableProps()}>
-      
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th  {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      {pageCount > 0 ? (
-                <tbody {...getTableBodyProps()}>
-                  {page.map((row) => {
-                    prepareRow(row);
-                    return (
-                      <tr {...row.getRowProps()}>
-                        {row.cells.map((cell) => {
-                          return (
-                            <td {...cell.getCellProps()}>
-                              {cell.render("Cell")}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    );
-                  })}
-                </tbody>
+
+        <div className="sim-em">
+          <div className="table-em">
+            <table {...getTableProps()}>
+              <thead>
+                {headerGroups.map(headerGroup => (
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map(column => (
+                      <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              {pageCount > 0 ? (
+               <tbody {...getTableBodyProps()}>
+               {page.map(row => {
+                 prepareRow(row);
+                 return (
+                   <tr key={row.id} {...row.getRowProps()}>
+                     {row.cells.map(cell => (
+                       <td key={cell.column.id} {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                     ))}
+                   </tr>
+                 );
+               })}
+             </tbody>
+             
               ) : (
                 <tbody>
                   <tr>
-                    <td
-                      colSpan={columns.length}
-                      style={{
-                        textAlign: "center",
-                        padding: "20px",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div
-                        style={{
-                          height: "200px",
-                          justifyContent: "center",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
+                    <td colSpan={columns.length} style={{ textAlign: 'center', padding: '20px' }}>
+                      <div style={{ height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <div>
-                          {" "}
-                          <div className="nodatafoundicon-em">
-                            <MdOutlineLockClock />
-                          </div>
+                          <div className="nodatafoundicon-em"><MdOutlineLockClock /></div>
                           <div className="nodatafoundtext">No Data Found</div>
                         </div>
                       </div>
@@ -142,52 +170,32 @@ const handlePageSizeChange = (e) => {
               )}
             </table>
             <div className="tablefoot-em">
-              <div
-                style={{
-                  display: "flex",
-                  width: "90%",
-                  justifyContent: "space-between",
-                }}
-              >
+              <div style={{ display: 'flex', width: '90%', justifyContent: 'space-between' }}>
                 <span className="page-em">
-                  Page{" "}
+                  Page{' '}
                   <strong>
                     {pageIndex + 1} of {pageCount}
-                  </strong>{" "}
+                  </strong>{' '}
                 </span>
                 <div>
                   <span className="rowpage-em">Rows Per Page</span>&ensp;
-                  <select
-                    className="noofrow-em"
-                    onChange={handlePageSizeChange}
-                  >
-                    {[10, 20, 30, 40, 50].map((pageSize) => (
-                      <option key={pageSize} value={pageSize}>
-                        {pageSize}
+                  <select className="noofrow-em" onChange={handlePageSizeChange}>
+                    {[10, 20, 30, 40, 50].map(size => (
+                      <option key={size} value={size}>
+                        {size}
                       </option>
                     ))}
                   </select>
                 </div>
               </div>
               <div className="tablebottem-em">
-                <button
-                  className="nextpagebut-em"
-                  onClick={() => previousPage()}
-                  disabled={!canPreviousPage}
-                >
-                  {"<"}
-                </button>
-                <button
-                  className="nextpagebut-em"
-                  onClick={() => nextPage()}
-                  disabled={!canNextPage}
-                >
-                  {">"}
-                </button>
+                <button className="nextpagebut-em" onClick={() => previousPage()} disabled={!canPreviousPage}>{'<'}</button>
+                <button className="nextpagebut-em" onClick={() => nextPage()} disabled={!canNextPage}>{'>'}</button>
               </div>
             </div>
-            </div>
           </div>
-    
+        </div>
+      </div>
+    </div>
   );
 }
